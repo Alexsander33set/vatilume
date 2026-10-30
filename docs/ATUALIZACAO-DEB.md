@@ -30,3 +30,7 @@ Se uma verificação falhar depois da instalação, tenta reinstalar o pacote an
 O sucesso mostra `backup: complete_verified` e `upgrade: passed`. Depois abra pelo menu ou com `vatilume`. A prova visual de abertura é separada das verificações de serviço; `launcher: ready` confirma acesso HTTP, não uma captura da janela do navegador.
 
 Uma instalação que ainda não autorizou nenhum usuário pode ser atualizada: o resultado indica `authorization_required`, e a primeira abertura continua solicitando a autorização normal. Isso não concede acesso novo silenciosamente.
+
+O assistente mantém explicitamente os arquivos de configuração alterados localmente (`--force-confold`) e fecha a entrada interativa dos subprocessos. Uma etapa inesperada que exija interação deve falhar e acionar a recuperação, em vez de aguardar uma pergunta oculta. As fases de instalação e verificação da coleta são informadas no terminal.
+
+O teste `scripts/validate_conffile_vm.py` reproduz uma troca de versão com configuração personalizada usando APT/dpkg reais e dois minipacotes de teste. Exige a VM descartável marcada e não modifica a configuração do Vatilume.

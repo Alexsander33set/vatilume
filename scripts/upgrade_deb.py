@@ -48,7 +48,9 @@ def sha(path):
 
 
 def run(args,log=None):
-    result=subprocess.run(args,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,
+    if args[0]=='apt-get':
+        args=[args[0],'-o','Dpkg::Options::=--force-confold',*args[1:]]
+    result=subprocess.run(args,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,
                           env={**os.environ,'DEBIAN_FRONTEND':'noninteractive','NEEDRESTART_MODE':'l'})
     if log:log.write(result.stdout);log.flush()
     if result.returncode:raise RuntimeError(args[0]+' failed; see private upgrade log')
@@ -236,11 +238,13 @@ def main():
             before=capture(bundle,previous)
             print(json.dumps({'backup':'complete_verified','path':str(bundle)}),flush=True)
             installed=True
+            print(json.dumps({'upgrade_stage':'installing_package','configuration_policy':'preserve_existing'}),flush=True)
             run(['apt-get','install','-y','--reinstall',str(bundle/'candidate.deb')],log)
             # Keep the user's base configuration even if dpkg updated a pristine conffile.
             copy_owned(bundle/'snapshot/collector.toml',CONFIG)
             run(['systemctl','restart','device-observability.service'])
             start()
+            print(json.dumps({'upgrade_stage':'verifying_collection','interval_seconds':before['interval_seconds']}),flush=True)
             result=verify(before,owner,log)
             result.update(upgrade='passed',version=VERSION,backup=str(bundle),menu_visual_check='pending_desktop_launch')
             save(bundle/'result.json',result);print(json.dumps(result,indent=2));return 0
