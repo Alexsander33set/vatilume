@@ -4,9 +4,11 @@ Mantenedor: **APFS <contato@apfs.com.br>**. A versão desta prévia é 0.8.0; n�
 
 ## Relatar uma vulnerabilidade
 
-Envie uma descrição mínima para **contato@apfs.com.br**, com versão, distribuição, passos de reprodução sintéticos e impacto observado. Não envie chave de API, cookie, arquivo de acesso, banco real ou backup. Não publique a falha em issue antes de conversar sobre a correção. O endereço foi indicado pelo mantenedor; sua entrega não foi testada automaticamente.
+Use o [canal privado do GitHub](https://github.com/Alexsander33set/vatilume/security/advisories/new) para relatar uma suspeita de falha de segurança. Entre em sua conta GitHub e preencha o relato privado; ele não abre uma issue pública. Se não conseguir usar esse canal, envie para **contato@apfs.com.br**. O recebimento nesse endereço foi confirmado por teste em 30/10/2026.
 
-Quando o repositório se tornar público, ativar também **GitHub Private Vulnerability Reporting** em Settings → Security → Advisories. Esse recurso exige repositório público e **ainda não está ativo nesta preparação privada**. Consulte a [documentação do GitHub](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/configure-vulnerability-reporting/configure-for-a-repository).
+Inclua versão/pacote afetado, distribuição, passos sintéticos de reprodução, resultado esperado/observado e impacto possível. Não envie chave de API, cookie, arquivo de acesso, banco real ou backup. Não publique uma prova de exploração ou detalhes sensíveis em issues enquanto a correção é discutida.
+
+Problemas de funcionamento e dúvidas de uso têm [formulários públicos próprios](https://github.com/Alexsander33set/vatilume/issues/new/choose); veja [SUPPORT.md](SUPPORT.md). O canal privado usa GitHub Private Vulnerability Reporting; [funcionamento do recurso](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/configure-vulnerability-reporting/configure-for-a-repository).
 
 Não há programa de recompensa ou prazo de resposta garantido. Reportes serão triados conforme a disponibilidade do projeto. Combine divulgação responsável e evite coletar dados de terceiros para demonstrar um problema.
 

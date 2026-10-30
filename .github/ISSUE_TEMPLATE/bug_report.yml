@@ -1,35 +1,108 @@
-name: Problema no Vatilume
-description: Relatar comportamento inesperado com dados sintéticos.
+name: Relatar um problema
+description: Algo não funciona como esperado na instalação, coleta, painel ou IA.
+title: "[Problema]: "
+labels: [bug, triagem]
 body:
   - type: markdown
     attributes:
-      value: >-
-        Não publique chave, cookie, arquivo de acesso, banco, backup ou capturas com atividade pessoal.
-        Para vulnerabilidades, consulte SECURITY.md e use contato@apfs.com.br.
+      value: |
+        Obrigado por ajudar a melhorar o Vatilume. Esta issue será pública.
+        Consulte a [ajuda](https://github.com/Alexsander33set/vatilume/blob/main/SUPPORT.md) e pesquise issues semelhantes antes de enviar.
+        **Não publique** chave de API, cookie, arquivo de acesso, banco, backup ou atividade pessoal.
+        Se houver suspeita de falha de segurança, use o [relato privado](https://github.com/Alexsander33set/vatilume/security/advisories/new).
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área afetada
+      options:
+        - Instalação ou atualização
+        - Abertura pelo menu ou acesso no navegador
+        - Coleta, sensores ou histórico
+        - Processos e aplicativos
+        - Tarifa, energia ou projeção de custo
+        - Análise de IA ou limites de gasto
+        - Outro problema
+    validations:
+      required: true
   - type: input
     id: version
     attributes:
       label: Versão do Vatilume
-      placeholder: Ex. 0.8.0-2
+      description: Em Sobre e privacidade ou execute dpkg-query -W vatilume. Se não conseguir descobrir, informe isso.
+      placeholder: Ex. 0.8.0, pacote 0.8.0-2
     validations:
       required: true
   - type: input
     id: system
     attributes:
-      label: Distribuição, versão e navegador
-      description: Sem hostname, identificadores do dispositivo ou arquivos de conta.
-      placeholder: Ubuntu 24.04 amd64, Firefox
+      label: Distribuição Linux e versão
+      description: Em Configurações do sistema → Sobre. Não inclua hostname ou identificadores do PC.
+      placeholder: Ex. Ubuntu 24.04 amd64
+    validations:
+      required: true
+  - type: dropdown
+    id: installation
+    attributes:
+      label: Como instalou?
+      options:
+        - Pacote .deb de Releases
+        - Execução pelo código-fonte
+        - Instalação antiga em /opt
+        - Outro método ou não sei informar
+    validations:
+      required: true
+  - type: input
+    id: desktop_browser
+    attributes:
+      label: Navegador e sessão gráfica
+      description: Para problemas no painel/menu, informe versão do navegador, Snap/Flatpak/nativo, desktop e X11/Wayland, se souber.
+      placeholder: Ex. Firefox Snap, GNOME/Wayland
+  - type: textarea
+    id: steps
+    attributes:
+      label: Passos para reproduzir
+      description: Conte como chegou ao problema. Inclua a frequência e alterações recentes relevantes; se não conseguir reproduzir, descreva o que estava fazendo.
+      placeholder: |
+        1. Abri Vatilume pelo menu.
+        2. Selecionei...
+        3. O problema ocorreu...
     validations:
       required: true
   - type: textarea
-    id: reproduce
+    id: expected
     attributes:
-      label: O que ocorreu e como reproduzir?
-      description: Descreva passos, resultado observado e esperado. Prefira exemplos sintéticos.
+      label: O que você esperava?
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: O que aconteceu?
+      description: Informe a mensagem de erro exata, se houver. Para coleta/histórico, inclua o horário aproximado com fuso, período/filtro selecionado e se houve suspensão ou reinicialização.
     validations:
       required: true
   - type: textarea
     id: checks
     attributes:
-      label: Verificações já feitas
-      description: Erros curtos e revisados, sem credenciais ou diagnóstico completo do computador.
+      label: Verificações e contexto relevante
+      description: O que já tentou? Se envolver sensores/desempenho, informe apenas modelos de CPU/GPU e driver, se souber. Não envie inventário completo, números de série ou nomes de processos pessoais.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Erros ou diagnóstico curto (opcional)
+      description: Veja os comandos opcionais em SUPPORT.md. Cole apenas o trecho relevante, de preferência até 40 linhas, após remover dados pessoais e segredos. Não anexe bancos/backups ou um log completo.
+      render: text
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Captura de tela (opcional)
+      description: Se ajudar, arraste uma imagem já revisada. Recorte nomes de aplicativos pessoais, perguntas, caminhos, chaves, cookies e arquivos de acesso.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Antes de enviar
+      options:
+        - label: Revisei o conteúdo e os anexos para não expor credenciais ou dados pessoais.
+          required: true
+        - label: Este relato é de funcionamento; suspeitas de vulnerabilidade serão enviadas pelo canal privado.
+          required: true

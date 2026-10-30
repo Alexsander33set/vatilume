@@ -1,6 +1,6 @@
-# Preparação da prévia 0.8.0
+# Publicação da prévia 0.8.0
 
-Mantenedor: APFS <contato@apfs.com.br>. Esta é a lista operacional de lançamento, separada do guia de instalação. A preparação não publica automaticamente o código ou os arquivos.
+Mantenedor: APFS <contato@apfs.com.br>. Publicação autorizada pelo mantenedor em 30/10/2026. Este é o registro operacional, separado do guia de instalação.
 
 ## Modelo do projeto
 
@@ -11,7 +11,7 @@ Documentação essencial: [LICENSE](../LICENSE), [avisos de terceiros](../THIRD_
 ## Repositórios e arquivos
 
 - `Alexsander33set/vatilume-history`: arquivo privado do histórico de desenvolvimento anterior. Não usar esse histórico para a abertura pública.
-- `Alexsander33set/vatilume`: repositório novo com um commit inicial limpo, preparado para distribuição. Continua privado durante a conferência; o lançamento fica em rascunho.
+- `Alexsander33set/vatilume`: repositório novo com um commit inicial limpo, preparado para distribuição. O mantenedor autorizou sua abertura pública e o lançamento da prévia.
 - Não transportar branches, tags, releases, anexos ou relatórios pessoais do repositório histórico. Dados de execução, credenciais e backups não fazem parte da distribuição.
 
 O conjunto da prévia contém `vatilume_0.8.0-2_amd64.deb`, `vatilume-0.8.0-source.tar.gz`, `RELEASE-MANIFEST.json` e `SHA256SUMS`. O manifesto registra commit, alvo e hashes. O bundle de fontes inclui o índice revisado, fontes upstream selecionadas pelo inventário, wheels travados, avisos e instruções de build. ZIP/tar.gz automáticos do GitHub não substituem esse conjunto.
@@ -36,11 +36,19 @@ Firefox e Chromium Snap abriram o painel pelo menu com AppArmor em `enforce`, ar
 
 A VM não possui os sensores físicos de um PC de uso cotidiano. O suporte inicial é Ubuntu 24.04 amd64; não se promete suporte universal a distribuições, Wayland, hardware, mínimo overhead em qualquer PC ou medição total na tomada. Um piloto externo pequeno é o próximo passo de compatibilidade.
 
-## Para abrir ao público
+## Conferência de abertura autorizada
 
 - Conferir a release preparada, fontes correspondentes, hashes e resultado do CI do novo repositório.
-- Confirmar que contato@apfs.com.br recebe as mensagens de suporte/segurança. Nenhum e-mail de teste é enviado automaticamente.
+- Contato de suporte/segurança confirmado pelo mantenedor e por teste autorizado de envio/recebimento em 30/10/2026.
 - Com autorização do mantenedor, tornar público somente o repositório limpo e publicar a prévia. Manter o histórico privado.
-- Ativar GitHub Private Vulnerability Reporting quando o repositório estiver público e ajustar SECURITY.md para refletir o canal realmente ativo.
+- Ativar e verificar GitHub Private Vulnerability Reporting e issues, com formulários separados para problemas e dúvidas, antes de concluir o lançamento.
 
 A GPL concede direitos de uso, modificação e redistribuição e exige preservar suas condições ao distribuir. Apoio voluntário não altera a licença. A pesquisa de nome é preliminar, sem registro ou garantia de exclusividade; veja [IDENTIDADE.md](IDENTIDADE.md). Dados recebidos em suporte ou apoio continuam exigindo cuidado, mesmo em projeto gratuito. A prévia funciona localmente, sem conta de usuário ou assinatura do projeto.
+
+## Snapshot do instalador e atendimento atual
+
+Os quatro anexos da prévia permanecem vinculados à tag `v0.8.0`, commit `e8e9a78310908a6fdcaf937ecde4afab38ee4ad9`, já validado. Não mover a tag nem substituir o instalador testado apenas por ajustes de documentação. A branch principal contém as orientações e os formulários de atendimento atuais; a política de segurança vigente está em `SECURITY.md` dessa branch.
+
+A revisão `0.8.0-2` passou em 150 testes Python, build e dois testes sintéticos de navegador/privacidade/orçamento, além do CI do snapshot. Na VM, passaram atualização, menu com Firefox Snap, remoção/reinstalação, reboot e instalação limpa após purge com IA pausada/teto zero. Os anexos foram baixados novamente e seus hashes conferidos. O bundle foi extraído em pasta sem Git/estado pessoal e reconstruiu um pacote com conteúdo de arquivos igual ao instalador; isso não estabelece igualdade bit a bit do arquivo `.deb`.
+
+O lançamento público deve manter o histórico anterior privado. A confirmação final de visibilidade, publicação e recursos de segurança é feita na API e no acesso público do GitHub, sem criar uma issue ou vulnerabilidade fictícia no projeto.

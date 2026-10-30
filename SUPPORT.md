@@ -16,8 +16,44 @@ O Vatilume é gratuito e mantido pela APFS, com apoio voluntário. O suporte é 
 
 ## Relatar um problema
 
-Use a issue de problema no repositório ou contato@apfs.com.br. Informe versão do Vatilume, distribuição/versão, navegador e passos para reproduzir. Descreva o resultado esperado e o observado. Prefira um exemplo sintético e trechos curtos de erro, revisados.
+Abra o [seletor de atendimento](https://github.com/Alexsander33set/vatilume/issues/new/choose) e escolha **Relatar um problema** ou **Pedir ajuda**. Pesquise issues existentes para evitar duplicação; se for o mesmo comportamento, acrescente apenas seu ambiente e as diferenças relevantes. Não é preciso publicar seu e-mail: a conversa ocorre na própria issue.
 
-Não envie bancos, backups, chave de API, cookie, arquivo de acesso ou captura que mostre uma credencial/atividade pessoal. Não há upload automático de diagnósticos. Para uma vulnerabilidade, use o canal privado indicado em [SECURITY.md](SECURITY.md), antes de abrir uma issue.
+Para investigar um problema, precisamos principalmente de:
+
+- Versão do Vatilume/pacote e distribuição Linux com versão.
+- Navegador e forma de instalação (Snap/Flatpak/nativo), desktop e X11/Wayland quando envolver painel/menu.
+- Passos para reproduzir, frequência, resultado esperado e o que ocorreu, incluindo a mensagem de erro exata.
+- Horário aproximado com fuso, período/filtros e suspensão/reinício quando envolver coleta/histórico.
+- Tentativas anteriores e mudanças recentes; modelos de CPU/GPU/driver apenas se forem relevantes ao sensor ou desempenho.
+
+Informe quando não souber algum dado. Não precisamos de um inventário completo do computador. Campos e anexos serão públicos. O rótulo `triagem` identifica relatos que ainda precisam ser avaliados; `bug` identifica problemas e `suporte`/`question` organizam dúvidas. Eles não prometem prazo ou confirmação prévia da causa.
+
+## Diagnóstico opcional
+
+Estes comandos somente consultam a instalação. Execute apenas se conseguir e se forem úteis ao problema; leia a saída antes de copiá-la. A versão também aparece em **Sobre e privacidade** e a distribuição em **Configurações do sistema → Sobre**.
+
+```sh
+# Versão instalada pelo pacote.
+dpkg-query -W vatilume
+
+# Versão do kernel, sem hostname.
+uname -r
+
+# Acesso do lançador ao painel local.
+vatilume --check
+
+# Estado dos dois componentes iniciados pelo sistema.
+systemctl is-active device-observability.service device-observability-web.socket
+```
+
+Para um erro recente do serviço, um trecho curto pode ajudar:
+
+```sh
+journalctl -u device-observability.service -u device-observability-web.service --since "15 minutes ago" -n 40 --no-pager --output=cat
+```
+
+Se aparecer falta de permissão, informe isso; não amplie permissões para conseguir um log. Revise inclusive os trechos de erro: remova nomes de usuário/PC, caminhos pessoais, dados de processos e qualquer segredo. O diagnóstico não é enviado automaticamente e não é obrigatório anexar capturas.
+
+**Não envie** bancos, backups, chave de API, cookie, arquivo de acesso, perguntas pessoais à IA ou logs completos. Para dados sensíveis indispensáveis ao suporte, combine primeiro por contato@apfs.com.br. O recebimento do contato foi testado em 30/10/2026. Para suspeitas de vulnerabilidade, use o [relato privado](https://github.com/Alexsander33set/vatilume/security/advisories/new) conforme [SECURITY.md](SECURITY.md), sem abrir issue pública com detalhes da falha.
 
 As configurações de coleta e de IA ficam no próprio PC. A remoção comum preserva esses dados; purge os apaga. Revise [PRIVACY.md](PRIVACY.md) e faça um backup privado antes de excluir algo importante.

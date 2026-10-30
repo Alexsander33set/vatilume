@@ -23,7 +23,7 @@ O Vatilume é um projeto independente e gratuito. Se ele for útil para você e 
 
 ## Instalação por pacote
 
-Baixe o instalador e `SHA256SUMS` da [prévia 0.8.0 em Releases](https://github.com/Alexsander33set/vatilume/releases). Enquanto a publicação estiver em rascunho, os arquivos ficam restritos aos colaboradores. Suporte inicial: **Ubuntu 24.04 amd64**. Não é necessário ativar IA para usar a aplicação.
+Baixe o instalador e `SHA256SUMS` da [prévia 0.8.0 em Releases](https://github.com/Alexsander33set/vatilume/releases/tag/v0.8.0). Suporte inicial: **Ubuntu 24.04 amd64**. Não é necessário ativar IA para usar a aplicação.
 
 Na pasta dos arquivos baixados:
 
@@ -95,6 +95,10 @@ python3 scripts/check_repository.py
 ```
 
 A checagem lê o índice Git, bloqueia caminhos privados e padrões de credenciais e compara os valores locais disponíveis sem imprimi-los. É complementar a scanners especializados e revisão humana, não uma auditoria completa.
+
+## Ajuda e relatos
+
+Para dificuldades de uso ou problemas, use os [formulários públicos de atendimento](https://github.com/Alexsander33set/vatilume/issues/new/choose). Consulte primeiro [a ajuda e o diagnóstico opcional](SUPPORT.md). Para suspeitas de vulnerabilidade, use o [canal privado de segurança](https://github.com/Alexsander33set/vatilume/security/advisories/new). Não publique credenciais ou dados pessoais.
 
 ## Documentação
 

@@ -1,0 +1,67 @@
+name: Pedir ajuda
+description: Dúvida sobre instalação, acesso, sensores, cálculos ou uso da aplicação.
+title: "[Ajuda]: "
+labels: [question, suporte, triagem]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Conte o que deseja fazer e onde ficou com dúvida. O suporte é comunitário, sem prazo garantido.
+        Confira as [dúvidas comuns e o diagnóstico opcional](https://github.com/Alexsander33set/vatilume/blob/main/SUPPORT.md).
+        Esta conversa será pública. Não envie chave, cookie, arquivo de acesso, banco, backup ou dados pessoais.
+        Para falhas de segurança, use o [canal privado](https://github.com/Alexsander33set/vatilume/security/advisories/new).
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Assunto
+      options:
+        - Instalar, atualizar ou remover
+        - Abrir pelo menu ou acessar o painel
+        - Entender sensores, histórico ou aplicativos
+        - Configurar tarifa ou entender o custo estimado
+        - Configurar ou usar IA
+        - Outra dúvida
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Qual é sua dúvida e o que deseja fazer?
+      description: Descreva seu objetivo e o ponto em que precisa de ajuda.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Versão do Vatilume
+      description: Em Sobre e privacidade ou execute dpkg-query -W vatilume. Pode escrever que ainda não instalou ou não sabe informar.
+      placeholder: Ex. 0.8.0, pacote 0.8.0-2
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Distribuição e ambiente
+      description: Informe distribuição/versão e, se relevante, navegador (versão e Snap/Flatpak/nativo), desktop e X11/Wayland. Não inclua identificadores do PC.
+      placeholder: Ex. Ubuntu 24.04 amd64, Firefox Snap, GNOME
+    validations:
+      required: true
+  - type: textarea
+    id: attempted
+    attributes:
+      label: O que já tentou ou consultou?
+      description: Conte os passos e as orientações consultadas. Pode informar que ainda não tentou nada.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Mensagem ou exemplo curto (opcional)
+      description: Somente se ajudar a entender a dúvida, após remover dados pessoais e credenciais. Não anexe diagnóstico completo ou dados reais de IA.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Antes de enviar
+      options:
+        - label: Entendo que a issue será pública e revisei o relato/anexos para não expor credenciais ou dados pessoais.
+          required: true

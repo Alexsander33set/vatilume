@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Relatar uma vulnerabilidade em privado
+    url: https://github.com/Alexsander33set/vatilume/security/advisories/new
+    about: Suspeitas de falha de segurança devem ser discutidas em privado, antes de abrir uma issue pública.
+  - name: Consultar ajuda e requisitos
+    url: https://github.com/Alexsander33set/vatilume/blob/main/SUPPORT.md
+    about: Soluções comuns, informações para o relato e comandos opcionais de diagnóstico.
