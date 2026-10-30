@@ -14,6 +14,7 @@ from pathlib import Path
 from .config import Config, load_config
 from .sensors import SensorPool, inventory
 from .schedule import Periodic
+from .storage_policy import ensure_capacity, maintain
 from .storage import Store, WriterLock, encode
 
 LOG = logging.getLogger(__name__)
@@ -80,6 +81,7 @@ class Agent:
         self.write_failures = 0
         self.commit_ms = 0.0
         self.last_error = None
+        self.last_maintenance = 0.0
         self.sensor_errors = 0
         self.sensor_timeouts = 0
         self.session = None
@@ -131,8 +133,11 @@ class Agent:
             LOG.error("health file unavailable: %s", type(exc).__name__)
 
     def _flush(self, store: Store):
-        if shutil.disk_usage(self.config.data_dir).free < self.config.minimum_free_bytes:
-            raise OSError("minimum free disk reserve reached")
+        if time.monotonic() - self.last_maintenance > 60:
+            result=maintain(store.con,self.config)
+            self.last_maintenance=time.monotonic()
+            if result['deleted']: self._event('retention_applied', **result)
+        ensure_capacity(self.config.data_dir,self.config.max_storage_bytes,self.config.minimum_free_bytes,1024**2)
         if self.write_failures:
             # Append only once per recovery attempt; remove it if this attempt also fails.
             recovery = {"type": "storage_recovered", "utc_ns": time.time_ns(), "details": {

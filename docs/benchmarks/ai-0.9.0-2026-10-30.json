@@ -1,0 +1,639 @@
+{
+  "date": "2026-10-30",
+  "synthetic_only": true,
+  "validator_at_evaluation": "observed-domain-model-2",
+  "scope": "4 synthetic cases, 3 repetitions. Relevance against known case answer IDs; backend-computed prose. No independent human/general-capability evaluation.",
+  "cases": {
+    "monthly": "monthly_projection",
+    "comparison": "comparison_cpu_w",
+    "coverage": "scope",
+    "missing_tariff": "monthly_projection"
+  },
+  "models": {
+    "gpt-6.1-terra": {
+      "completed": 12,
+      "attempts": 12,
+      "median_seconds": 2.8431954815023346,
+      "estimated_usd": 0.0685425
+    },
+    "gpt-5.4-mini-2026-03-17": {
+      "completed": 12,
+      "attempts": 12,
+      "median_seconds": 1.1705130754999118,
+      "estimated_usd": 0.02360775
+    },
+    "gpt-6-luna": {
+      "completed": 12,
+      "attempts": 12,
+      "median_seconds": 2.188836988498224,
+      "estimated_usd": 0.00572075
+    }
+  },
+  "runs": [
+    {
+      "case": "monthly",
+      "repeat": 1,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "state": "complete",
+      "elapsed_seconds": 1.9634637429990107,
+      "estimated_cost_usd": 0.0019185,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam R$ 64,80 em 30 dias (54,00 kWh).",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "monthly",
+      "repeat": 1,
+      "model": "gpt-6-luna",
+      "state": "complete",
+      "elapsed_seconds": 1.737092516006669,
+      "estimated_cost_usd": 0.000296,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam R$ 64,80 em 30 dias (54,00 kWh).",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "monthly",
+      "repeat": 1,
+      "model": "gpt-6.1-terra",
+      "state": "complete",
+      "elapsed_seconds": 3.4717311679996783,
+      "estimated_cost_usd": 0.00647125,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam R$ 64,80 em 30 dias (54,00 kWh).",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "comparison",
+      "repeat": 1,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "state": "complete",
+      "elapsed_seconds": 2.5715878990013152,
+      "estimated_cost_usd": 0.0030652500000000003,
+      "expected_answer_id": "comparison_cpu_w",
+      "answer_id": "comparison_cpu_w",
+      "direct_answer": true,
+      "answer_text": "Potência reportada da CPU: a média dos intervalos com dados passou de 40,00 W para 80,00 W entre as duas metades da janela.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "compare_periods"
+      ]
+    },
+    {
+      "case": "comparison",
+      "repeat": 1,
+      "model": "gpt-6-luna",
+      "state": "complete",
+      "elapsed_seconds": 2.4810409380006604,
+      "estimated_cost_usd": 0.000496625,
+      "expected_answer_id": "comparison_cpu_w",
+      "answer_id": "comparison_cpu_w",
+      "direct_answer": true,
+      "answer_text": "Potência reportada da CPU: a média dos intervalos com dados passou de 40,00 W para 80,00 W entre as duas metades da janela.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "compare_periods"
+      ]
+    },
+    {
+      "case": "comparison",
+      "repeat": 1,
+      "model": "gpt-6.1-terra",
+      "state": "complete",
+      "elapsed_seconds": 2.850700423005037,
+      "estimated_cost_usd": 0.00499125,
+      "expected_answer_id": "comparison_cpu_w",
+      "answer_id": "comparison_cpu_w",
+      "direct_answer": true,
+      "answer_text": "Potência reportada da CPU: a média dos intervalos com dados passou de 40,00 W para 80,00 W entre as duas metades da janela.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "compare_periods"
+      ]
+    },
+    {
+      "case": "coverage",
+      "repeat": 1,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "state": "complete",
+      "elapsed_seconds": 1.2233520349982427,
+      "estimated_cost_usd": 0.0015525,
+      "expected_answer_id": "scope",
+      "answer_id": "scope",
+      "direct_answer": true,
+      "answer_text": "Os dados cobrem componentes reportados. O consumo total do gabinete permanece desconhecido.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost"
+      ]
+    },
+    {
+      "case": "coverage",
+      "repeat": 1,
+      "model": "gpt-6-luna",
+      "state": "complete",
+      "elapsed_seconds": 1.3910730989882722,
+      "estimated_cost_usd": 0.00023925,
+      "expected_answer_id": "scope",
+      "answer_id": "scope",
+      "direct_answer": true,
+      "answer_text": "Os dados cobrem componentes reportados. O consumo total do gabinete permanece desconhecido.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost"
+      ]
+    },
+    {
+      "case": "coverage",
+      "repeat": 1,
+      "model": "gpt-6.1-terra",
+      "state": "complete",
+      "elapsed_seconds": 3.016193117000512,
+      "estimated_cost_usd": 0.00497375,
+      "expected_answer_id": "scope",
+      "answer_id": "scope",
+      "direct_answer": true,
+      "answer_text": "Os dados cobrem componentes reportados. O consumo total do gabinete permanece desconhecido.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "propose_collection_change"
+      ]
+    },
+    {
+      "case": "missing_tariff",
+      "repeat": 1,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "state": "complete",
+      "elapsed_seconds": 0.99742930100183,
+      "estimated_cost_usd": 0.00190275,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam 54,00 kWh em 30 dias. Para converter em reais, configure o valor do kWh e sua vigência.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "missing_tariff",
+      "repeat": 1,
+      "model": "gpt-6-luna",
+      "state": "complete",
+      "elapsed_seconds": 4.000129463995108,
+      "estimated_cost_usd": 0.000641625,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam 54,00 kWh em 30 dias. Para converter em reais, configure o valor do kWh e sua vigência.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "missing_tariff",
+      "repeat": 1,
+      "model": "gpt-6.1-terra",
+      "state": "complete",
+      "elapsed_seconds": 3.4555095749965403,
+      "estimated_cost_usd": 0.00641125,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam 54,00 kWh em 30 dias. Para converter em reais, configure o valor do kWh e sua vigência.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "monthly",
+      "repeat": 2,
+      "model": "gpt-6-luna",
+      "state": "complete",
+      "elapsed_seconds": 2.0663256990083028,
+      "estimated_cost_usd": 0.000646125,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam R$ 64,80 em 30 dias (54,00 kWh).",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "monthly",
+      "repeat": 2,
+      "model": "gpt-6.1-terra",
+      "state": "complete",
+      "elapsed_seconds": 2.8263427509955363,
+      "estimated_cost_usd": 0.00647125,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam R$ 64,80 em 30 dias (54,00 kWh).",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "monthly",
+      "repeat": 2,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "state": "complete",
+      "elapsed_seconds": 1.1176741160015808,
+      "estimated_cost_usd": 0.0018285,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam R$ 64,80 em 30 dias (54,00 kWh).",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "comparison",
+      "repeat": 2,
+      "model": "gpt-6-luna",
+      "state": "complete",
+      "elapsed_seconds": 2.6220979019999504,
+      "estimated_cost_usd": 0.000496625,
+      "expected_answer_id": "comparison_cpu_w",
+      "answer_id": "comparison_cpu_w",
+      "direct_answer": true,
+      "answer_text": "Potência reportada da CPU: a média dos intervalos com dados passou de 40,00 W para 80,00 W entre as duas metades da janela.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "compare_periods"
+      ]
+    },
+    {
+      "case": "comparison",
+      "repeat": 2,
+      "model": "gpt-6.1-terra",
+      "state": "complete",
+      "elapsed_seconds": 2.835690539999632,
+      "estimated_cost_usd": 0.00499125,
+      "expected_answer_id": "comparison_cpu_w",
+      "answer_id": "comparison_cpu_w",
+      "direct_answer": true,
+      "answer_text": "Potência reportada da CPU: a média dos intervalos com dados passou de 40,00 W para 80,00 W entre as duas metades da janela.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "compare_periods"
+      ]
+    },
+    {
+      "case": "comparison",
+      "repeat": 2,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "state": "complete",
+      "elapsed_seconds": 1.9640145960001973,
+      "estimated_cost_usd": 0.0030652500000000003,
+      "expected_answer_id": "comparison_cpu_w",
+      "answer_id": "comparison_cpu_w",
+      "direct_answer": true,
+      "answer_text": "Potência reportada da CPU: a média dos intervalos com dados passou de 40,00 W para 80,00 W entre as duas metades da janela.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "compare_periods"
+      ]
+    },
+    {
+      "case": "coverage",
+      "repeat": 2,
+      "model": "gpt-6-luna",
+      "state": "complete",
+      "elapsed_seconds": 1.1913300710002659,
+      "estimated_cost_usd": 0.00023925,
+      "expected_answer_id": "scope",
+      "answer_id": "scope",
+      "direct_answer": true,
+      "answer_text": "Os dados cobrem componentes reportados. O consumo total do gabinete permanece desconhecido.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost"
+      ]
+    },
+    {
+      "case": "coverage",
+      "repeat": 2,
+      "model": "gpt-6.1-terra",
+      "state": "complete",
+      "elapsed_seconds": 2.6844215790042654,
+      "estimated_cost_usd": 0.00497375,
+      "expected_answer_id": "scope",
+      "answer_id": "scope",
+      "direct_answer": true,
+      "answer_text": "Os dados cobrem componentes reportados. O consumo total do gabinete permanece desconhecido.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "propose_collection_change"
+      ]
+    },
+    {
+      "case": "coverage",
+      "repeat": 2,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "state": "complete",
+      "elapsed_seconds": 0.935864537008456,
+      "estimated_cost_usd": 0.0015525,
+      "expected_answer_id": "scope",
+      "answer_id": "scope",
+      "direct_answer": true,
+      "answer_text": "Os dados cobrem componentes reportados. O consumo total do gabinete permanece desconhecido.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost"
+      ]
+    },
+    {
+      "case": "missing_tariff",
+      "repeat": 2,
+      "model": "gpt-6-luna",
+      "state": "complete",
+      "elapsed_seconds": 2.2844201380066806,
+      "estimated_cost_usd": 0.000641625,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam 54,00 kWh em 30 dias. Para converter em reais, configure o valor do kWh e sua vigência.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "missing_tariff",
+      "repeat": 2,
+      "model": "gpt-6.1-terra",
+      "state": "complete",
+      "elapsed_seconds": 2.643086714000674,
+      "estimated_cost_usd": 0.00641125,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam 54,00 kWh em 30 dias. Para converter em reais, configure o valor do kWh e sua vigência.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "missing_tariff",
+      "repeat": 2,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "state": "complete",
+      "elapsed_seconds": 0.9036474950116826,
+      "estimated_cost_usd": 0.00181275,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam 54,00 kWh em 30 dias. Para converter em reais, configure o valor do kWh e sua vigência.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "monthly",
+      "repeat": 3,
+      "model": "gpt-6.1-terra",
+      "state": "complete",
+      "elapsed_seconds": 2.4650462540012086,
+      "estimated_cost_usd": 0.00647125,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam R$ 64,80 em 30 dias (54,00 kWh).",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "monthly",
+      "repeat": 3,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "state": "complete",
+      "elapsed_seconds": 1.4951208359998418,
+      "estimated_cost_usd": 0.0019185,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam R$ 64,80 em 30 dias (54,00 kWh).",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "monthly",
+      "repeat": 3,
+      "model": "gpt-6-luna",
+      "state": "complete",
+      "elapsed_seconds": 2.4638088869978674,
+      "estimated_cost_usd": 0.000646125,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam R$ 64,80 em 30 dias (54,00 kWh).",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "comparison",
+      "repeat": 3,
+      "model": "gpt-6.1-terra",
+      "state": "complete",
+      "elapsed_seconds": 3.0055131039989647,
+      "estimated_cost_usd": 0.00499125,
+      "expected_answer_id": "comparison_cpu_w",
+      "answer_id": "comparison_cpu_w",
+      "direct_answer": true,
+      "answer_text": "Potência reportada da CPU: a média dos intervalos com dados passou de 40,00 W para 80,00 W entre as duas metades da janela.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "compare_periods"
+      ]
+    },
+    {
+      "case": "comparison",
+      "repeat": 3,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "state": "complete",
+      "elapsed_seconds": 1.0637600669870153,
+      "estimated_cost_usd": 0.001509,
+      "expected_answer_id": "comparison_cpu_w",
+      "answer_id": "scope",
+      "direct_answer": false,
+      "answer_text": "Os dados cobrem componentes reportados. O consumo total do gabinete permanece desconhecido.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost"
+      ]
+    },
+    {
+      "case": "comparison",
+      "repeat": 3,
+      "model": "gpt-6-luna",
+      "state": "complete",
+      "elapsed_seconds": 2.4430775750079192,
+      "estimated_cost_usd": 0.000496625,
+      "expected_answer_id": "comparison_cpu_w",
+      "answer_id": "comparison_cpu_w",
+      "direct_answer": true,
+      "answer_text": "Potência reportada da CPU: a média dos intervalos com dados passou de 40,00 W para 80,00 W entre as duas metades da janela.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "compare_periods"
+      ]
+    },
+    {
+      "case": "coverage",
+      "repeat": 3,
+      "model": "gpt-6.1-terra",
+      "state": "complete",
+      "elapsed_seconds": 2.6001656459993683,
+      "estimated_cost_usd": 0.00497375,
+      "expected_answer_id": "scope",
+      "answer_id": "scope",
+      "direct_answer": true,
+      "answer_text": "Os dados cobrem componentes reportados. O consumo total do gabinete permanece desconhecido.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "propose_collection_change"
+      ]
+    },
+    {
+      "case": "coverage",
+      "repeat": 3,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "state": "complete",
+      "elapsed_seconds": 0.9796157210075762,
+      "estimated_cost_usd": 0.0015795,
+      "expected_answer_id": "scope",
+      "answer_id": "scope",
+      "direct_answer": true,
+      "answer_text": "Os dados cobrem componentes reportados. O consumo total do gabinete permanece desconhecido.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost"
+      ]
+    },
+    {
+      "case": "coverage",
+      "repeat": 3,
+      "model": "gpt-6-luna",
+      "state": "complete",
+      "elapsed_seconds": 1.0971323730045697,
+      "estimated_cost_usd": 0.00023925,
+      "expected_answer_id": "scope",
+      "answer_id": "scope",
+      "direct_answer": true,
+      "answer_text": "Os dados cobrem componentes reportados. O consumo total do gabinete permanece desconhecido.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost"
+      ]
+    },
+    {
+      "case": "missing_tariff",
+      "repeat": 3,
+      "model": "gpt-6.1-terra",
+      "state": "complete",
+      "elapsed_seconds": 3.4479020050057443,
+      "estimated_cost_usd": 0.00641125,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam 54,00 kWh em 30 dias. Para converter em reais, configure o valor do kWh e sua vigência.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "missing_tariff",
+      "repeat": 3,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "state": "complete",
+      "elapsed_seconds": 1.2265161230025114,
+      "estimated_cost_usd": 0.00190275,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam 54,00 kWh em 30 dias. Para converter em reais, configure o valor do kWh e sua vigência.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    },
+    {
+      "case": "missing_tariff",
+      "repeat": 3,
+      "model": "gpt-6-luna",
+      "state": "complete",
+      "elapsed_seconds": 2.0932538389897672,
+      "estimated_cost_usd": 0.000641625,
+      "expected_answer_id": "monthly_projection",
+      "answer_id": "monthly_projection",
+      "direct_answer": true,
+      "answer_text": "Mantendo a carga observada por 18,0 h/dia, CPU e GPU projetam 54,00 kWh em 30 dias. Para converter em reais, configure o valor do kWh e sua vigência.",
+      "tools": [
+        "inspect_quality",
+        "calculate_energy_cost",
+        "project_monthly_cost"
+      ]
+    }
+  ]
+}

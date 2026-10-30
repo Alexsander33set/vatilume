@@ -19,7 +19,7 @@ def frozen_fixture():
                     'gpu_percent': 81 if i == 40 else 25} for i in range(60)],
         'components': [{'id': key, 'energy_kwh': energy, 'cost_brl': energy * 1.2, 'covered_seconds': 3600,
                         'coverage_percent': 100, 'priced_seconds': 3600, 'average_w': energy * 1000, 'peak_w': 100,
-                        'source_id': 'private-sensor-id'} for key, energy in [('cpu', .05), ('gpu', .03)]]}
+                        'source_id': 'private-sensor-id', 'energy_domain': 'cpu_package' if key=='cpu' else 'discrete_gpu'} for key, energy in [('cpu', .05), ('gpu', .03)]]}
     return snapshot(view, [{'effective_ms': start, 'price': '1.20', 'description': 'private description'}])
 
 

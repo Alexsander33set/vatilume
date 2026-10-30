@@ -7,8 +7,8 @@ import tomllib
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-COLLECTORS = {"system", "powercap", "gpu", "thermal", "processes"}
-EDITABLE = {"interval_seconds", "thermal_interval_seconds", "enabled_collectors", "process_interval_seconds", "process_top_n"}
+COLLECTORS = {"system", "powercap", "gpu", "thermal", "processes", "network"}
+EDITABLE = {"interval_seconds", "thermal_interval_seconds", "enabled_collectors", "process_interval_seconds", "process_top_n", "max_storage_bytes", "retention_days"}
 
 
 @dataclass(frozen=True)
@@ -21,7 +21,9 @@ class Config:
     sensor_timeout_seconds: float = 2
     rediscover_seconds: float = 300
     max_pending_cycles: int = 3
-    minimum_free_bytes: int = 16 * 1024 * 1024
+    minimum_free_bytes: int = 256 * 1024 * 1024
+    max_storage_bytes: int = 2 * 1024**3
+    retention_days: int = 0
     enabled_collectors: tuple[str, ...] = ("system", "powercap", "gpu", "thermal")
 
     def validate(self) -> Config:
@@ -41,6 +43,8 @@ class Config:
             ("max_pending_cycles", 1, 100),
             ("process_top_n", 1, 10),
             ("minimum_free_bytes", 0, 1024**4),
+            ("max_storage_bytes", 64 * 1024**2, 1024**4),
+            ("retention_days", 0, 3650),
         ):
             value = getattr(self, name)
             if type(value) is not int or not minimum <= value <= maximum:

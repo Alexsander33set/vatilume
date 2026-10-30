@@ -1,6 +1,8 @@
 """Disposable browser-test backend. AI transport is simulated, never paid."""
 import json
 import sys
+import subprocess
+import signal
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -22,5 +24,10 @@ def simulated_transport(body, timeout):
 
 
 if __name__ == '__main__':
-    app = create_app(ROOT / 'var/validation/ui.toml', port=8766, ai_transport=simulated_transport)
-    uvicorn.run(app, host='127.0.0.1', port=8766, access_log=False)
+    process=subprocess.Popen([sys.executable,'-m','device_observability','--config',str(ROOT/'var/validation/ui.toml'),'run'],cwd=ROOT)
+    try:
+        app = create_app(ROOT / 'var/validation/ui.toml', port=8766, ai_transport=simulated_transport)
+        uvicorn.run(app, host='127.0.0.1', port=8766, access_log=False)
+    finally:
+        process.send_signal(signal.SIGTERM)
+        process.wait(timeout=15)

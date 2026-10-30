@@ -7,7 +7,7 @@ import math
 import statistics
 from decimal import Decimal
 
-from .projection import asks_monthly_projection, monthly_projection, projection_scenario
+from .projection import asks_monthly_projection, monthly_projection, projection_scenario, explicit_comparison_metric
 from .process_analysis import PROCESS_METRICS, coincidences
 
 METRICS = {'cpu_w': ('Potência reportada da CPU', 'W'), 'gpu_w': ('Potência reportada da GPU', 'W'),
@@ -30,6 +30,9 @@ def snapshot(view, tariffs, experiments=(), projection=None):
     result = {k: view[k] for k in ('window', 'sample_count', 'series', 'quality', 'scope')}
     result['components'] = [{k: c[k] for k in ('id', 'energy_kwh', 'cost_brl', 'covered_seconds',
         'coverage_percent', 'priced_seconds', 'average_w', 'peak_w')} for c in view['components']]
+    for original, copied in zip(view['components'], result['components']):
+        copied['energy_domain'] = original.get('energy_domain', 'unknown')
+    result['energy_policy'] = view.get('energy_policy', {})
     result['tariffs'] = [{k: t[k] for k in ('effective_ms', 'price')} for t in tariffs]
     result['provenance'] = view.get('provenance')
     result['projection'] = projection or projection_scenario('')
@@ -89,6 +92,7 @@ class EvidenceSession:
         self.snapshot = frozen
         self.monthly_question = asks_monthly_projection(question)
         self.process_question = any(word in question.casefold() for word in ('process', 'aplicativ', 'programa', 'jogo', 'apps'))
+        self.comparison_metric=explicit_comparison_metric(question) if not self.monthly_question and not self.process_question else None
         self.facts, self.evidence, self.recommendations = {}, {}, {}
         self.model_overrides = {}
         self.calls = []
@@ -98,6 +102,8 @@ class EvidenceSession:
             self.execute('project_monthly_cost', {})
         if self.process_question:
             self.execute('inspect_process_activity', {'metric':'gpu_w' if 'gpu' in question.casefold() else 'cpu_w'})
+        if self.comparison_metric:
+            self.execute('compare_periods',{'metric':self.comparison_metric})
 
     def add_fact(self, identity, text, evidence_id, values):
         item = {'id': identity, 'text': text, 'evidence_ids': [evidence_id], 'values': values}
@@ -128,7 +134,7 @@ class EvidenceSession:
         if name == 'inspect_quality':
             data.update(sample_count=self.snapshot['sample_count'], quality=self.snapshot['quality'],
                 coverage=[{k: c[k] for k in ('id', 'covered_seconds', 'coverage_percent')} for c in self.snapshot['components']],
-                experiments=self.snapshot['experiments'])
+                experiments=self.snapshot['experiments'], energy_policy=self.snapshot.get('energy_policy',{}))
             evidence['method'] = 'Cobertura = segundos observados válidos / duração selecionada; alcance físico é avaliado separadamente.'
             fact('scope', 'Os dados cobrem componentes reportados. O consumo total do gabinete permanece desconhecido.', {'whole_pc_known': False})
             for c in self.snapshot['components']:
@@ -136,6 +142,9 @@ class EvidenceSession:
                      {k: c[k] for k in ('id', 'covered_seconds', 'coverage_percent')})
                 if c['coverage_percent'] < 95:
                     self.add_recommendation('more_history', 'Acumular mais histórico ou selecionar uma janela com maior cobertura. Trechos sem leitura continuam desconhecidos.', [key])
+            policy=self.snapshot.get('energy_policy',{})
+            if any(policy.get(key) for key in ('ambiguous_cpu','ambiguous_gpu','soc_readings_separate','unconfirmed_gpu')):
+                fact('energy_domains',policy.get('note','Domínios ambíguos de energia não são somados.'),policy)
             total_errors = sum(self.snapshot['quality'].values())
             fact('quality', f"O cálculo registrou {total_errors} ocorrências de qualidade: leituras, adaptadores ou intervalos rejeitados.", self.snapshot['quality'])
             if self.snapshot['experiments']:
@@ -160,7 +169,11 @@ class EvidenceSession:
                     self.add_recommendation('tariff', 'Verificar o valor e a vigência do kWh em Configurações antes de interpretar custos.', [key])
             observed = [c for c in self.snapshot['components'] if c['energy_kwh'] is not None]
             priced = [c for c in observed if c['cost_brl'] is not None]
-            if observed:
+            independent = len(observed)<=1 or all(c.get('energy_domain') in ('cpu_package','discrete_gpu') for c in observed)
+            if observed and not independent:
+                fact('observed_cost', 'Os custos por fonte estão disponíveis, mas não são somados: os domínios de energia não foram confirmados como independentes.',
+                     {'energy_kwh':None,'cost_brl':None,'whole_pc_measured':False,'domain_unconfirmed':True})
+            if observed and independent:
                 energy = sum(c['energy_kwh'] for c in observed)
                 label = ' e '.join(NAMES[c['id']] for c in observed)
                 cost = sum(c['cost_brl'] for c in priced) if priced else None
@@ -171,13 +184,15 @@ class EvidenceSession:
         elif name == 'project_monthly_cost':
             data.update(monthly_projection(self.snapshot))
             evidence['method'] = ('Para cada componente: energia reportada (kWh) ÷ horas com leituras válidas × horas por dia × 30 dias. '
-                'Somam-se as projeções dos componentes disponíveis e aplica-se a tarifa vigente no fim do período-base. '
+                'Somam-se somente fontes com domínios confirmados como independentes e aplica-se a tarifa vigente no fim do período-base. '
                 'Lacunas não representam tempo desligado. Carga, horas diárias e tarifa são hipóteses constantes; o restante do dia fica fora da projeção.')
             data['source_evidence_ids'] = [item['id'] for item in self.evidence.values() if item['tool'] == 'calculate_energy_cost']
             label = ' e '.join(NAMES[c['id']] for c in data['components'])
             verb = 'projeta' if len(data['components']) == 1 else 'projetam'
             if data['status'] == 'no_data':
                 text = 'Ainda não é possível projetar o custo mensal: não há intervalos válidos de energia de CPU ou GPU no período selecionado.'
+            elif data['status'] == 'domain_unconfirmed':
+                text = 'A projeção está disponível por fonte, sem total consolidado: não foi possível confirmar que CPU e GPU/SoC medem domínios independentes.'
             elif data['status'] == 'needs_tariff':
                 text = (f"Mantendo a carga observada por {hours_number(data['hours_per_day'])} h/dia, {label} {verb} "
                     f"{number(data['projected_kwh'])} kWh em 30 dias. Para converter em reais, configure o valor do kWh e sua vigência.")
@@ -287,6 +302,7 @@ class EvidenceSession:
     def output_schema(self):
         schema = json.loads(json.dumps(FINAL_SCHEMA))
         schema['properties']['answer_id']['enum'] = (['monthly_projection'] if self.monthly_question else
+            ['comparison_'+self.comparison_metric] if self.comparison_metric else
             [identity for identity in self.facts if identity.startswith('process_')] if self.process_question else list(self.facts))
         facts = schema['properties']['fact_ids']
         facts.update(minItems=1, maxItems=min(8, len(self.facts)))
@@ -307,6 +323,8 @@ class EvidenceSession:
             raise ValueError('A resposta não apresentou a projeção mensal solicitada.')
         if self.process_question and not self.monthly_question and not answer_id.startswith('process_'):
             raise ValueError('A resposta não apresentou a evidência de processos solicitada.')
+        if self.comparison_metric and answer_id!='comparison_'+self.comparison_metric:
+            raise ValueError('A resposta não apresentou a comparação solicitada.')
         if response['answer_status'] not in ('evidence_found', 'insufficient'): raise ValueError('Estado de resposta inválido.')
         if not isinstance(facts, list) or not facts: raise ValueError('A análise não selecionou fatos verificáveis.')
         if len(facts) > 8: raise ValueError('A análise excedeu o máximo de oito afirmações.')
@@ -327,16 +345,22 @@ class EvidenceSession:
                 'É um cenário de uso, não uma previsão da sua fatura. O restante do dia não entra no cálculo.']
             if any(c['observed_hours'] < 24 for c in values['components']):
                 answer['caveats'].append('As leituras válidas usadas cobrem menos de um dia; podem não representar sua rotina. Compare períodos de jogo e de uso leve.')
+            if self.snapshot['projection'].get('hours_origin')=='collector_observed':
+                basis=self.snapshot['projection'].get('observed_usage',{})
+                answer['assumptions'].append(f"Base de tempo observado: {basis.get('days_observed',0)} dia(s) com dados, incluindo períodos ociosos.")
+                if basis.get('partial_base'): answer['caveats'].append('A base de tempo ainda contém dias parciais; não é uma rotina completa detectada.')
             if values['missing_components']:
                 answer['caveats'].append('Sem intervalos válidos para: ' + ', '.join(NAMES[c] for c in values['missing_components']) + '.')
             if any(c['coverage_percent'] < 95 for c in values['components']):
                 answer['caveats'].append('Há lacunas no período-base. A média considera somente os intervalos válidos; lacunas não foram tratadas como consumo zero.')
             if self.snapshot['experiments']:
                 answer['caveats'].append('O período inclui testes de IA que também alteram a carga. A projeção reflete essa mistura de atividades.')
-            answer['assumptions'] = [f"{hours_number(values['hours_per_day'])} horas de uso por dia durante 30 dias, repetindo a carga do período-base."]
+            answer['assumptions'].insert(0,f"{hours_number(values['hours_per_day'])} horas de uso por dia durante 30 dias, repetindo a carga do período-base.")
             if values['tariff_brl_per_kwh'] is not None:
                 answer['assumptions'].append(f"Tarifa constante de R$ {number(values['tariff_brl_per_kwh'], 4)}/kWh, configurada manualmente e vigente no fim do período-base.")
             status = 'conditional_projection' if values['status'] == 'projected' else 'insufficient'
+        elif answer_id.startswith('comparison_') and 'before_mean' not in primary['values']:
+            status='insufficient'
         elif answer_id.startswith('process_peak_'):
             answer['kind'] = 'process_coincidence'
             answer['caveats'] = ['Atividade de CPU no mesmo intervalo é evidência de coincidência, não de causa. Não há energia ou GPU medidas por processo.',

@@ -17,15 +17,25 @@ def stream_reader(database):
     return con
 
 
-def validate_history(database, provenance):
+def validate_history(database, provenance, start_ms=None):
+    with closing(readonly(database)) as con:
+        _validate_reader(con, provenance, start_ms)
+
+
+def _validate_reader(con, provenance, start_ms):
     highwater = provenance.get('highwater') if provenance else None
     if not highwater: raise ValueError('Este relatório não tem referência às leituras brutas.')
-    with closing(readonly(database)) as con:
-        row = con.execute('SELECT id,utc_ns,session_id FROM samples WHERE id=?', (highwater['id'],)).fetchone()
-        current = dict(row) if row else None
-        if current: current['utc_ns'] = str(current['utc_ns'])
-        if current != highwater:
-            raise ValueError('O histórico de origem mudou; não é possível confirmar esta exportação.')
+    cutoff=con.execute("SELECT value FROM metadata WHERE key='raw_pruned_max_utc_ns'").fetchone()
+    if cutoff and (start_ms is None or start_ms*1_000_000 <= int(cutoff[0])):
+        raise ValueError('Os dados brutos deste período expiraram conforme a retenção configurada. O relatório salvo permanece; o CSV original não está mais disponível.')
+    previous=provenance.get('previous_sample_id')
+    if previous and not con.execute('SELECT 1 FROM samples WHERE id=?',(previous,)).fetchone():
+        raise ValueError('Uma leitura de origem necessária expirou conforme a retenção configurada. O relatório salvo permanece disponível.')
+    row = con.execute('SELECT id,utc_ns,session_id FROM samples WHERE id=?', (highwater['id'],)).fetchone()
+    current = dict(row) if row else None
+    if current: current['utc_ns'] = str(current['utc_ns'])
+    if current != highwater:
+        raise ValueError('O histórico de origem mudou; não é possível confirmar esta exportação.')
 
 
 def raw_csv(database, frozen):
@@ -38,12 +48,13 @@ def raw_csv(database, frozen):
     output = io.StringIO()
     writer = csv.writer(output)
     writer.writerow(fields)
-    yield '\ufeff' + output.getvalue()
-    output.seek(0);output.truncate(0)
     deadline = time.monotonic() + 30
     with closing(stream_reader(database)) as con:
         con.set_progress_handler(lambda: int(time.monotonic() > deadline), 10000)
         con.execute('BEGIN')
+        _validate_reader(con, provenance, window['start_ms'])
+        yield '\ufeff' + output.getvalue()
+        output.seek(0);output.truncate(0)
         configurations = {row['hash']:json.loads(row['document']) for row in con.execute('SELECT hash,document FROM configurations')}
         rows = con.execute('''SELECT * FROM samples WHERE id<=? AND ((utc_ns>=? AND utc_ns<=?) OR id=?)
                               ORDER BY CASE WHEN id=? THEN 0 ELSE 1 END,id LIMIT 400002''',

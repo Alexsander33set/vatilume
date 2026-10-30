@@ -232,3 +232,60 @@ class WebTests(unittest.TestCase):
         self.assertNotIn('Isolated Web Co',json.dumps(transport.calls))
         self.assertNotIn('=test-process',json.dumps(transport.calls))
         self.assertNotIn('test-only-private-key',response.text)
+
+    def test_diagnostics_and_model_configuration_are_private_and_redacted(self):
+        self.assertEqual(self.client.get('/api/diagnostics').status_code,401)
+        self.login()
+        result=self.client.get('/api/diagnostics')
+        self.assertEqual(result.status_code,200)
+        self.assertEqual(len(result.json()['checks']),4)
+        self.assertNotIn('pid',result.text)
+        self.assertEqual(result.json()['storage']['limit_bytes'],2*1024**3)
+        self.assertEqual(self.client.put('/api/ai/model',headers=self.origin,json={'model':'arbitrary'}).status_code,422)
+        result=self.client.put('/api/ai/model',headers=self.origin,json={'model':'gpt-6-luna'})
+        self.assertEqual(result.json()['model'],'gpt-6-luna')
+        self.assertEqual(self.client.post('/api/ai/key/check',headers=self.origin).status_code,422)
+
+    def test_provider_key_check_never_returns_key_or_claims_billing_verified(self):
+        self.login()
+        self.client.put('/api/ai/key',headers=self.origin,json={'key':'synthetic-not-a-provider-key'})
+        with patch('device_observability.ai_service.urllib.request.OpenerDirector.open') as remote:
+            result=self.client.post('/api/ai/key/check',headers=self.origin)
+        self.assertEqual(result.status_code,200)
+        self.assertFalse(result.json()['billing_verified'])
+        self.assertNotIn('synthetic-not-a-provider-key',result.text)
+        import urllib.error
+        with patch('device_observability.ai_service.urllib.request.OpenerDirector.open',side_effect=urllib.error.HTTPError('url',401,'private provider content',{},None)):
+            result=self.client.post('/api/ai/key/check',headers=self.origin)
+        self.assertEqual(result.status_code,422)
+        self.assertNotIn('private provider content',result.text)
+        self.assertIn('chave',result.text.lower())
+
+    def test_quote_uses_observed_daily_time_and_explicit_question_overrides_it(self):
+        self.login()
+        self.client.put('/api/ai/key',headers=self.origin,json={'key':'synthetic-not-a-provider-key'})
+        self.client.put('/api/ai/settings',headers=self.origin,json={'enabled':True,'per_analysis_usd':.05,'daily_usd':1.,'monthly_usd':2.,'authorized_total_usd':5.})
+        question={'start_ms':BASE,'end_ms':BASE+20000,'question':'Qual seria meu custo mensal de energia?'}
+        result=self.client.post('/api/ai/quotes',headers=self.origin,json=question)
+        self.assertEqual(result.status_code,200,result.text)
+        self.assertEqual(result.json()['projection']['hours_origin'],'collector_observed')
+        self.assertAlmostEqual(result.json()['projection']['hours_per_day'],20/3600)
+        self.assertTrue(any('Base de tempo observado' in text for text in result.json()['calculation_preview']['assumptions']))
+        question['question']='Qual seria o custo mensal se ficar ligado 18 horas diárias?'
+        result=self.client.post('/api/ai/quotes',headers=self.origin,json=question)
+        self.assertEqual(result.json()['projection']['hours_per_day'],18)
+
+    def test_explicit_duration_skips_observed_history_scan(self):
+        self.login()
+        self.client.put('/api/ai/key',headers=self.origin,json={'key':'synthetic-not-a-provider-key'})
+        self.client.put('/api/ai/settings',headers=self.origin,json={'enabled':True,'per_analysis_usd':.05,'daily_usd':1.,'monthly_usd':2.,'authorized_total_usd':5.})
+        with patch('device_observability.web.observed_usage',side_effect=AssertionError('Should not scan for an explicit scenario')):
+            result=self.client.post('/api/ai/quotes',headers=self.origin,json={'start_ms':BASE,'end_ms':BASE+20000,'question':'Qual seria meu custo mensal por 18 horas diárias?'})
+        self.assertEqual(result.status_code,200,result.text)
+
+    def test_storage_warning_is_available_on_regular_status_refresh(self):
+        self.login()
+        result=self.client.get('/api/status')
+        self.assertEqual(result.status_code,200)
+        self.assertEqual(result.json()['storage']['limit_bytes'],2*1024**3)
+        self.assertIn('blocked',result.json()['storage'])

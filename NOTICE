@@ -8,3 +8,7 @@ Consulte LICENSE para o texto integral. Sem garantia, nos termos da licença.
 Dependências de terceiros conservam suas licenças e avisos próprios.
 O inventário e os textos preservados acompanham o pacote e os fontes.
 Modelos de IA e dados/credenciais pessoais não integram a distribuição.
+
+The factual AMD PCI/APU classification in amd_domains.py identifies its pinned
+Linux amdgpu source revision. It contains identifiers/classifications only,
+without copied driver implementation. Unknown entries remain unclassified.

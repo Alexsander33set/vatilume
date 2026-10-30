@@ -4,6 +4,7 @@ from __future__ import annotations
 import bisect
 import json
 import math
+import re
 import time
 from contextlib import closing
 from pathlib import Path
@@ -62,9 +63,23 @@ def overview(database: Path, start_ms: int, end_ms: int, tariffs: list[dict], po
         con.execute("BEGIN")
         sources = {row["id"]: json.loads(row["metadata_json"]) for row in con.execute("SELECT * FROM sources")}
         configurations = {row["hash"]: json.loads(row["document"]) for row in con.execute("SELECT * FROM configurations")}
-        cpu_sources = sorted(s["id"] for s in sources.values() if s["metric"] == "cpu.energy_reported" and not s.get("parent_domain"))
-        gpu_sources = sorted(s["id"] for s in sources.values() if s["metric"] == "gpu.power_reported")
-        selected = {"cpu": cpu_sources[0] if cpu_sources else None, "gpu": gpu_sources[0] if gpu_sources else None}
+        last = con.execute('SELECT collectors_json FROM samples WHERE utc_ns<=? ORDER BY id DESC LIMIT 1', (end_ms*1_000_000,)).fetchone()
+        payload = json.loads(last[0]) if last else {}
+        active = {r['source_id'] for group in payload.values() for r in group.get('readings', [])}
+        cpu_sources = sorted(s['id'] for s in sources.values() if s['id'] in active and s['metric']=='cpu.energy_reported'
+                             and not s.get('parent_domain') and (s.get('energy_domain')=='cpu_package' or s.get('scope','').startswith('package-')))
+        gpu_sources = sorted(s['id'] for s in sources.values() if s['id'] in active and s['metric']=='gpu.power_reported')
+        gpu_devices = {s['scope'] for s in sources.values() if s['id'] in active and s['collector']=='gpu'}
+        gpu_scope = next(iter(gpu_devices)) if len(gpu_devices)==1 else None
+        # Older releases did not append vendor/device IDs. Preserve their raw
+        # charts at the same physical location without promoting old energy
+        # domains or integrating across source identities.
+        gpu_chart_scopes={gpu_scope,re.sub(r':0x[0-9a-f]+:0x[0-9a-f]+$','',gpu_scope)} if gpu_scope else set()
+        selected = {'cpu':cpu_sources[0] if len(cpu_sources)==1 else None,
+                    'gpu':gpu_sources[0] if len(gpu_sources)==1 and len(gpu_devices)<=1 else None}
+        energy_policy = {'unconfirmed_gpu':bool(selected['gpu'] and sources[selected['gpu']].get('energy_domain','unknown')!='discrete_gpu'), 'ambiguous_cpu':len(cpu_sources)>1,'ambiguous_gpu':len(gpu_devices)>1 or len(gpu_sources)>1,
+                         'soc_readings_separate':any(s['id'] in active and s['metric']=='soc.power_reported' for s in sources.values()),
+                         'note':'SoC não é somado à CPU; múltiplas fontes não são escolhidas arbitrariamente. Fontes sem domínio confirmado não são somadas na projeção.'}
         inventory = con.execute("SELECT inventory_json FROM sessions ORDER BY rowid DESC LIMIT 1").fetchone()
         inventory = json.loads(inventory[0]) if inventory else {}
         first_record = con.execute("SELECT MIN(utc_ns) FROM samples").fetchone()[0]
@@ -122,22 +137,22 @@ def overview(database: Path, start_ms: int, end_ms: int, tariffs: list[dict], po
                     metric = descriptor["metric"]
                     if collector == "system":
                         system[metric] = raw
-                    if metric == "gpu.utilization": add("gpu_percent", value, instant)
-                    if metric == "gpu.vram_used": add("vram_used_bytes", value, instant)
-                    if metric == "gpu.vram_total": add("vram_total_bytes", value, instant)
+                    if metric == "gpu.utilization" and descriptor["scope"] in gpu_chart_scopes: add("gpu_percent", value, instant)
+                    if metric == "gpu.vram_used" and descriptor["scope"] in gpu_chart_scopes: add("vram_used_bytes", value, instant)
+                    if metric == "gpu.vram_total" and descriptor["scope"] in gpu_chart_scopes: add("vram_total_bytes", value, instant)
                     if metric == "temperature":
                         if "k10temp:" in descriptor.get("label", "") or "coretemp:" in descriptor.get("label", ""):
                             add("cpu_temp", value, instant)
-                        if "amdgpu:" in descriptor.get("label", "") and descriptor.get("path", "").endswith("temp1_input"):
+                        if len(gpu_devices)<=1 and "amdgpu:" in descriptor.get("label", "") and descriptor.get("path", "").endswith("temp1_input"):
                             add("gpu_temp", value, instant)
+                    if metric == "gpu.power_reported" and descriptor["scope"] in gpu_chart_scopes:
+                        add("gpu_w", value, instant)
                     component = next((name for name, sid in selected.items() if identity == sid), None)
                     if not component:
                         continue
                     old = previous.get(identity)
                     current = (instant, mono, row["boottime_ns"], raw, row["session_id"])
                     previous[identity] = current
-                    if component == "gpu":
-                        add("gpu_w", value, instant)
                     if not old:
                         continue
                     old_ms, old_mono, old_boot, old_raw, old_session = old
@@ -201,6 +216,7 @@ def overview(database: Path, start_ms: int, end_ms: int, tariffs: list[dict], po
     components = []
     for name, total in totals.items():
         total["source_id"] = selected[name]
+        total["energy_domain"] = sources[selected[name]].get("energy_domain", "cpu_package" if name == "cpu" else "unknown") if selected[name] else "unavailable"
         total["label"] = "CPU" if name == "cpu" else "GPU"
         total["average_w"] = total.pop("power_area_ws") / total["covered_seconds"] if total["covered_seconds"] else None
         if not total["covered_seconds"]:
@@ -219,5 +235,5 @@ def overview(database: Path, start_ms: int, end_ms: int, tariffs: list[dict], po
             "last_record_ms": last_record // 1_000_000 if last_record else None,
             "components": components, "latest": live, "series": series,
             "sensors": list(latest_sources.values()), "events": events, "quality": flags,
-            "scope": "reported_components_only", "aggregation": "mean_per_bucket", "provenance": provenance,
+            "energy_policy": energy_policy, "scope": "reported_components_only", "aggregation": "mean_per_bucket", "provenance": provenance,
             'processes':process_history.document()}

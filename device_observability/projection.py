@@ -20,16 +20,32 @@ def asks_monthly_projection(question):
     return bool(monthly and energy and (not historical or explicit))
 
 
-def projection_scenario(question, hours_per_day=24):
+def explicit_comparison_metric(question):
+    text=normalized(question).strip()
+    # Only this unambiguous, supported intent is bound automatically. Requests
+    # about named dates, multiple components or other comparisons remain open.
+    match=re.match(r'^(?:por favor,?\s+)?compar(?:e|ar)\s+(?:[ao]\s+)?(potencia(?:\s+reportada)?|uso|utilizacao)\s+(?:d[ao]\s+)?(cpu|gpu)\b',text)
+    if not match or not re.search(r'\bentre\s+(?:as\s+)?(?:duas\s+)?metades\b',text) or len(set(re.findall(r'\b(?:cpu|gpu)\b',text)))!=1:
+        return None
+    return match[2]+('_w' if match[1].startswith('potencia') else '_percent')
+
+
+def projection_scenario(question, hours_per_day=24, observed_usage=None):
     # An explicit daily duration in the question takes precedence over the UI default.
     matches = re.findall(r'(?<![\w.,])([+-]?[\d]+(?:[.,]\d+)?)\s*(?:horas?|h)\s*(?:por\s+dia|ao\s+dia|/\s*dia|diari[ao]s?)', normalized(question))
     durations = {float(value.replace(',', '.')) for value in matches}
     if len(durations) > 1:
         raise ValueError('Escolha uma duração diária por análise para a projeção mensal.')
     hours = next(iter(durations)) if durations else hours_per_day
+    automatic = hours is None
+    if automatic:
+        hours = (observed_usage or {}).get('hours_per_day')
+        if hours is None:
+            raise ValueError('Ainda não há intervalos suficientes para calcular o tempo observado. Aguarde a coleta ou informe horas por dia.')
     if type(hours) not in (int, float) or not math.isfinite(hours) or not 0 < hours <= 24:
         raise ValueError('Informe mais de zero e no máximo 24 horas de uso por dia.')
-    return {'hours_per_day': hours, 'days': 30, 'hours_origin': 'question' if durations else 'interface_scenario'}
+    return {'hours_per_day': hours, 'days': 30, 'hours_origin': 'question' if durations else 'collector_observed' if automatic else 'interface_scenario',
+            **({'observed_usage': observed_usage} if automatic else {})}
 
 
 def monthly_projection(frozen):
@@ -56,7 +72,8 @@ def monthly_projection(frozen):
             if candidate.is_finite() and candidate >= 0: price = candidate
         except InvalidOperation:
             pass
-    energy = sum((Decimal(str(row['projected_kwh'])) for row in rows), Decimal(0)) if rows else None
+    independent = len(rows) <= 1 or all(row.get('energy_domain') in ('cpu_package', 'discrete_gpu') for row in rows)
+    energy = sum((Decimal(str(row['projected_kwh'])) for row in rows), Decimal(0)) if rows and independent else None
     for row in rows:
         row['projected_cost_brl'] = float(Decimal(str(row['projected_kwh'])) * price) if price is not None else None
     return {**scenario, 'components': rows, 'missing_components': [name for name in ('cpu', 'gpu') if name not in {c['id'] for c in rows}],
@@ -64,4 +81,4 @@ def monthly_projection(frozen):
             'projected_kwh': float(energy) if energy is not None else None,
             'projected_cost_brl': float(energy * price) if energy is not None and price is not None else None,
             'window_hours': (frozen['window']['end_ms'] - frozen['window']['start_ms']) / 3_600_000,
-            'whole_pc_measured': False, 'status': 'no_data' if not rows else 'needs_tariff' if price is None else 'projected'}
+            'whole_pc_measured': False, 'independent_components': independent, 'status': 'no_data' if not rows else 'domain_unconfirmed' if not independent else 'needs_tariff' if price is None else 'projected'}
