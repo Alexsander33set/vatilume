@@ -39,6 +39,10 @@ Abra também pelo menu **Vatilume**. Dependências de runtime vêm no pacote; AP
 
 Para a instalação de desenvolvimento 0.6.0 em `/opt`, use o [procedimento de migração com backup verificável e retorno automático](docs/MIGRACAO-DEB.md). Ele usa o pacote já validado e preserva o estado existente; a instalação normal do `.deb` continua recusando a sobreposição direta das unidades antigas.
 
+## Em desenvolvimento
+
+A próxima revisão 0.9.0 reúne correções de análises recentes, tempo observado para projeções, configurações de IA visíveis, diagnóstico, rede opcional e proteção de armazenamento. Veja [comportamento, limites e testes](docs/CONFIABILIDADE.md). A prévia disponível em Releases continua a 0.8.0.
+
 ## O que funciona
 
 - Coleta Linux em background, cadências configuráveis e serviço systemd.

@@ -58,3 +58,15 @@ class UpgradePreservationTests(unittest.TestCase):
     def test_backup_rejects_symbolic_state_entries(self):
         (self.state/'unexpected').symlink_to(self.config)
         with self.assertRaises(ValueError):upgrade.capture(self.bundle,'0.7.0-2')
+
+    def test_missing_analysis_lock_is_created_for_service_and_symlinks_are_rejected(self):
+        from types import SimpleNamespace
+        account=SimpleNamespace(pw_uid=os.getuid(),pw_gid=os.getgid())
+        with patch.object(upgrade.pwd,'getpwnam',return_value=account):
+            with upgrade.analysis_lock():pass
+            path=self.state/'ai-active.lock'
+            self.assertEqual(path.stat().st_mode&0o777,0o600)
+            self.assertEqual(path.stat().st_uid,os.getuid())
+            path.unlink();path.symlink_to(self.config)
+            with self.assertRaises(OSError):upgrade.analysis_lock()
+            self.assertTrue(self.config.exists())

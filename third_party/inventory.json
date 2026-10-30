@@ -4,7 +4,7 @@
   "limitations": "Upstream registry sources and native wheel SBOM. npm archives can contain generated code; verify preferred sources before a public binary release. Not a reproducible-build claim.",
   "inputs": {
     "backend/requirements.lock": "be8ada895b87597e107b3bb7d8e994e120dcaa29f147fc84b079e437cbc912f0",
-    "frontend/package-lock.json": "b015434d1e617f49e803f10df9babf44b635d648975721ff309fc06f05ffc6ea",
+    "frontend/package-lock.json": "20accbfbe745a694b592d1f32bc1fc088e18733c83cc1a9752483a590b54d74f",
     "third_party/source-pins.json": "860e3d376e704e4a385aa15093838c7fe0bbe0e26ccfb7d17b41e4548ada09c6"
   },
   "preferred_frontend_sources": [

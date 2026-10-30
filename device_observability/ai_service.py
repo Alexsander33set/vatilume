@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import fcntl
+import hashlib
 import json
 import os
 import threading
@@ -12,11 +13,14 @@ import uuid
 from pathlib import Path
 
 from .ai_cost import CostLedger, MODEL, atomic_json
+from .ai_models import MODELS, PRICE_DATE, model_info
 from .ai_evidence import EvidenceSession, SYSTEM, snapshot, tools_schema
 from .ai_store import AIStore
+from .diagnostics import provider_error
+from .storage_policy import ensure_capacity
 from .projection import asks_monthly_projection, projection_scenario
 
-VALIDATOR_VERSION = 'applications-1'
+VALIDATOR_VERSION = 'observed-domain-model-3'
 
 
 class ResponsesTransport:
@@ -38,13 +42,17 @@ class ResponsesTransport:
                 if len(content) > 1_000_000: raise ValueError('Resposta excedeu o limite de tamanho.')
                 return json.loads(content)
         except urllib.error.HTTPError as error:
-            raise ValueError(f'A API retornou HTTP {error.code}. Não houve repetição automática; a reserva foi preservada.') from None
+            try:
+                detail=json.loads(error.read(16384)).get('error',{}).get('code')
+            except (ValueError,AttributeError):
+                detail=None
+            raise ValueError(provider_error(error.code,detail)+' Não houve repetição automática; a reserva foi preservada.') from None
         except (OSError, ValueError):
             raise ValueError('Não foi possível confirmar a resposta da API. A reserva de gasto foi preservada.') from None
 
 
 class AIService:
-    def __init__(self, directory: Path, *, transport=None, ledger_path=None):
+    def __init__(self, directory: Path, *, transport=None, ledger_path=None, limits_path=None, key_path=None):
         self.directory = directory
         self.store = AIStore(directory / 'ai.sqlite3')
         with (directory / 'ai-active.lock').open('a') as lock:
@@ -53,17 +61,38 @@ class AIService:
                 self.store.recover()
             except BlockingIOError:
                 pass
-        self.ledger = CostLedger(ledger_path or directory / 'ai-budget.json', directory / 'ai-limits.json')
-        self.key_path = directory / 'ai-api-key'
+        self.ledger = CostLedger(ledger_path or directory / 'ai-budget.json', limits_path or directory / 'ai-limits.json')
+        self.key_path = key_path or directory / 'ai-api-key'
         self.transport = transport or ResponsesTransport(self.key_path)
 
     def settings(self):
-        return {**self.ledger.status(), 'key_configured': self.key_path.is_file(),
+        return {**self.ledger.status(), 'model': self.selected_model(), 'models': list(MODELS.values()), 'price_date': PRICE_DATE,
+                'prices_per_million_usd': {'input': model_info(self.selected_model())['input'], 'output': model_info(self.selected_model())['output']},
+                'key_configured': self.key_path.is_file(),
                 'privacy': 'Sua pergunta é enviada ao provedor junto de fatos e recortes numéricos. Não inclua dados pessoais ou credenciais na pergunta. Nomes/PIDs de processos, inventário e chaves não são incluídos automaticamente nos prompts; isso não é garantia de anonimato.',
                 'retention_note': 'store=false; o provedor ainda pode reter registros de monitoramento de abuso.',
                 'validator_version': VALIDATOR_VERSION}
 
+    def selected_model(self):
+        path = self.directory / 'ai-model.json'
+        selected = json.loads(path.read_text())['model'] if path.exists() else MODEL
+        model_info(selected)
+        return selected
+
+    def save_model(self, identity):
+        model_info(identity)
+        atomic_json(self.directory / 'ai-model.json', {'model': identity})
+        return self.settings()
+
     def save_key(self, key):
+        with (self.directory / 'ai-active.lock').open('a') as lock:
+            try:
+                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                raise ValueError('Aguarde a análise em andamento antes de substituir a chave.') from None
+            return self._save_key(key)
+
+    def _save_key(self, key):
         key = key.strip()
         if not 10 <= len(key) <= 1024 or any(c.isspace() for c in key): raise ValueError('Chave inválida.')
         temporary = self.key_path.with_name('ai-api-key.' + uuid.uuid4().hex + '.tmp')
@@ -89,27 +118,49 @@ class AIService:
             finally: os.close(fd)
         return {'key_configured': False}
 
-    def quote(self, view, tariffs, question, hours_per_day=24):
+    def check_key(self):
+        identity=self.selected_model()
+        info=self.key_path.stat() if self.key_path.exists() else None
+        if info is None: raise ValueError('Configure uma chave da API antes de verificar o acesso.')
+        if info.st_uid!=os.getuid() or info.st_mode&0o077: raise ValueError('O arquivo da chave precisa ter acesso privado da conta do serviço.')
+        key=self.key_path.read_text().strip()
+        request=urllib.request.Request('https://api.openai.com/v1/models/'+identity,headers={'Authorization':'Bearer '+key})
+        try:
+            with urllib.request.build_opener(urllib.request.ProxyHandler({})).open(request,timeout=8) as response:
+                response.read(65536)
+        except urllib.error.HTTPError as error:
+            raise ValueError(provider_error(error.code)) from None
+        except OSError:
+            raise ValueError('Não foi possível conectar à OpenAI. Confira internet, DNS e firewall; nenhuma análise foi iniciada.') from None
+        return {'credential_accepted':True,'model_visible':True,'billing_verified':False,
+                'message':'A credencial foi aceita e o modelo está visível. Este teste não gera uma análise e não confirma créditos ou autorização de faturamento.'}
+
+    def quote(self, view, tariffs, question, hours_per_day=24, *, model=None, observed_usage=None):
         if not 1 <= len(question.strip()) <= 500: raise ValueError('Escreva uma pergunta com até 500 caracteres.')
         settings = self.settings()
+        selected_model = model or settings['model']
+        model_info(selected_model)
         if not settings['limits']['enabled']: raise ValueError('As chamadas de IA estão pausadas.')
         if not settings['key_configured']: raise ValueError('Configure a chave da API antes de preparar uma análise.')
         if settings['remaining_usd'] < .001: raise ValueError('Não há orçamento disponível dentro dos limites atuais.')
         if view['sample_count'] < 2: raise ValueError('Acumule pelo menos duas amostras antes de analisar.')
         experiments_path = self.directory / 'ai-experiment-windows.json'
         experiments = json.loads(experiments_path.read_text()) if experiments_path.exists() else []
-        frozen = snapshot(view, tariffs, experiments, projection_scenario(question, hours_per_day))
+        frozen = snapshot(view, tariffs, experiments, projection_scenario(question, hours_per_day, observed_usage))
+        frozen['model'] = selected_model
+        frozen['sha256'] = hashlib.sha256(json.dumps({k:v for k,v in frozen.items() if k!='sha256'},sort_keys=True,allow_nan=False).encode()).hexdigest()
         maximum = min(settings['remaining_usd'], settings['limits']['per_analysis_usd'])
-        cached = self.store.cached(frozen['sha256'], question.strip(), MODEL, VALIDATOR_VERSION)
+        cached = self.store.cached(frozen['sha256'], question.strip(), selected_model, VALIDATOR_VERSION)
         identity = cached or str(uuid.uuid4())
         frozen['approval_max_usd'] = maximum
+        if not cached: ensure_capacity(self.directory, getattr(self,'storage_limit',2*1024**3), additional_bytes=len(json.dumps(frozen).encode())*3+65536)
         if not cached: self.store.create(identity, frozen, question.strip())
         preview = None
         if asks_monthly_projection(question):
             calculated = EvidenceSession(frozen, question)
             preview = calculated.validate({'answer_id': 'monthly_projection', 'fact_ids': ['monthly_projection'],
                 'recommendation_ids': [], 'answer_status': 'evidence_found'})['answer']
-        return {'id': identity, 'model': MODEL, 'window': frozen['window'], 'snapshot_sha256': frozen['sha256'],
+        return {'id': identity, 'model': selected_model, 'window': frozen['window'], 'snapshot_sha256': frozen['sha256'],
                 'projection': frozen['projection'],
                 'calculation_preview': preview,
                 'sample_count': frozen['sample_count'], 'maximum_usd': 0 if cached else maximum, 'cached': bool(cached),
@@ -155,6 +206,8 @@ class AIService:
 
     def analyze(self, identity, frozen, question):
         evidence = EvidenceSession(frozen, question)
+        selected_model = frozen.get('model', MODEL)
+        model_info(selected_model)
         maximum = frozen.get('approval_max_usd', self.ledger.status()['limits']['per_analysis_usd'])
         inputs = [{'role': 'system', 'content': SYSTEM}, {'role': 'user', 'content': json.dumps({
             'question': question, 'already_queried_by_backend': evidence.initial()}, ensure_ascii=False)}]
@@ -162,12 +215,12 @@ class AIService:
         for turn in range(6):
             remaining = 120 - (time.monotonic() - started)
             if remaining <= 0: raise ValueError('A análise excedeu o prazo. Não houve repetição automática.')
-            body = {'model': MODEL, 'input': inputs, 'tools': tools_schema(), 'parallel_tool_calls': False,
+            body = {'model': selected_model, 'input': inputs, 'tools': tools_schema(), 'parallel_tool_calls': False,
                 'store': False, 'reasoning': {'effort': 'none'}, 'max_output_tokens': 512,
                 'text': {'format': {'type': 'json_schema', 'name': 'verified_fact_selection', 'schema': evidence.output_schema(), 'strict': True}}}
             if turn == 5: body['tool_choice'] = 'none'
             payload = json.dumps(body, ensure_ascii=False).encode()
-            request_id = self.ledger.reserve(payload, 512, identity, maximum=maximum)
+            request_id = self.ledger.reserve(payload, 512, identity, maximum=maximum, model=selected_model)
             result = self.transport(payload, min(30, remaining))
             returned_usage = result.get('usage', {})
             self.ledger.finish(request_id, {k: returned_usage.get(k) for k in ('input_tokens', 'output_tokens')})
@@ -195,7 +248,7 @@ class AIService:
             try: selection = json.loads(text)
             except (ValueError, TypeError): raise ValueError('A API não devolveu uma seleção válida de evidências.') from None
             report = evidence.validate(selection)
-            report.update(model=MODEL, validator_version=VALIDATOR_VERSION, created_ms=time.time_ns() // 1_000_000,
+            report.update(model=selected_model, validator_version=VALIDATOR_VERSION, created_ms=time.time_ns() // 1_000_000,
                 elapsed_seconds=time.monotonic()-started, token_usage=usage, question=question,
                 maximum_approved_usd=maximum,
                 estimated_cost_usd=self.ledger.run_cost(identity))

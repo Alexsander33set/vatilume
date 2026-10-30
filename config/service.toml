@@ -6,6 +6,10 @@ process_top_n = 5
 sensor_timeout_seconds = 2
 rediscover_seconds = 300
 max_pending_cycles = 3
-minimum_free_bytes = 16777216
+minimum_free_bytes = 268435456
 enabled_collectors = ["system", "powercap", "gpu", "thermal"]
 
+
+# Retention is opt-in. Zero keeps committed raw history until the quota blocks writes.
+max_storage_bytes = 2147483648
+retention_days = 0

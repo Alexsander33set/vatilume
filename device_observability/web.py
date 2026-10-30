@@ -30,6 +30,9 @@ from .cli import status
 from .config import load_config
 from .controls import Controls
 from .storage import readonly
+from .storage_policy import storage_status
+from .observed_usage import observed_usage
+from .projection import projection_scenario
 from .ui_store import UIStore
 from .ai_service import AIService
 from .ai_raw_export import raw_csv, validate_history
@@ -54,7 +57,9 @@ class CollectorBody(BaseModel):
     thermal_interval_seconds: float = Field(ge=1, le=3600)
     process_interval_seconds: float | None = Field(default=None, ge=5, le=3600)
     process_top_n: int | None = Field(default=None, ge=1, le=10)
-    enabled_collectors: list[str] = Field(min_length=1, max_length=5)
+    enabled_collectors: list[str] = Field(min_length=1, max_length=6)
+    max_storage_bytes: int | None = Field(default=None, ge=64*1024**2, le=1024**4, strict=True)
+    retention_days: int | None = Field(default=None, ge=0, le=3650, strict=True)
 
 
 class AIQuoteBody(BaseModel):
@@ -62,7 +67,12 @@ class AIQuoteBody(BaseModel):
     start_ms: int
     end_ms: int
     question: str = Field(min_length=1, max_length=500)
-    hours_per_day: float = Field(default=24, gt=0, le=24, allow_inf_nan=False)
+    hours_per_day: float | None = Field(default=None, gt=0, le=24, allow_inf_nan=False)
+
+
+class AIModelBody(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    model: str = Field(min_length=1, max_length=80)
 
 
 class AILimitsBody(BaseModel):
@@ -171,6 +181,10 @@ def create_app(config_path: Path, *, token: str | None = None, static_dir: Path 
         LOG.error("database query failed: %s", type(exc).__name__)
         return JSONResponse({"detail": "O histórico está temporariamente indisponível. Tente atualizar os dados."}, status_code=503)
 
+    @app.exception_handler(OSError)
+    async def disk_unavailable(request, exc):
+        return JSONResponse({"detail": "Não foi possível acessar o armazenamento. Confira espaço livre e permissões em Configurações → Diagnóstico."}, status_code=503)
+
     @app.post("/api/session")
     def session(request: Request, response: Response):
         if not hmac.compare_digest(request.headers.get("authorization", ""), f"Bearer {token}"):
@@ -190,6 +204,7 @@ def create_app(config_path: Path, *, token: str | None = None, static_dir: Path 
         current = load_config(config_path)
         result = status(current.data_dir)
         result["configuration"] = controls.settings()
+        result["storage"] = storage_status(current.data_dir, current.max_storage_bytes, current.minimum_free_bytes)
         result["server_time_ms"] = time.time_ns() // 1_000_000
         result["timezone"] = "America/Sao_Paulo"
         return result
@@ -212,6 +227,23 @@ def create_app(config_path: Path, *, token: str | None = None, static_dir: Path 
             while len(cache) > 4:
                 cache.popitem(last=False)
             return result
+
+    @app.get('/api/diagnostics')
+    def diagnostics():
+        current = load_config(config_path)
+        health = status(current.data_dir)
+        disk = storage_status(current.data_dir, current.max_storage_bytes, current.minimum_free_bytes)
+        checks = [
+            {'name':'Coletor', 'ok':health.get('state')=='running',
+             'message':'Recebendo dados recentes.' if health.get('state')=='running' else 'Abra Eventos. Se a coleta não voltar, consulte o guia de suporte para verificar o serviço.'},
+            {'name':'Armazenamento', 'ok':not disk['warning'],
+             'message':'Há espaço para continuar.' if not disk['warning'] else 'A cota ou o espaço livre exige atenção. Revise Armazenamento; o histórico confirmado não é apagado sem retenção habilitada.'},
+            {'name':'Configuração', 'ok':controls.settings()['applied'],
+             'message':'A configuração solicitada já foi aplicada.' if controls.settings()['applied'] else 'Aguardando confirmação do coletor. Atualize em alguns segundos.'},
+            {'name':'Credencial da IA', 'ok':ai.key_path.is_file(),
+             'message':'Chave salva. Use Verificar acesso para testar a conexão; isso não confirma saldo.' if ai.key_path.is_file() else 'Opcional: configure uma chave para solicitar análises. A coleta funciona sem IA.'},
+        ]
+        return {'checks':checks, 'storage':disk, 'version':__version__, 'uploads':False}
 
     @app.get("/api/overview")
     def view(hours: int = 24, start_ms: int | None = None, end_ms: int | None = None, points: int = 240):
@@ -274,10 +306,29 @@ def create_app(config_path: Path, *, token: str | None = None, static_dir: Path 
         ui.audit('ai_api_key_removed', {'key_configured': False})
         return result
 
+    @app.put('/api/ai/model')
+    def ai_model(body: AIModelBody):
+        result = ai.save_model(body.model)
+        ui.audit('ai_model_changed', {'model':body.model})
+        return result
+
+    @app.post('/api/ai/key/check')
+    def check_ai_key():
+        return ai.check_key()
+
     @app.post('/api/ai/quotes')
     def ai_quote(body: AIQuoteBody):
         view = data(24, body.start_ms, body.end_ms, 240)
-        return ai.quote(view, view['tariffs_applied'], body.question, body.hours_per_day)
+        current = load_config(config_path)
+        ai.storage_limit = current.max_storage_bytes
+        usage = None
+        if body.hours_per_day is None:
+            try:
+                projection_scenario(body.question, None)
+            except ValueError as error:
+                if 'intervalos suficientes' not in str(error): raise
+                usage = observed_usage(config.data_dir / 'telemetry.sqlite3', body.end_ms)
+        return ai.quote(view, view['tariffs_applied'], body.question, body.hours_per_day, observed_usage=usage)
 
     @app.post('/api/ai/analyses/{identity}')
     def ai_start(identity: str):
@@ -307,7 +358,7 @@ def create_app(config_path: Path, *, token: str | None = None, static_dir: Path 
         if not evidence or evidence['tool'] != 'calculate_energy_cost': raise HTTPException(404, 'Consulta de energia não encontrada.')
         frozen = item['snapshot']
         database = config.data_dir / 'telemetry.sqlite3'
-        validate_history(database, frozen.get('provenance'))
+        validate_history(database, frozen.get('provenance'), frozen['window']['start_ms'])
         return StreamingResponse(raw_csv(database, frozen),media_type='text/csv; charset=utf-8',
             headers={'Content-Disposition':'attachment; filename="leituras-energia.csv"'})
 

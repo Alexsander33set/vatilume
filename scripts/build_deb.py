@@ -125,6 +125,8 @@ def build(output, revision, wheels):
             write(stage / target, (ROOT / source).read_text())
         for name in ('LICENSE', 'PRIVACY.md', 'SECURITY.md', 'THIRD_PARTY_NOTICES.md'):
             shutil.copyfile(ROOT / name, app / name)
+        shutil.copytree(ROOT/'docs', stage/'usr/share/doc/vatilume/docs',
+                        ignore=shutil.ignore_patterns('validation','commercial'))
         inventory_path = ROOT / 'third_party/inventory.json'
         if not inventory_path.is_file():
             raise ValueError('Run scripts/prepare_third_party.py before building the distribution')

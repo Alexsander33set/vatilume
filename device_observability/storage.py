@@ -91,6 +91,7 @@ class Store:
         if not version:
             self.con.executescript(SCHEMA)
         self.source_documents: dict[str, str] = {}
+        self.configured_storage_limit = None
 
     def start(self, boot_id: str, config: Config, inventory: dict) -> str:
         session = str(uuid.uuid4())
@@ -129,6 +130,12 @@ class Store:
                          (session, utc_ns, kind, encode(details)))
 
     def append(self, session: str, frame: dict, config: Config, events: list[dict]) -> int:
+        # A physical ceiling complements the active-data guard; free pages can be reused.
+        if self.configured_storage_limit != config.max_storage_bytes:
+            page_size=self.con.execute('PRAGMA page_size').fetchone()[0]
+            pages=max(16,config.max_storage_bytes//page_size)
+            self.con.execute(f'PRAGMA max_page_count={pages}')
+            self.configured_storage_limit = config.max_storage_bytes
         changed: dict[str, str] = {}
         payload = {}
         for name, result in frame["collectors"].items():

@@ -15,7 +15,9 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-MODEL = 'gpt-5.4-mini-2026-03-17'
+from .ai_models import DEFAULT_MODEL, model_info
+
+MODEL = DEFAULT_MODEL
 MAX_TOTAL_USD = 1000.0
 PRICE = (.75, 4.50)
 DEFAULT_LIMITS = {'enabled': True, 'per_analysis_usd': .05, 'daily_usd': 1.0, 'monthly_usd': 2.0}
@@ -116,10 +118,11 @@ class CostLedger:
         self.update(save, limits_to_commit=values)
         return self.status()
 
-    def reserve(self, payload: bytes, max_output_tokens: int, analysis_id: str, *, maximum=None):
+    def reserve(self, payload: bytes, max_output_tokens: int, analysis_id: str, *, maximum=None, model=MODEL):
         if self.path.name == 'budget.json' and (self.path.parent / 'budget-managed.json').exists():
             raise ValueError('O gasto foi migrado para a interface instalada. Use esse acesso para novas análises.')
-        bound = ((len(payload) + 4096) * PRICE[0] + max_output_tokens * PRICE[1]) / 1e6
+        price = model_info(model)
+        bound = ((len(payload) + 4096) * price['reserve_input'] + max_output_tokens * price['output']) / 1e6
         identity = str(uuid.uuid4())
         def append(ledger, limits):
             if not limits['enabled']: raise ValueError('As chamadas de IA estão pausadas.')
@@ -130,7 +133,7 @@ class CostLedger:
                       (per_run, min(limits['per_analysis_usd'], maximum) if maximum is not None else limits['per_analysis_usd'])]
             if any(used + bound > maximum + 1e-12 for used, maximum in checks):
                 raise ValueError('A próxima chamada excederia um limite de gasto. Consulte os gastos e limites.')
-            ledger['requests'].append({'id': identity, 'analysis_id': analysis_id, 'model': MODEL,
+            ledger['requests'].append({'id': identity, 'analysis_id': analysis_id, 'model': model,
                 'utc_ms': time.time_ns() // 1_000_000, 'state': 'reserved', 'reserved_usd': bound})
         self.update(append)
         return identity
@@ -140,7 +143,8 @@ class CostLedger:
             raise ValueError('Uso retornado pelo provedor é inválido; a reserva será mantida.')
         def complete(ledger, limits):
             row = next(r for r in ledger['requests'] if r['id'] == identity)
-            actual = (usage['input_tokens'] * PRICE[0] + usage['output_tokens'] * PRICE[1]) / 1e6
+            price = model_info(row.get('model', MODEL))
+            actual = (usage['input_tokens'] * price['reserve_input'] + usage['output_tokens'] * price['output']) / 1e6
             row.update(state='completed', usage=usage, actual_usd=actual)
         self.update(complete)
 

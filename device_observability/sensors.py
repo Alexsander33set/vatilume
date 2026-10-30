@@ -12,6 +12,7 @@ from typing import Callable
 
 from . import __version__
 from .processes import ProcessCollector
+from .amd_domains import AMD_ENERGY_DOMAINS
 
 
 @dataclass(frozen=True)
@@ -28,6 +29,8 @@ class Source:
     max_range: int | None = None
     output_unit: str | None = None
     scale: float = 1
+    energy_domain: str = "unknown"
+    device_identity: str = ""
 
     def document(self) -> dict:
         return asdict(self)
@@ -88,7 +91,7 @@ class PowercapCollector(Collector):
             result.append(source("powercap", label, "cpu.energy_reported", "uJ", kind="counter",
                                  scope=label, path=str(path), label=label,
                                  parent_domain="/".join(names[:-1]) or None, max_range=max_range,
-                                 output_unit="J", scale=1e-6))
+                                 output_unit="J", scale=1e-6, energy_domain="cpu_package" if names and names[0].startswith("package-") else "platform_or_unknown"))
         self.sources = result
         return result
 
@@ -101,6 +104,13 @@ class GPUCollector(Collector):
                 continue
             device = card / "device"
             identity = self.identity(device)
+            try:
+                vendor = (device / 'vendor').read_text().strip().lower()
+                pci_id = (device / 'device').read_text().strip().lower()
+                domain = AMD_ENERGY_DOMAINS.get(pci_id, 'unknown') if vendor == '0x1002' else 'unknown'
+                identity += ':' + vendor + ':' + pci_id
+            except OSError:
+                domain = 'unknown'
             for filename, metric, unit in (
                 ("gpu_busy_percent", "gpu.utilization", "percent"),
                 ("mem_busy_percent", "gpu.memory_utilization", "percent"),
@@ -113,9 +123,9 @@ class GPUCollector(Collector):
             for hwmon in sorted((device / "hwmon").glob("hwmon*")):
                 for path in sorted(hwmon.glob("power*_average")):
                     # Power caps are configuration, never measurements.
-                    result.append(source("gpu", identity + ":" + path.name, "gpu.power_reported", "uW",
-                                         kind="gauge", scope=identity, path=str(path), label="reported SoC power",
-                                         output_unit="W", scale=1e-6))
+                    result.append(source("gpu", identity + ":" + path.name, "soc.power_reported" if domain == "soc_cpu_gpu" else "gpu.power_reported", "uW",
+                                         kind="gauge", scope=identity, path=str(path), label="reported SoC power" if domain == "soc_cpu_gpu" else "reported GPU power",
+                                         output_unit="W", scale=1e-6, energy_domain=domain, device_identity=self.identity(device)))
         self.sources = result
         return result
 
@@ -179,17 +189,6 @@ class SystemCollector(Collector):
         except (OSError, ValueError) as exc:
             add("memory", "memory.available", "bytes", None, error=type(exc).__name__)
         try:
-            for line in (self.proc / "net/dev").read_text().splitlines()[2:]:
-                name, values = line.split(":")
-                name = name.strip()
-                if name == "lo":
-                    continue
-                fields = values.split()
-                add("net:" + name, "network.received", "bytes", int(fields[0]), "counter")
-                add("net:" + name, "network.sent", "bytes", int(fields[8]), "counter")
-        except (OSError, ValueError, IndexError) as exc:
-            add("network", "network.received", "bytes", None, "counter", type(exc).__name__)
-        try:
             for line in (self.proc / "diskstats").read_text().splitlines():
                 fields = line.split()
                 name = fields[2]
@@ -204,7 +203,33 @@ class SystemCollector(Collector):
         return readings, sources
 
 
-FACTORIES = {"system": SystemCollector, "powercap": PowercapCollector, "gpu": GPUCollector, "thermal": ThermalCollector, "processes": ProcessCollector}
+class NetworkCollector(SystemCollector):
+    def read(self):
+        readings, sources = [], []
+        def add(identity, metric, unit, value, kind='counter', error=None):
+            item = source('network', identity, metric, unit, kind=kind, scope=identity)
+            sources.append(item)
+            readings.append({'source_id': item.id, 'value': value, 'quality': 'error' if error else 'ok', **({'error':error} if error else {})})
+        try:
+            with (self.proc / "net/dev").open() as stream:
+                text=stream.read(65537)
+            if len(text)>65536 or len(text.splitlines())>130:
+                raise ValueError("Network interface scan limit exceeded")
+            for line in text.splitlines()[2:]:
+                name, values = line.split(":")
+                name = name.strip()
+                if name == "lo":
+                    continue
+                fields = values.split()
+                add("net:" + name, "network.received", "bytes", int(fields[0]), "counter")
+                add("net:" + name, "network.sent", "bytes", int(fields[8]), "counter")
+        except (OSError, ValueError, IndexError) as exc:
+            add("network", "network.received", "bytes", None, "counter", type(exc).__name__)
+        self.sources = sources
+        return readings, sources
+
+
+FACTORIES = {"system": SystemCollector, "powercap": PowercapCollector, "gpu": GPUCollector, "thermal": ThermalCollector, "processes": ProcessCollector, "network": NetworkCollector}
 
 
 class Worker:

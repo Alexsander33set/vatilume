@@ -1,6 +1,6 @@
 # Privacidade no Vatilume
 
-Responsável pelo projeto: **APFS**, contato **contato@apfs.com.br**. Este aviso descreve a distribuição local para Linux; serviços externos mantêm seus próprios termos. Revisão: 29/10/2026.
+Responsável pelo projeto: **APFS**, contato **contato@apfs.com.br**. Este aviso descreve a distribuição local para Linux; serviços externos mantêm seus próprios termos. Revisão: 30/10/2026.
 
 ## O que fica no computador
 
@@ -8,13 +8,19 @@ O coletor registra leituras disponíveis de energia, potência, utilização, me
 
 Quando a coleta de processos está habilitada, registra uma seleção limitada de nomes de processos, PID, parentesco, CPU e memória RSS, além de agrupamentos de aplicativos. Não coleta argumentos completos de execução, ambiente, conteúdo de arquivos, títulos de janelas, teclas digitadas, histórico de navegação, MAC ou número de série. Os nomes e horários registrados ainda podem revelar hábitos e atividade. Agrupamentos são parciais, não medem energia por aplicativo e não provam causalidade.
 
-Tarifas, perguntas, respostas de IA, evidências, custos e ajustes ficam em bancos/arquivos locais. A coleta continua com o painel fechado. Não há expiração automática do histórico nesta versão. O programa não envia telemetria, relatórios de falha ou métricas automaticamente à APFS, nem exige conta no projeto.
+Quando habilitada, a coleta opcional de rede registra nome da interface local e contadores de bytes recebidos/enviados. Não identifica dispositivos remotos nem registra endereços IP, MAC, SSID, pacotes ou conteúdo de tráfego.
+
+Contadores gravados em versões anteriores no grupo Sistema permanecem no histórico. A partir desta revisão, novas leituras de rede dependem de habilitar o grupo Rede.
+
+Tarifas, perguntas, respostas de IA, evidências, custos e ajustes ficam em bancos/arquivos locais. A coleta continua com o painel fechado. A cota padrão limita novas gravações perto de 2 GiB. A limpeza automática vem desativada; se você habilitar retenção nas configurações, leituras antigas podem expirar pelo prazo escolhido ou antes para respeitar a cota. Relatórios, chave e gastos não são apagados por essa limpeza; exportações brutas antigas podem deixar de estar disponíveis. O programa não envia telemetria, relatórios de falha ou métricas automaticamente à APFS, nem exige conta no projeto.
 
 ## IA e envio opcional
 
 Sem ativar IA, coleta, gráficos, tarifas e projeções calculadas localmente continuam funcionando. A interface atualmente integra a API OpenAI, por HTTPS, diretamente do computador, sem servidor intermediário do projeto.
 
 Ao solicitar uma análise, a pergunta é enviada **como escrita**, junto com instruções de análise, métricas agregadas do período, horários, fatos calculados e resultados das consultas limitadas solicitadas pelo modelo. Na parte de processos enviada ao modelo, nomes de aplicativos são substituídos por aliases; os detalhes originais permanecem no PC. Não há envio automático de inventário completo, nomes/PIDs dos processos ou bancos. Isso reduz a exposição, mas **não garante anonimato**: horários, métricas e o texto livre podem identificar pessoas. Não inclua informações pessoais ou segredos na pergunta.
+
+“Verificar acesso” consulta a disponibilidade do modelo no provedor sem gerar análise. Não confirma saldo ou faturamento. Essa consulta envia a chave por autenticação e o identificador do modelo; não envia recortes de métricas.
 
 A chave é enviada ao provedor no cabeçalho de autenticação, não como evidência no prompt. O provedor recebe também metadados de conexão e da conta, como IP e uso para faturamento. A APFS não recebe sua chave, sua pergunta ou a resposta automaticamente.
 

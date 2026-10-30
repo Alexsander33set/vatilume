@@ -18,7 +18,7 @@ def synthetic(directory, timestamps=(0, 10, 20), values=(0, 1_000_000_000, 2_000
     catalog = [
         {"id": "cpu", "collector": "powercap", "metric": "cpu.energy_reported", "unit": "uJ", "kind": "counter", "scope": "package-0", "parent_domain": None, "max_range": 65_000_000_000, "scale": 1e-6, "output_unit": "J"},
         {"id": "core", "collector": "powercap", "metric": "cpu.energy_reported", "unit": "uJ", "kind": "counter", "scope": "core", "parent_domain": "package-0", "max_range": 65_000_000_000, "scale": 1e-6, "output_unit": "J"},
-        {"id": "gpu", "collector": "gpu", "metric": "gpu.power_reported", "unit": "uW", "kind": "gauge", "scope": "discrete-gpu", "scale": 1e-6, "output_unit": "W"},
+        {"id": "gpu", "collector": "gpu", "metric": "gpu.power_reported", "unit": "uW", "kind": "gauge", "scope": "discrete-gpu", "energy_domain": "discrete_gpu", "scale": 1e-6, "output_unit": "W"},
     ]
     for index, second in enumerate(timestamps):
         if split and index == 1:
