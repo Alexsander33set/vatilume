@@ -1,0 +1,3138 @@
+{
+  "schema": 1,
+  "project_license": "GPL-3.0-or-later",
+  "limitations": "Upstream registry sources and native wheel SBOM. npm archives can contain generated code; verify preferred sources before a public binary release. Not a reproducible-build claim.",
+  "inputs": {
+    "backend/requirements.lock": "be8ada895b87597e107b3bb7d8e994e120dcaa29f147fc84b079e437cbc912f0",
+    "frontend/package-lock.json": "b015434d1e617f49e803f10df9babf44b635d648975721ff309fc06f05ffc6ea",
+    "third_party/source-pins.json": "860e3d376e704e4a385aa15093838c7fe0bbe0e26ccfb7d17b41e4548ada09c6"
+  },
+  "preferred_frontend_sources": [
+    {
+      "name": "vue-core",
+      "commit": "bf5f0dd877dd3c23ce85c2cbc1dd771567e84c8c",
+      "repository": "https://github.com/vuejs/core",
+      "ref_evidence": "v3.5.44",
+      "archive": "vue-core-bf5f0dd877dd3c23ce85c2cbc1dd771567e84c8c.tar.gz",
+      "url": "https://codeload.github.com/vuejs/core/tar.gz/bf5f0dd877dd3c23ce85c2cbc1dd771567e84c8c",
+      "sha256": "65ddb325c11e4a407b751409b3cda895485390751142a38bef4de269c6b60a40"
+    },
+    {
+      "name": "lucide",
+      "commit": "2ca268e74888d3506b3319fb8f94aaaaf70ceca9",
+      "repository": "https://github.com/lucide-icons/lucide",
+      "ref_evidence": "1.63.0",
+      "archive": "lucide-2ca268e74888d3506b3319fb8f94aaaaf70ceca9.tar.gz",
+      "url": "https://codeload.github.com/lucide-icons/lucide/tar.gz/2ca268e74888d3506b3319fb8f94aaaaf70ceca9",
+      "sha256": "de26e895046a2e5063f02340cad960d0a314bbe55f00c463210bf1561add4707"
+    }
+  ],
+  "components": [
+    {
+      "ecosystem": "cargo",
+      "name": "ahash",
+      "version": "0.8.12",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "ahash-0.8.12.crate",
+        "url": "https://static.crates.io/crates/ahash/ahash-0.8.12.crate",
+        "sha256": "5a15f179cd60c4584b8a8c596927aadc462e27f2ca70c04e0071964a73ba7a75"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-ahash-0.8.12.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "aho-corasick",
+      "version": "1.1.3",
+      "license": [
+        {
+          "expression": "Unlicense OR MIT"
+        }
+      ],
+      "source": {
+        "archive": "aho-corasick-1.1.3.crate",
+        "url": "https://static.crates.io/crates/aho-corasick/aho-corasick-1.1.3.crate",
+        "sha256": "8e60d3430d3a69478ad0993f19238d2df97c507009a52b3c10addcd7f6bcb916"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-aho-corasick-1.1.3.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "autocfg",
+      "version": "1.3.0",
+      "license": [
+        {
+          "expression": "Apache-2.0 OR MIT"
+        }
+      ],
+      "source": {
+        "archive": "autocfg-1.3.0.crate",
+        "url": "https://static.crates.io/crates/autocfg/autocfg-1.3.0.crate",
+        "sha256": "0c4b4d0bd25bd0b74681c0ad21497610ce1b7c91b1022cd21c80c6fbdd9476b0"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-autocfg-1.3.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "base64",
+      "version": "0.23.1",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "base64-0.23.1.crate",
+        "url": "https://static.crates.io/crates/base64/base64-0.23.1.crate",
+        "sha256": "ac07cdecf99051d9a5238b80f35af32cdeba5b336e55d957b318b50137e18da5"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-base64-0.23.1.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "bitflags",
+      "version": "2.9.1",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "bitflags-2.9.1.crate",
+        "url": "https://static.crates.io/crates/bitflags/bitflags-2.9.1.crate",
+        "sha256": "1b8e56985ec62d17e9c1001dc89c88ecd7dc08e47eba5ec7c29c7b5eeecde967"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-bitflags-2.9.1.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "bitvec",
+      "version": "1.0.1",
+      "license": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "source": {
+        "archive": "bitvec-1.0.1.crate",
+        "url": "https://static.crates.io/crates/bitvec/bitvec-1.0.1.crate",
+        "sha256": "1bc2832c24239b0141d5674bb9174f9d68a8b5b3f2753311927c172ca46f7e9c"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-bitvec-1.0.1.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "bumpalo",
+      "version": "3.19.0",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "bumpalo-3.19.0.crate",
+        "url": "https://static.crates.io/crates/bumpalo/bumpalo-3.19.0.crate",
+        "sha256": "46c5e41b57b8bba42a04676d81cb89e9ee8e859a1a66f80a5a72e1cb76b34d43"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-bumpalo-3.19.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "cfg-if",
+      "version": "1.0.0",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "cfg-if-1.0.0.crate",
+        "url": "https://static.crates.io/crates/cfg-if/cfg-if-1.0.0.crate",
+        "sha256": "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-cfg-if-1.0.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "displaydoc",
+      "version": "0.2.5",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "displaydoc-0.2.5.crate",
+        "url": "https://static.crates.io/crates/displaydoc/displaydoc-0.2.5.crate",
+        "sha256": "97369cbbc041bc366949bc74d34658d6cda5621039731c6310521892a3a20ae0"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-displaydoc-0.2.5.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "enum_dispatch",
+      "version": "0.3.13",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "enum_dispatch-0.3.13.crate",
+        "url": "https://static.crates.io/crates/enum_dispatch/enum_dispatch-0.3.13.crate",
+        "sha256": "aa18ce2bc66555b3218614519ac839ddb759a7d6720732f979ef8d13be147ecd"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-enum_dispatch-0.3.13.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "foldhash",
+      "version": "0.2.0",
+      "license": [
+        {
+          "expression": "Zlib"
+        }
+      ],
+      "source": {
+        "archive": "foldhash-0.2.0.crate",
+        "url": "https://static.crates.io/crates/foldhash/foldhash-0.2.0.crate",
+        "sha256": "77ce24cb58228fbb8aa041425bb1050850ac19177686ea6e0f41a70416f56fdb"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-foldhash-0.2.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "form_urlencoded",
+      "version": "1.2.2",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "form_urlencoded-1.2.2.crate",
+        "url": "https://static.crates.io/crates/form_urlencoded/form_urlencoded-1.2.2.crate",
+        "sha256": "cb4cb245038516f5f85277875cdaa4f7d2c9a0fa0468de06ed190163b1581fcf"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-form_urlencoded-1.2.2.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "funty",
+      "version": "2.0.0",
+      "license": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "source": {
+        "archive": "funty-2.0.0.crate",
+        "url": "https://static.crates.io/crates/funty/funty-2.0.0.crate",
+        "sha256": "e6d5a32815ae3f33302d95fdcb2ce17862f8c65363dcfd29360480ba1001fc9c"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-funty-2.0.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "getrandom",
+      "version": "0.3.3",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "getrandom-0.3.3.crate",
+        "url": "https://static.crates.io/crates/getrandom/getrandom-0.3.3.crate",
+        "sha256": "26145e563e54f2cadc477553f1ec5ee650b00862f0a58bcd12cbdc5f0ea2d2f4"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-getrandom-0.3.3.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "hashbrown",
+      "version": "0.17.1",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "hashbrown-0.17.1.crate",
+        "url": "https://static.crates.io/crates/hashbrown/hashbrown-0.17.1.crate",
+        "sha256": "ed5909b6e89a2db4456e54cd5f673791d7eca6732202bbf2a9cc504fe2f9b84a"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-hashbrown-0.17.1.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "heck",
+      "version": "0.5.0",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "heck-0.5.0.crate",
+        "url": "https://static.crates.io/crates/heck/heck-0.5.0.crate",
+        "sha256": "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-heck-0.5.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "hex",
+      "version": "0.4.3",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "hex-0.4.3.crate",
+        "url": "https://static.crates.io/crates/hex/hex-0.4.3.crate",
+        "sha256": "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-hex-0.4.3.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "icu_collections",
+      "version": "1.5.0",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "icu_collections-1.5.0.crate",
+        "url": "https://static.crates.io/crates/icu_collections/icu_collections-1.5.0.crate",
+        "sha256": "db2fa452206ebee18c4b5c2274dbf1de17008e874b4dc4f0aea9d01ca79e4526"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-icu_collections-1.5.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "icu_locid",
+      "version": "1.5.0",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "icu_locid-1.5.0.crate",
+        "url": "https://static.crates.io/crates/icu_locid/icu_locid-1.5.0.crate",
+        "sha256": "13acbb8371917fc971be86fc8057c41a64b521c184808a698c02acc242dbf637"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-icu_locid-1.5.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "icu_locid_transform",
+      "version": "1.5.0",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "icu_locid_transform-1.5.0.crate",
+        "url": "https://static.crates.io/crates/icu_locid_transform/icu_locid_transform-1.5.0.crate",
+        "sha256": "01d11ac35de8e40fdeda00d9e1e9d92525f3f9d887cdd7aa81d727596788b54e"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-icu_locid_transform-1.5.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "icu_locid_transform_data",
+      "version": "1.5.0",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "icu_locid_transform_data-1.5.0.crate",
+        "url": "https://static.crates.io/crates/icu_locid_transform_data/icu_locid_transform_data-1.5.0.crate",
+        "sha256": "fdc8ff3388f852bede6b579ad4e978ab004f139284d7b28715f773507b946f6e"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-icu_locid_transform_data-1.5.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "icu_normalizer",
+      "version": "1.5.0",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "icu_normalizer-1.5.0.crate",
+        "url": "https://static.crates.io/crates/icu_normalizer/icu_normalizer-1.5.0.crate",
+        "sha256": "19ce3e0da2ec68599d193c93d088142efd7f9c5d6fc9b803774855747dc6a84f"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-icu_normalizer-1.5.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "icu_normalizer_data",
+      "version": "1.5.0",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "icu_normalizer_data-1.5.0.crate",
+        "url": "https://static.crates.io/crates/icu_normalizer_data/icu_normalizer_data-1.5.0.crate",
+        "sha256": "f8cafbf7aa791e9b22bec55a167906f9e1215fd475cd22adfcf660e03e989516"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-icu_normalizer_data-1.5.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "icu_properties",
+      "version": "1.5.1",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "icu_properties-1.5.1.crate",
+        "url": "https://static.crates.io/crates/icu_properties/icu_properties-1.5.1.crate",
+        "sha256": "93d6020766cfc6302c15dbbc9c8778c37e62c14427cb7f6e601d849e092aeef5"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-icu_properties-1.5.1.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "icu_properties_data",
+      "version": "1.5.0",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "icu_properties_data-1.5.0.crate",
+        "url": "https://static.crates.io/crates/icu_properties_data/icu_properties_data-1.5.0.crate",
+        "sha256": "67a8effbc3dd3e4ba1afa8ad918d5684b8868b3b26500753effea8d2eed19569"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-icu_properties_data-1.5.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "icu_provider",
+      "version": "1.5.0",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "icu_provider-1.5.0.crate",
+        "url": "https://static.crates.io/crates/icu_provider/icu_provider-1.5.0.crate",
+        "sha256": "6ed421c8a8ef78d3e2dbc98a973be2f3770cb42b606e3ab18d6237c4dfde68d9"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-icu_provider-1.5.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "icu_provider_macros",
+      "version": "1.5.0",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "icu_provider_macros-1.5.0.crate",
+        "url": "https://static.crates.io/crates/icu_provider_macros/icu_provider_macros-1.5.0.crate",
+        "sha256": "1ec89e9337638ecdc08744df490b221a7399bf8d164eb52a665454e60e075ad6"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-icu_provider_macros-1.5.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "idna",
+      "version": "1.1.0",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "idna-1.1.0.crate",
+        "url": "https://static.crates.io/crates/idna/idna-1.1.0.crate",
+        "sha256": "3b0875f23caa03898994f6ddc501886a45c7d3d62d04d2d90788d47be1b1e4de"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-idna-1.1.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "idna_adapter",
+      "version": "1.2.0",
+      "license": [
+        {
+          "expression": "Apache-2.0 OR MIT"
+        }
+      ],
+      "source": {
+        "archive": "idna_adapter-1.2.0.crate",
+        "url": "https://static.crates.io/crates/idna_adapter/idna_adapter-1.2.0.crate",
+        "sha256": "daca1df1c957320b2cf139ac61e7bd64fed304c5040df000a745aa1de3b4ef71"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-idna_adapter-1.2.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "itoa",
+      "version": "1.0.11",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "itoa-1.0.11.crate",
+        "url": "https://static.crates.io/crates/itoa/itoa-1.0.11.crate",
+        "sha256": "49f1f14873335454500d59611f1cf4a4b0f786f9ac11f4312a78e4cf2566695b"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-itoa-1.0.11.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "jiter",
+      "version": "0.16.0",
+      "license": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "source": {
+        "archive": "jiter-0.16.0.crate",
+        "url": "https://static.crates.io/crates/jiter/jiter-0.16.0.crate",
+        "sha256": "820ddcacd75c9782308d3fa594f3885630ea3f49adba78a8a29abdfe4b81630c"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-jiter-0.16.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "js-sys",
+      "version": "0.3.77",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "js-sys-0.3.77.crate",
+        "url": "https://static.crates.io/crates/js-sys/js-sys-0.3.77.crate",
+        "sha256": "1cfaf33c695fc6e08064efbc1f72ec937429614f25eef83af942d0e227c3a28f"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-js-sys-0.3.77.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "lexical-parse-float",
+      "version": "1.0.5",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "lexical-parse-float-1.0.5.crate",
+        "url": "https://static.crates.io/crates/lexical-parse-float/lexical-parse-float-1.0.5.crate",
+        "sha256": "de6f9cb01fb0b08060209a057c048fcbab8717b4c1ecd2eac66ebfe39a65b0f2"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-lexical-parse-float-1.0.5.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "lexical-parse-integer",
+      "version": "1.0.5",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "lexical-parse-integer-1.0.5.crate",
+        "url": "https://static.crates.io/crates/lexical-parse-integer/lexical-parse-integer-1.0.5.crate",
+        "sha256": "72207aae22fc0a121ba7b6d479e42cbfea549af1479c3f3a4f12c70dd66df12e"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-lexical-parse-integer-1.0.5.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "lexical-util",
+      "version": "1.0.6",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "lexical-util-1.0.6.crate",
+        "url": "https://static.crates.io/crates/lexical-util/lexical-util-1.0.6.crate",
+        "sha256": "5a82e24bf537fd24c177ffbbdc6ebcc8d54732c35b50a3f28cc3f4e4c949a0b3"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-lexical-util-1.0.6.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "libc",
+      "version": "0.2.185",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "libc-0.2.185.crate",
+        "url": "https://static.crates.io/crates/libc/libc-0.2.185.crate",
+        "sha256": "52ff2c0fe9bc6cb6b14a0592c2ff4fa9ceb83eea9db979b0487cd054946a2b8f"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-libc-0.2.185.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "litemap",
+      "version": "0.7.3",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "litemap-0.7.3.crate",
+        "url": "https://static.crates.io/crates/litemap/litemap-0.7.3.crate",
+        "sha256": "643cb0b8d4fcc284004d5fd0d67ccf61dfffadb7f75e1e71bc420f4688a3a704"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-litemap-0.7.3.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "log",
+      "version": "0.4.27",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "log-0.4.27.crate",
+        "url": "https://static.crates.io/crates/log/log-0.4.27.crate",
+        "sha256": "13dc2df351e3202783a1fe0d44375f7295ffb4049267b0f3018346dc122a1d94"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-log-0.4.27.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "lru",
+      "version": "0.18.5",
+      "license": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "source": {
+        "archive": "lru-0.18.5.crate",
+        "url": "https://static.crates.io/crates/lru/lru-0.18.5.crate",
+        "sha256": "ef9ac18847474e638e3702b76c65d4eb93428471a74778ef0f1be711717f89b5"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-lru-0.18.5.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "memchr",
+      "version": "2.7.4",
+      "license": [
+        {
+          "expression": "Unlicense OR MIT"
+        }
+      ],
+      "source": {
+        "archive": "memchr-2.7.4.crate",
+        "url": "https://static.crates.io/crates/memchr/memchr-2.7.4.crate",
+        "sha256": "78ca9ab1a0babb1e7d5695e3530886289c18cf2f87ec19a575a0abdce112e3a3"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-memchr-2.7.4.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "num-bigint",
+      "version": "0.4.6",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "num-bigint-0.4.6.crate",
+        "url": "https://static.crates.io/crates/num-bigint/num-bigint-0.4.6.crate",
+        "sha256": "a5e44f723f1133c9deac646763579fdb3ac745e418f2a7af9cd0c431da1f20b9"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-num-bigint-0.4.6.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "num-integer",
+      "version": "0.1.46",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "num-integer-0.1.46.crate",
+        "url": "https://static.crates.io/crates/num-integer/num-integer-0.1.46.crate",
+        "sha256": "7969661fd2958a5cb096e56c8e1ad0444ac2bbcd0061bd28660485a44879858f"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-num-integer-0.1.46.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "num-traits",
+      "version": "0.2.19",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "num-traits-0.2.19.crate",
+        "url": "https://static.crates.io/crates/num-traits/num-traits-0.2.19.crate",
+        "sha256": "071dfc062690e90b734c0b2273ce72ad0ffa95f0c74596bc250dcfd960262841"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-num-traits-0.2.19.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "once_cell",
+      "version": "1.21.3",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "once_cell-1.21.3.crate",
+        "url": "https://static.crates.io/crates/once_cell/once_cell-1.21.3.crate",
+        "sha256": "42f5e15c9953c5e4ccceeb2e7382a716482c34515315f7b03532b8b4e8393d2d"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-once_cell-1.21.3.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "percent-encoding",
+      "version": "2.3.2",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "percent-encoding-2.3.2.crate",
+        "url": "https://static.crates.io/crates/percent-encoding/percent-encoding-2.3.2.crate",
+        "sha256": "9b4f627cb1b25917193a259e49bdad08f671f8d9708acfd5fe0a8c1455d87220"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-percent-encoding-2.3.2.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "portable-atomic",
+      "version": "1.6.0",
+      "license": [
+        {
+          "expression": "Apache-2.0 OR MIT"
+        }
+      ],
+      "source": {
+        "archive": "portable-atomic-1.6.0.crate",
+        "url": "https://static.crates.io/crates/portable-atomic/portable-atomic-1.6.0.crate",
+        "sha256": "7170ef9988bc169ba16dd36a7fa041e5c4cbeb6a35b76d4c03daded371eae7c0"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-portable-atomic-1.6.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "proc-macro2",
+      "version": "1.0.107",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "proc-macro2-1.0.107.crate",
+        "url": "https://static.crates.io/crates/proc-macro2/proc-macro2-1.0.107.crate",
+        "sha256": "985e7ec9bb745e6ce6535b544d84d6cd6f7ad8bd711c398938ae983b91a766d9"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-proc-macro2-1.0.107.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "pyo3",
+      "version": "0.29.2",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "pyo3-0.29.2.crate",
+        "url": "https://static.crates.io/crates/pyo3/pyo3-0.29.2.crate",
+        "sha256": "4688ddedf473e32662b9b067670129a8afb8c18e351482c70d62ba4a88171e8b"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-pyo3-0.29.2.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "pyo3-build-config",
+      "version": "0.29.2",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "pyo3-build-config-0.29.2.crate",
+        "url": "https://static.crates.io/crates/pyo3-build-config/pyo3-build-config-0.29.2.crate",
+        "sha256": "f41027e41b4bd03f6e60f9f417fe24a6341a6bb744edd62b6f709f2a52ea30e9"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-pyo3-build-config-0.29.2.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "pyo3-ffi",
+      "version": "0.29.2",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "pyo3-ffi-0.29.2.crate",
+        "url": "https://static.crates.io/crates/pyo3-ffi/pyo3-ffi-0.29.2.crate",
+        "sha256": "e591a95526fead067432c3b3a33fc74770b87b1e04e73671090d9c2055a2b327"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-pyo3-ffi-0.29.2.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "pyo3-macros",
+      "version": "0.29.2",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "pyo3-macros-0.29.2.crate",
+        "url": "https://static.crates.io/crates/pyo3-macros/pyo3-macros-0.29.2.crate",
+        "sha256": "73225868fc1cd84eef2c3c230ddb91273bf1de46aeb8a4248da76d32a0924a1c"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-pyo3-macros-0.29.2.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "pyo3-macros-backend",
+      "version": "0.29.2",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "pyo3-macros-backend-0.29.2.crate",
+        "url": "https://static.crates.io/crates/pyo3-macros-backend/pyo3-macros-backend-0.29.2.crate",
+        "sha256": "571575aa3749fa6216757dd47d2a3e7ef360f329a40f0666a9fbd14889024952"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-pyo3-macros-backend-0.29.2.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "quote",
+      "version": "1.0.44",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "quote-1.0.44.crate",
+        "url": "https://static.crates.io/crates/quote/quote-1.0.44.crate",
+        "sha256": "21b2ebcf727b7760c461f091f9f0f539b77b8e87f2fd88131e7f1b433b3cece4"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-quote-1.0.44.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "r-efi",
+      "version": "5.2.0",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0 OR LGPL-2.1-or-later"
+        }
+      ],
+      "source": {
+        "archive": "r-efi-5.2.0.crate",
+        "url": "https://static.crates.io/crates/r-efi/r-efi-5.2.0.crate",
+        "sha256": "74765f6d916ee2faa39bc8e68e4f3ed8949b48cccdac59983d287a7cb71ce9c5"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-r-efi-5.2.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "radium",
+      "version": "0.7.0",
+      "license": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "source": {
+        "archive": "radium-0.7.0.crate",
+        "url": "https://static.crates.io/crates/radium/radium-0.7.0.crate",
+        "sha256": "dc33ff2d4973d518d823d61aa239014831e521c75da58e3df4840d3f47749d09"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-radium-0.7.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "regex",
+      "version": "1.13.1",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "regex-1.13.1.crate",
+        "url": "https://static.crates.io/crates/regex/regex-1.13.1.crate",
+        "sha256": "f020237b6c8eed93db2e2cb53c00c60a8e1bc73da7d073199a1180401450218d"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-regex-1.13.1.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "regex-automata",
+      "version": "0.4.18",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "regex-automata-0.4.18.crate",
+        "url": "https://static.crates.io/crates/regex-automata/regex-automata-0.4.18.crate",
+        "sha256": "ad8553b9b26413251cbf30e620595c7a41b3887f03da04579c0e6b0d6a06b4b2"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-regex-automata-0.4.18.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "regex-syntax",
+      "version": "0.8.11",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "regex-syntax-0.8.11.crate",
+        "url": "https://static.crates.io/crates/regex-syntax/regex-syntax-0.8.11.crate",
+        "sha256": "d6f6ff9a378485b298a5286656da665ba74413d36db0979633275d2e708145d4"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-regex-syntax-0.8.11.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "serde",
+      "version": "1.0.229",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "serde-1.0.229.crate",
+        "url": "https://static.crates.io/crates/serde/serde-1.0.229.crate",
+        "sha256": "4148590afebada386688f18773da617792bf2ef03ffc1e4cbd2b1d45b023e0ba"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-serde-1.0.229.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "serde_core",
+      "version": "1.0.229",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "serde_core-1.0.229.crate",
+        "url": "https://static.crates.io/crates/serde_core/serde_core-1.0.229.crate",
+        "sha256": "67dca2c9c51e58a4791a4b1ed58308b39c64224d349a935ab5039aa360942a48"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-serde_core-1.0.229.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "serde_derive",
+      "version": "1.0.229",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "serde_derive-1.0.229.crate",
+        "url": "https://static.crates.io/crates/serde_derive/serde_derive-1.0.229.crate",
+        "sha256": "e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-serde_derive-1.0.229.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "serde_json",
+      "version": "1.0.151",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "serde_json-1.0.151.crate",
+        "url": "https://static.crates.io/crates/serde_json/serde_json-1.0.151.crate",
+        "sha256": "c841b55ecdae098c80dcae9cf767f6f8a0c2cdb3416bbef72181df4d0fe73f14"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-serde_json-1.0.151.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "smallvec",
+      "version": "1.16.2",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "smallvec-1.16.2.crate",
+        "url": "https://static.crates.io/crates/smallvec/smallvec-1.16.2.crate",
+        "sha256": "f9395f0f0eee849a9b707b2f06bb92a6a422090e2123bb2ef8e87a0e61892a8e"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-smallvec-1.16.2.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "speedate",
+      "version": "0.17.0",
+      "license": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "source": {
+        "archive": "speedate-0.17.0.crate",
+        "url": "https://static.crates.io/crates/speedate/speedate-0.17.0.crate",
+        "sha256": "aba069c070b5e213f2a094deb7e5ed50ecb092be36102a4f4042e8d2056d060e"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-speedate-0.17.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "stable_deref_trait",
+      "version": "1.2.0",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "stable_deref_trait-1.2.0.crate",
+        "url": "https://static.crates.io/crates/stable_deref_trait/stable_deref_trait-1.2.0.crate",
+        "sha256": "a8f112729512f8e442d81f95a8a7ddf2b7c6b8a1a6f509a95864142b30cab2d3"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-stable_deref_trait-1.2.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "static_assertions",
+      "version": "1.1.0",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "static_assertions-1.1.0.crate",
+        "url": "https://static.crates.io/crates/static_assertions/static_assertions-1.1.0.crate",
+        "sha256": "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-static_assertions-1.1.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "strum",
+      "version": "0.27.2",
+      "license": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "source": {
+        "archive": "strum-0.27.2.crate",
+        "url": "https://static.crates.io/crates/strum/strum-0.27.2.crate",
+        "sha256": "af23d6f6c1a224baef9d3f61e287d2761385a5b88fdab4eb4c6f11aeb54c4bcf"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-strum-0.27.2.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "strum_macros",
+      "version": "0.27.2",
+      "license": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "source": {
+        "archive": "strum_macros-0.27.2.crate",
+        "url": "https://static.crates.io/crates/strum_macros/strum_macros-0.27.2.crate",
+        "sha256": "7695ce3845ea4b33927c055a39dc438a45b059f7c1b3d91d38d10355fb8cbca7"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-strum_macros-0.27.2.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "syn",
+      "version": "2.0.82",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "syn-2.0.82.crate",
+        "url": "https://static.crates.io/crates/syn/syn-2.0.82.crate",
+        "sha256": "83540f837a8afc019423a8edb95b52a8effe46957ee402287f4292fae35be021"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-syn-2.0.82.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "syn",
+      "version": "3.0.6",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "syn-3.0.6.crate",
+        "url": "https://static.crates.io/crates/syn/syn-3.0.6.crate",
+        "sha256": "8593e8e72159ed2257d083c7a454a85cbf854f37a0966d8d483aff8c8a3ebcee"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-syn-3.0.6.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "synstructure",
+      "version": "0.13.1",
+      "license": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "source": {
+        "archive": "synstructure-0.13.1.crate",
+        "url": "https://static.crates.io/crates/synstructure/synstructure-0.13.1.crate",
+        "sha256": "c8af7666ab7b6390ab78131fb5b0fce11d6b7a6951602017c35fa82800708971"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-synstructure-0.13.1.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "tap",
+      "version": "1.0.1",
+      "license": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "source": {
+        "archive": "tap-1.0.1.crate",
+        "url": "https://static.crates.io/crates/tap/tap-1.0.1.crate",
+        "sha256": "55937e1799185b12863d447f42597ed69d9928686b8d88a1df17376a097d8369"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-tap-1.0.1.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "target-lexicon",
+      "version": "0.13.4",
+      "license": [
+        {
+          "expression": "Apache-2.0 WITH LLVM-exception"
+        }
+      ],
+      "source": {
+        "archive": "target-lexicon-0.13.4.crate",
+        "url": "https://static.crates.io/crates/target-lexicon/target-lexicon-0.13.4.crate",
+        "sha256": "b1dd07eb858a2067e2f3c7155d54e929265c264e6f37efe3ee7a8d1b5a1dd0ba"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-target-lexicon-0.13.4.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "tinystr",
+      "version": "0.7.6",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "tinystr-0.7.6.crate",
+        "url": "https://static.crates.io/crates/tinystr/tinystr-0.7.6.crate",
+        "sha256": "9117f5d4db391c1cf6927e7bea3db74b9a1c1add8f7eda9ffd5364f40f57b82f"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-tinystr-0.7.6.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "unicode-ident",
+      "version": "1.0.12",
+      "license": [
+        {
+          "expression": "(MIT OR Apache-2.0) AND Unicode-DFS-2016"
+        }
+      ],
+      "source": {
+        "archive": "unicode-ident-1.0.12.crate",
+        "url": "https://static.crates.io/crates/unicode-ident/unicode-ident-1.0.12.crate",
+        "sha256": "3354b9ac3fae1ff6755cb6db53683adb661634f67557942dea4facebec0fee4b"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-unicode-ident-1.0.12.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "url",
+      "version": "2.5.8",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "url-2.5.8.crate",
+        "url": "https://static.crates.io/crates/url/url-2.5.8.crate",
+        "sha256": "ff67a8a4397373c3ef660812acab3268222035010ab8680ec4215f38ba3d0eed"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-url-2.5.8.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "utf16_iter",
+      "version": "1.0.5",
+      "license": [
+        {
+          "expression": "Apache-2.0 OR MIT"
+        }
+      ],
+      "source": {
+        "archive": "utf16_iter-1.0.5.crate",
+        "url": "https://static.crates.io/crates/utf16_iter/utf16_iter-1.0.5.crate",
+        "sha256": "c8232dd3cdaed5356e0f716d285e4b40b932ac434100fe9b7e0e8e935b9e6246"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-utf16_iter-1.0.5.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "utf8_iter",
+      "version": "1.0.4",
+      "license": [
+        {
+          "expression": "Apache-2.0 OR MIT"
+        }
+      ],
+      "source": {
+        "archive": "utf8_iter-1.0.4.crate",
+        "url": "https://static.crates.io/crates/utf8_iter/utf8_iter-1.0.4.crate",
+        "sha256": "b6c140620e7ffbb22c2dee59cafe6084a59b5ffc27a8859a5f0d494b5d52b6be"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-utf8_iter-1.0.4.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "uuid",
+      "version": "1.23.4",
+      "license": [
+        {
+          "expression": "Apache-2.0 OR MIT"
+        }
+      ],
+      "source": {
+        "archive": "uuid-1.23.4.crate",
+        "url": "https://static.crates.io/crates/uuid/uuid-1.23.4.crate",
+        "sha256": "bf80a72845275afea99e7f2b434723d3bc7e38470fcd1c7ed39a599c73319a53"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-uuid-1.23.4.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "version_check",
+      "version": "0.9.5",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "version_check-0.9.5.crate",
+        "url": "https://static.crates.io/crates/version_check/version_check-0.9.5.crate",
+        "sha256": "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-version_check-0.9.5.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "wasi",
+      "version": "0.14.2+wasi-0.2.4",
+      "license": [
+        {
+          "expression": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT"
+        }
+      ],
+      "source": {
+        "archive": "wasi-0.14.2+wasi-0.2.4.crate",
+        "url": "https://static.crates.io/crates/wasi/wasi-0.14.2+wasi-0.2.4.crate",
+        "sha256": "9683f9a5a998d873c0d21fcbe3c083009670149a8fab228644b8bd36b2c48cb3"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-wasi-0.14.2+wasi-0.2.4.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "wasm-bindgen",
+      "version": "0.2.100",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "wasm-bindgen-0.2.100.crate",
+        "url": "https://static.crates.io/crates/wasm-bindgen/wasm-bindgen-0.2.100.crate",
+        "sha256": "1edc8929d7499fc4e8f0be2262a241556cfc54a0bea223790e71446f2aab1ef5"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-wasm-bindgen-0.2.100.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "wasm-bindgen-backend",
+      "version": "0.2.100",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "wasm-bindgen-backend-0.2.100.crate",
+        "url": "https://static.crates.io/crates/wasm-bindgen-backend/wasm-bindgen-backend-0.2.100.crate",
+        "sha256": "2f0a0651a5c2bc21487bde11ee802ccaf4c51935d0d3d42a6101f98161700bc6"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-wasm-bindgen-backend-0.2.100.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "wasm-bindgen-macro",
+      "version": "0.2.100",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "wasm-bindgen-macro-0.2.100.crate",
+        "url": "https://static.crates.io/crates/wasm-bindgen-macro/wasm-bindgen-macro-0.2.100.crate",
+        "sha256": "7fe63fc6d09ed3792bd0897b314f53de8e16568c2b3f7982f468c0bf9bd0b407"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-wasm-bindgen-macro-0.2.100.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "wasm-bindgen-macro-support",
+      "version": "0.2.100",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "wasm-bindgen-macro-support-0.2.100.crate",
+        "url": "https://static.crates.io/crates/wasm-bindgen-macro-support/wasm-bindgen-macro-support-0.2.100.crate",
+        "sha256": "8ae87ea40c9f689fc23f209965b6fb8a99ad69aeeb0231408be24920604395de"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-wasm-bindgen-macro-support-0.2.100.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "wasm-bindgen-shared",
+      "version": "0.2.100",
+      "license": [
+        {
+          "expression": "MIT OR Apache-2.0"
+        }
+      ],
+      "source": {
+        "archive": "wasm-bindgen-shared-0.2.100.crate",
+        "url": "https://static.crates.io/crates/wasm-bindgen-shared/wasm-bindgen-shared-0.2.100.crate",
+        "sha256": "1a05d73b933a847d6cccdda8f838a22ff101ad9bf93e33684f39c1f5f0eece3d"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-wasm-bindgen-shared-0.2.100.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "wit-bindgen-rt",
+      "version": "0.39.0",
+      "license": [
+        {
+          "expression": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT"
+        }
+      ],
+      "source": {
+        "archive": "wit-bindgen-rt-0.39.0.crate",
+        "url": "https://static.crates.io/crates/wit-bindgen-rt/wit-bindgen-rt-0.39.0.crate",
+        "sha256": "6f42320e61fe2cfd34354ecb597f86f413484a798ba44a8ca1165c58d42da6c1"
+      },
+      "additional_source": {
+        "archive": "wit-bindgen-f2393e6e98fa5f9236cac580db8a3fc9de6a4b70.tar.gz",
+        "url": "https://codeload.github.com/bytecodealliance/wit-bindgen/tar.gz/f2393e6e98fa5f9236cac580db8a3fc9de6a4b70",
+        "sha256": "ee4f61950cfe2e96ca9715dfe4fc19c85a4fb7a63c1919400c4eace8107ffb9d"
+      },
+      "notices": "third_party/licenses/cargo-wit-bindgen-rt-0.39.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "write16",
+      "version": "1.0.0",
+      "license": [
+        {
+          "expression": "Apache-2.0 OR MIT"
+        }
+      ],
+      "source": {
+        "archive": "write16-1.0.0.crate",
+        "url": "https://static.crates.io/crates/write16/write16-1.0.0.crate",
+        "sha256": "d1890f4022759daae28ed4fe62859b1236caebfc61ede2f63ed4e695f3f6d936"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-write16-1.0.0.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "writeable",
+      "version": "0.5.5",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "writeable-0.5.5.crate",
+        "url": "https://static.crates.io/crates/writeable/writeable-0.5.5.crate",
+        "sha256": "1e9df38ee2d2c3c5948ea468a8406ff0db0b29ae1ffde1bcf20ef305bcc95c51"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-writeable-0.5.5.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "wyz",
+      "version": "0.5.1",
+      "license": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "source": {
+        "archive": "wyz-0.5.1.crate",
+        "url": "https://static.crates.io/crates/wyz/wyz-0.5.1.crate",
+        "sha256": "05f360fc0b24296329c78fda852a1e9ae82de9cf7b27dae4b7f62f118f77b9ed"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-wyz-0.5.1.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "yoke",
+      "version": "0.7.4",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "yoke-0.7.4.crate",
+        "url": "https://static.crates.io/crates/yoke/yoke-0.7.4.crate",
+        "sha256": "6c5b1314b079b0930c31e3af543d8ee1757b1951ae1e1565ec704403a7240ca5"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-yoke-0.7.4.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "yoke-derive",
+      "version": "0.7.4",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "yoke-derive-0.7.4.crate",
+        "url": "https://static.crates.io/crates/yoke-derive/yoke-derive-0.7.4.crate",
+        "sha256": "28cc31741b18cb6f1d5ff12f5b7523e3d6eb0852bbbad19d73905511d9849b95"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-yoke-derive-0.7.4.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "zerocopy",
+      "version": "0.8.25",
+      "license": [
+        {
+          "expression": "BSD-2-Clause OR Apache-2.0 OR MIT"
+        }
+      ],
+      "source": {
+        "archive": "zerocopy-0.8.25.crate",
+        "url": "https://static.crates.io/crates/zerocopy/zerocopy-0.8.25.crate",
+        "sha256": "a1702d9583232ddb9174e01bb7c15a2ab8fb1bc6f227aa1233858c351a3ba0cb"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-zerocopy-0.8.25.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "zerocopy-derive",
+      "version": "0.8.25",
+      "license": [
+        {
+          "expression": "BSD-2-Clause OR Apache-2.0 OR MIT"
+        }
+      ],
+      "source": {
+        "archive": "zerocopy-derive-0.8.25.crate",
+        "url": "https://static.crates.io/crates/zerocopy-derive/zerocopy-derive-0.8.25.crate",
+        "sha256": "28a6e20d751156648aa063f3800b706ee209a32c0b4d9f24be3d980b01be55ef"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-zerocopy-derive-0.8.25.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "zerofrom",
+      "version": "0.1.4",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "zerofrom-0.1.4.crate",
+        "url": "https://static.crates.io/crates/zerofrom/zerofrom-0.1.4.crate",
+        "sha256": "91ec111ce797d0e0784a1116d0ddcdbea84322cd79e5d5ad173daeba4f93ab55"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-zerofrom-0.1.4.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "zerofrom-derive",
+      "version": "0.1.4",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "zerofrom-derive-0.1.4.crate",
+        "url": "https://static.crates.io/crates/zerofrom-derive/zerofrom-derive-0.1.4.crate",
+        "sha256": "0ea7b4a3637ea8669cedf0f1fd5c286a17f3de97b8dd5a70a6c167a1730e63a5"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-zerofrom-derive-0.1.4.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "zerovec",
+      "version": "0.10.4",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "zerovec-0.10.4.crate",
+        "url": "https://static.crates.io/crates/zerovec/zerovec-0.10.4.crate",
+        "sha256": "aa2b893d79df23bfb12d5461018d408ea19dfafe76c2c7ef6d4eba614f8ff079"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-zerovec-0.10.4.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "zerovec-derive",
+      "version": "0.10.3",
+      "license": [
+        {
+          "expression": "Unicode-3.0"
+        }
+      ],
+      "source": {
+        "archive": "zerovec-derive-0.10.3.crate",
+        "url": "https://static.crates.io/crates/zerovec-derive/zerovec-derive-0.10.3.crate",
+        "sha256": "6eafa6dfb17584ea3e2bd6e76e0cc15ad7af12b09abdd1ca55961bed9b1063c6"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-zerovec-derive-0.10.3.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "zmij",
+      "version": "1.0.6",
+      "license": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "source": {
+        "archive": "zmij-1.0.6.crate",
+        "url": "https://static.crates.io/crates/zmij/zmij-1.0.6.crate",
+        "sha256": "aac060176f7020d62c3bcc1cdbcec619d54f48b07ad1963a3f80ce7a0c17755f"
+      },
+      "additional_source": null,
+      "notices": "third_party/licenses/cargo-zmij-1.0.6.txt",
+      "scope": "pydantic-core native/build dependency"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@axe-core/playwright",
+      "version": "4.14.0",
+      "license": "MPL-2.0",
+      "source": {
+        "archive": "npm-axe-core-playwright-4.14.0.tgz",
+        "url": "https://registry.npmjs.org/@axe-core/playwright/-/playwright-4.14.0.tgz",
+        "sha256": "0d16690e81a9c80f653920da310010bd530b3e2bffe18d299769113848b40bdf"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-axe-core-playwright-4.14.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@babel/helper-string-parser",
+      "version": "7.29.11",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-babel-helper-string-parser-7.29.11.tgz",
+        "url": "https://registry.npmjs.org/@babel/helper-string-parser/-/helper-string-parser-7.29.11.tgz",
+        "sha256": "b5981604e0bed54da225c594dcf50bc3dd97ef2c5749361f4d01c3608bc50f46"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-babel-helper-string-parser-7.29.11.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@babel/helper-validator-identifier",
+      "version": "7.29.7",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-babel-helper-validator-identifier-7.29.7.tgz",
+        "url": "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.29.7.tgz",
+        "sha256": "7a31904bc45f1bb232d5e5dd797d12296f4a27fb4bf0f6d517827700f997dc1f"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-babel-helper-validator-identifier-7.29.7.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@babel/parser",
+      "version": "7.29.11",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-babel-parser-7.29.11.tgz",
+        "url": "https://registry.npmjs.org/@babel/parser/-/parser-7.29.11.tgz",
+        "sha256": "468f983dce8958e8a731dd32cf2a9211ac2004f0d9c5536f8c4a9a679f3d5963"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-babel-parser-7.29.11.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@babel/types",
+      "version": "7.29.11",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-babel-types-7.29.11.tgz",
+        "url": "https://registry.npmjs.org/@babel/types/-/types-7.29.11.tgz",
+        "sha256": "8b5f60bb490c0f306e9c01a51e1603442d04c666bb500e087e70dcfb1fbb0296"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-babel-types-7.29.11.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@jridgewell/sourcemap-codec",
+      "version": "1.6.0",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-jridgewell-sourcemap-codec-1.6.0.tgz",
+        "url": "https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.6.0.tgz",
+        "sha256": "f30a35f6af8c347d01b8ff2f8662272f7d986cf21b916704d86c249a90b97e25"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-jridgewell-sourcemap-codec-1.6.0.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@lucide/vue",
+      "version": "1.63.0",
+      "license": "ISC",
+      "source": {
+        "archive": "npm-lucide-vue-1.63.0.tgz",
+        "url": "https://registry.npmjs.org/@lucide/vue/-/vue-1.63.0.tgz",
+        "sha256": "f464e4f31b5d1d9fbcdce7fcfd9b5b91f5e3cfa7c9d60059e40077ad7e20c6ca"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-lucide-vue-1.63.0.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@oxc-project/types",
+      "version": "0.155.0",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-oxc-project-types-0.155.0.tgz",
+        "url": "https://registry.npmjs.org/@oxc-project/types/-/types-0.155.0.tgz",
+        "sha256": "fdc38c0c4ee5fecf7e6f90093be14cc828d4453f81fd847c659de871c0c44853"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-oxc-project-types-0.155.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@playwright/test",
+      "version": "1.64.1",
+      "license": "Apache-2.0",
+      "source": {
+        "archive": "npm-playwright-test-1.64.1.tgz",
+        "url": "https://registry.npmjs.org/@playwright/test/-/test-1.64.1.tgz",
+        "sha256": "9bc8fb4bf5c8f395c1c6b6999e5480607a5aaaead17e9fe6e58181002b4086e3"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-playwright-test-1.64.1.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-android-arm-eabi",
+      "version": "1.2.15",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-binding-android-arm-eabi-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/@rolldown/binding-android-arm-eabi/-/binding-android-arm-eabi-1.2.15.tgz",
+        "sha256": "bf1f300a606ecc5b60403de5f423336b66106b7f0de7f27f8b4447a0a01694bb"
+      },
+      "notice_source": {
+        "archive": "npm-rolldown-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+        "sha256": "0f4e689f37f168b87605f3b9756b150c63bd1cb52bd04ba5d90e156794625067"
+      },
+      "notices": "third_party/licenses/npm-rolldown-binding-android-arm-eabi-1.2.15.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-android-arm64",
+      "version": "1.2.15",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-binding-android-arm64-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/@rolldown/binding-android-arm64/-/binding-android-arm64-1.2.15.tgz",
+        "sha256": "3f8e938029110b4b1116e108078f843bb92d5251fecabe156a94b70717383caf"
+      },
+      "notice_source": {
+        "archive": "npm-rolldown-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+        "sha256": "0f4e689f37f168b87605f3b9756b150c63bd1cb52bd04ba5d90e156794625067"
+      },
+      "notices": "third_party/licenses/npm-rolldown-binding-android-arm64-1.2.15.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-darwin-arm64",
+      "version": "1.2.15",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-binding-darwin-arm64-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/@rolldown/binding-darwin-arm64/-/binding-darwin-arm64-1.2.15.tgz",
+        "sha256": "7e76cf1bedecbb4c13d04df74d4604ad99f934425b519d265fa0acda442ebbf5"
+      },
+      "notice_source": {
+        "archive": "npm-rolldown-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+        "sha256": "0f4e689f37f168b87605f3b9756b150c63bd1cb52bd04ba5d90e156794625067"
+      },
+      "notices": "third_party/licenses/npm-rolldown-binding-darwin-arm64-1.2.15.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-darwin-x64",
+      "version": "1.2.15",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-binding-darwin-x64-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/@rolldown/binding-darwin-x64/-/binding-darwin-x64-1.2.15.tgz",
+        "sha256": "af1f68c4f2b23d4cd8fddf5585f6551fba61adde8ea4f24e1a964b286a2146ff"
+      },
+      "notice_source": {
+        "archive": "npm-rolldown-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+        "sha256": "0f4e689f37f168b87605f3b9756b150c63bd1cb52bd04ba5d90e156794625067"
+      },
+      "notices": "third_party/licenses/npm-rolldown-binding-darwin-x64-1.2.15.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-freebsd-x64",
+      "version": "1.2.15",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-binding-freebsd-x64-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/@rolldown/binding-freebsd-x64/-/binding-freebsd-x64-1.2.15.tgz",
+        "sha256": "23b86bc50abcf39485412a0a846b66b564b11601f860dbd93d41bdffc4dbbdac"
+      },
+      "notice_source": {
+        "archive": "npm-rolldown-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+        "sha256": "0f4e689f37f168b87605f3b9756b150c63bd1cb52bd04ba5d90e156794625067"
+      },
+      "notices": "third_party/licenses/npm-rolldown-binding-freebsd-x64-1.2.15.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-arm-gnueabihf",
+      "version": "1.2.15",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-binding-linux-arm-gnueabihf-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/@rolldown/binding-linux-arm-gnueabihf/-/binding-linux-arm-gnueabihf-1.2.15.tgz",
+        "sha256": "3d5fd4b71244a9fb76a1cf98b6ff9be8dbf396cbb903b41ab426c16539906bd8"
+      },
+      "notice_source": {
+        "archive": "npm-rolldown-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+        "sha256": "0f4e689f37f168b87605f3b9756b150c63bd1cb52bd04ba5d90e156794625067"
+      },
+      "notices": "third_party/licenses/npm-rolldown-binding-linux-arm-gnueabihf-1.2.15.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-arm64-gnu",
+      "version": "1.2.15",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-binding-linux-arm64-gnu-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/@rolldown/binding-linux-arm64-gnu/-/binding-linux-arm64-gnu-1.2.15.tgz",
+        "sha256": "974913ec7ee49d0cdf2cadfd71e488b0485ff0e92129b8c705d96c864748f51d"
+      },
+      "notice_source": {
+        "archive": "npm-rolldown-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+        "sha256": "0f4e689f37f168b87605f3b9756b150c63bd1cb52bd04ba5d90e156794625067"
+      },
+      "notices": "third_party/licenses/npm-rolldown-binding-linux-arm64-gnu-1.2.15.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-arm64-musl",
+      "version": "1.2.15",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-binding-linux-arm64-musl-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/@rolldown/binding-linux-arm64-musl/-/binding-linux-arm64-musl-1.2.15.tgz",
+        "sha256": "0e3b82884dfa10a758eee181ac95c16170bf134558e371a63f7b0354afe9e6b6"
+      },
+      "notice_source": {
+        "archive": "npm-rolldown-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+        "sha256": "0f4e689f37f168b87605f3b9756b150c63bd1cb52bd04ba5d90e156794625067"
+      },
+      "notices": "third_party/licenses/npm-rolldown-binding-linux-arm64-musl-1.2.15.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-ppc64-gnu",
+      "version": "1.2.15",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-binding-linux-ppc64-gnu-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/@rolldown/binding-linux-ppc64-gnu/-/binding-linux-ppc64-gnu-1.2.15.tgz",
+        "sha256": "87c313cb1bc100c829fb0d0dd64915ab8ed35a04de3af58b2b53b684ea9cdf71"
+      },
+      "notice_source": {
+        "archive": "npm-rolldown-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+        "sha256": "0f4e689f37f168b87605f3b9756b150c63bd1cb52bd04ba5d90e156794625067"
+      },
+      "notices": "third_party/licenses/npm-rolldown-binding-linux-ppc64-gnu-1.2.15.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-s390x-gnu",
+      "version": "1.2.15",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-binding-linux-s390x-gnu-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/@rolldown/binding-linux-s390x-gnu/-/binding-linux-s390x-gnu-1.2.15.tgz",
+        "sha256": "e1ce773804fb2d75495e2d88b1a4bf96d2233cdf134bd074e1819154cec68916"
+      },
+      "notice_source": {
+        "archive": "npm-rolldown-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+        "sha256": "0f4e689f37f168b87605f3b9756b150c63bd1cb52bd04ba5d90e156794625067"
+      },
+      "notices": "third_party/licenses/npm-rolldown-binding-linux-s390x-gnu-1.2.15.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-x64-gnu",
+      "version": "1.2.15",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-binding-linux-x64-gnu-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/@rolldown/binding-linux-x64-gnu/-/binding-linux-x64-gnu-1.2.15.tgz",
+        "sha256": "c13db693e72bd7c5e9b30bb1b43aa96015e4b8610edb4143c540bcc68aaca3c1"
+      },
+      "notice_source": {
+        "archive": "npm-rolldown-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+        "sha256": "0f4e689f37f168b87605f3b9756b150c63bd1cb52bd04ba5d90e156794625067"
+      },
+      "notices": "third_party/licenses/npm-rolldown-binding-linux-x64-gnu-1.2.15.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-x64-musl",
+      "version": "1.2.15",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-binding-linux-x64-musl-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/@rolldown/binding-linux-x64-musl/-/binding-linux-x64-musl-1.2.15.tgz",
+        "sha256": "3c17e36bddfcd0a81020f5719aec403dca5c0316dadf2b4f5e96a8c71c39c2cb"
+      },
+      "notice_source": {
+        "archive": "npm-rolldown-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+        "sha256": "0f4e689f37f168b87605f3b9756b150c63bd1cb52bd04ba5d90e156794625067"
+      },
+      "notices": "third_party/licenses/npm-rolldown-binding-linux-x64-musl-1.2.15.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-openharmony-arm64",
+      "version": "1.2.15",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-binding-openharmony-arm64-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/@rolldown/binding-openharmony-arm64/-/binding-openharmony-arm64-1.2.15.tgz",
+        "sha256": "a7d88b7e3c4bf00b10e18750b616a20dad559343ded347e67918734ece654841"
+      },
+      "notice_source": {
+        "archive": "npm-rolldown-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+        "sha256": "0f4e689f37f168b87605f3b9756b150c63bd1cb52bd04ba5d90e156794625067"
+      },
+      "notices": "third_party/licenses/npm-rolldown-binding-openharmony-arm64-1.2.15.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-win32-arm64-msvc",
+      "version": "1.2.15",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-binding-win32-arm64-msvc-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/@rolldown/binding-win32-arm64-msvc/-/binding-win32-arm64-msvc-1.2.15.tgz",
+        "sha256": "2659d147edd495eac5da99cff514c9155805db569af70f5a299f86e91bd00e1f"
+      },
+      "notice_source": {
+        "archive": "npm-rolldown-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+        "sha256": "0f4e689f37f168b87605f3b9756b150c63bd1cb52bd04ba5d90e156794625067"
+      },
+      "notices": "third_party/licenses/npm-rolldown-binding-win32-arm64-msvc-1.2.15.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-win32-x64-msvc",
+      "version": "1.2.15",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-binding-win32-x64-msvc-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/@rolldown/binding-win32-x64-msvc/-/binding-win32-x64-msvc-1.2.15.tgz",
+        "sha256": "b0b5e3f40e330952d99a084bd6278be6b8015679395a96361f389ae87167a40e"
+      },
+      "notice_source": {
+        "archive": "npm-rolldown-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+        "sha256": "0f4e689f37f168b87605f3b9756b150c63bd1cb52bd04ba5d90e156794625067"
+      },
+      "notices": "third_party/licenses/npm-rolldown-binding-win32-x64-msvc-1.2.15.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/pluginutils",
+      "version": "1.0.1",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-pluginutils-1.0.1.tgz",
+        "url": "https://registry.npmjs.org/@rolldown/pluginutils/-/pluginutils-1.0.1.tgz",
+        "sha256": "13fcb3423d37f95a8e861c172e4b62fd24f22412be4e942087367242476e3400"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-rolldown-pluginutils-1.0.1.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@vitejs/plugin-vue",
+      "version": "6.0.10",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-vitejs-plugin-vue-6.0.10.tgz",
+        "url": "https://registry.npmjs.org/@vitejs/plugin-vue/-/plugin-vue-6.0.10.tgz",
+        "sha256": "8db8f57afc207c6efa9ba34797b7caf16fcc93755b52112f68ebebb1bbf3064e"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-vitejs-plugin-vue-6.0.10.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@volar/language-core",
+      "version": "2.4.28",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-volar-language-core-2.4.28.tgz",
+        "url": "https://registry.npmjs.org/@volar/language-core/-/language-core-2.4.28.tgz",
+        "sha256": "9634a2d697741a95af7a068a80ae740eadc655557df45f56175433cbc3cf9286"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-volar-language-core-2.4.28.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@volar/source-map",
+      "version": "2.4.28",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-volar-source-map-2.4.28.tgz",
+        "url": "https://registry.npmjs.org/@volar/source-map/-/source-map-2.4.28.tgz",
+        "sha256": "053ca21a007a04afd4acff3cc2181971a45315e0b78b4875700ec904cc6671a6"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-volar-source-map-2.4.28.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@volar/typescript",
+      "version": "2.4.28",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-volar-typescript-2.4.28.tgz",
+        "url": "https://registry.npmjs.org/@volar/typescript/-/typescript-2.4.28.tgz",
+        "sha256": "489fc8eb2c67da21636a9b8c4cbfe5f48a2100b177489868195e5872685ce96a"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-volar-typescript-2.4.28.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@vue/compiler-core",
+      "version": "3.5.44",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-vue-compiler-core-3.5.44.tgz",
+        "url": "https://registry.npmjs.org/@vue/compiler-core/-/compiler-core-3.5.44.tgz",
+        "sha256": "343008543669d7a5d5ffd686171895126136bf3a7ca21b7257ca17855dec1cf0"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-vue-compiler-core-3.5.44.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@vue/compiler-dom",
+      "version": "3.5.44",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-vue-compiler-dom-3.5.44.tgz",
+        "url": "https://registry.npmjs.org/@vue/compiler-dom/-/compiler-dom-3.5.44.tgz",
+        "sha256": "9d0f62df9ddfe60bdd5115bc20bd6612c669db9d0809c51e0dc3d24b37e7c958"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-vue-compiler-dom-3.5.44.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@vue/compiler-sfc",
+      "version": "3.5.44",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-vue-compiler-sfc-3.5.44.tgz",
+        "url": "https://registry.npmjs.org/@vue/compiler-sfc/-/compiler-sfc-3.5.44.tgz",
+        "sha256": "691a111580aedc0a0f5e82dc9b928a2469b67650043f6a36d9a0188c3e9388c6"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-vue-compiler-sfc-3.5.44.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@vue/compiler-ssr",
+      "version": "3.5.44",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-vue-compiler-ssr-3.5.44.tgz",
+        "url": "https://registry.npmjs.org/@vue/compiler-ssr/-/compiler-ssr-3.5.44.tgz",
+        "sha256": "f617c245d45dda22e19bc982eb5e7fd6d4172464539299e26d1a0e222f1d3789"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-vue-compiler-ssr-3.5.44.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@vue/language-core",
+      "version": "3.3.13",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-vue-language-core-3.3.13.tgz",
+        "url": "https://registry.npmjs.org/@vue/language-core/-/language-core-3.3.13.tgz",
+        "sha256": "f3da753a82257eda3c411afec2bd4dec647f2eb3d7dd650ee6af935508469aa6"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-vue-language-core-3.3.13.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@vue/reactivity",
+      "version": "3.5.44",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-vue-reactivity-3.5.44.tgz",
+        "url": "https://registry.npmjs.org/@vue/reactivity/-/reactivity-3.5.44.tgz",
+        "sha256": "f2e774105eb8d85d7b8bbf87825e9aa8d700493fa06cc2dadc925ce90c7eb12c"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-vue-reactivity-3.5.44.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@vue/runtime-core",
+      "version": "3.5.44",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-vue-runtime-core-3.5.44.tgz",
+        "url": "https://registry.npmjs.org/@vue/runtime-core/-/runtime-core-3.5.44.tgz",
+        "sha256": "02a3325d705b750c3504704f02b3965a225edcdc567edda290928407df1b7117"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-vue-runtime-core-3.5.44.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@vue/runtime-dom",
+      "version": "3.5.44",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-vue-runtime-dom-3.5.44.tgz",
+        "url": "https://registry.npmjs.org/@vue/runtime-dom/-/runtime-dom-3.5.44.tgz",
+        "sha256": "3b0232fa4c33864baf148aaf9167fe4bb5769a441feeec60a1e7e4701c786c6b"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-vue-runtime-dom-3.5.44.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@vue/server-renderer",
+      "version": "3.5.44",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-vue-server-renderer-3.5.44.tgz",
+        "url": "https://registry.npmjs.org/@vue/server-renderer/-/server-renderer-3.5.44.tgz",
+        "sha256": "9d31c926f921bdc8bb0247053456d7e10cc4b8fc8da33e874ae71f62843f332e"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-vue-server-renderer-3.5.44.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@vue/shared",
+      "version": "3.5.44",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-vue-shared-3.5.44.tgz",
+        "url": "https://registry.npmjs.org/@vue/shared/-/shared-3.5.44.tgz",
+        "sha256": "aee2236b79bdca0fae054ce96eb1469a84c8a44879397176d1674186f8470475"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-vue-shared-3.5.44.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "alien-signals",
+      "version": "3.2.1",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-alien-signals-3.2.1.tgz",
+        "url": "https://registry.npmjs.org/alien-signals/-/alien-signals-3.2.1.tgz",
+        "sha256": "925c9fd0ef2748c5b266eae7d2561b88d16e0666b2eb98208474cb009760e430"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-alien-signals-3.2.1.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "axe-core",
+      "version": "4.14.0",
+      "license": "MPL-2.0",
+      "source": {
+        "archive": "npm-axe-core-4.14.0.tgz",
+        "url": "https://registry.npmjs.org/axe-core/-/axe-core-4.14.0.tgz",
+        "sha256": "2277b0a3ef47af9b52497faa3e71598e86e0a0e5e6eb295207a5657ede4709af"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-axe-core-4.14.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "csstype",
+      "version": "3.2.3",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-csstype-3.2.3.tgz",
+        "url": "https://registry.npmjs.org/csstype/-/csstype-3.2.3.tgz",
+        "sha256": "f3501f8ee1c73f7568fecb22c11231162c0467e59262461da5579519307427a3"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-csstype-3.2.3.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "detect-libc",
+      "version": "2.1.2",
+      "license": "Apache-2.0",
+      "source": {
+        "archive": "npm-detect-libc-2.1.2.tgz",
+        "url": "https://registry.npmjs.org/detect-libc/-/detect-libc-2.1.2.tgz",
+        "sha256": "270dec0fc06cff86481da8af2dd8f18dee6b602790b14ef0e1c2c18d7da39427"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-detect-libc-2.1.2.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "entities",
+      "version": "7.0.1",
+      "license": "BSD-2-Clause",
+      "source": {
+        "archive": "npm-entities-7.0.1.tgz",
+        "url": "https://registry.npmjs.org/entities/-/entities-7.0.1.tgz",
+        "sha256": "554b7e2a79fa9eda0439714011fa42d77c6829842faa91e022070015bfd483a0"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-entities-7.0.1.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "estree-walker",
+      "version": "2.0.2",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-estree-walker-2.0.2.tgz",
+        "url": "https://registry.npmjs.org/estree-walker/-/estree-walker-2.0.2.tgz",
+        "sha256": "302931e539a9c5568d56634119290c4df9a7bde64a2f2dbc646d6013e3b03c58"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-estree-walker-2.0.2.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "fdir",
+      "version": "6.5.0",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-fdir-6.5.0.tgz",
+        "url": "https://registry.npmjs.org/fdir/-/fdir-6.5.0.tgz",
+        "sha256": "241ddcd9f31e2a1fca405326017dbb8333ce174198e887f0f96387c29f0d365e"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-fdir-6.5.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "fsevents",
+      "version": "2.3.3",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-fsevents-2.3.3.tgz",
+        "url": "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz",
+        "sha256": "c77e7a5d5ff31dd7acea7c44d4a0455e0528cdacbd24a8cb6c82b66d239b587e"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-fsevents-2.3.3.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "source": {
+        "archive": "npm-lightningcss-1.33.0.tgz",
+        "url": "https://registry.npmjs.org/lightningcss/-/lightningcss-1.33.0.tgz",
+        "sha256": "d492f4278bb7234ceaa3c2638ef944e108ea17a23db7c6a2367c14fa725598cf"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-lightningcss-1.33.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-android-arm64",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "source": {
+        "archive": "npm-lightningcss-android-arm64-1.33.0.tgz",
+        "url": "https://registry.npmjs.org/lightningcss-android-arm64/-/lightningcss-android-arm64-1.33.0.tgz",
+        "sha256": "e6fd2befa439a4934dd50a9283820a7b95725246a3251c60588f074aff20509a"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-lightningcss-android-arm64-1.33.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-darwin-arm64",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "source": {
+        "archive": "npm-lightningcss-darwin-arm64-1.33.0.tgz",
+        "url": "https://registry.npmjs.org/lightningcss-darwin-arm64/-/lightningcss-darwin-arm64-1.33.0.tgz",
+        "sha256": "06e9d271513d7e3f08e680d5e48bb70543c13161ff41bc5b56934726d9a2e913"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-lightningcss-darwin-arm64-1.33.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-darwin-x64",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "source": {
+        "archive": "npm-lightningcss-darwin-x64-1.33.0.tgz",
+        "url": "https://registry.npmjs.org/lightningcss-darwin-x64/-/lightningcss-darwin-x64-1.33.0.tgz",
+        "sha256": "c0b555fe6ec4c5c660503b1e87aad7ac90ba5af1e2cb1742155d485a39d5b973"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-lightningcss-darwin-x64-1.33.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-freebsd-x64",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "source": {
+        "archive": "npm-lightningcss-freebsd-x64-1.33.0.tgz",
+        "url": "https://registry.npmjs.org/lightningcss-freebsd-x64/-/lightningcss-freebsd-x64-1.33.0.tgz",
+        "sha256": "828e9a915d504a2796bdbe56643397d3ac639bf9abc629ba11163e7b7ef150a6"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-lightningcss-freebsd-x64-1.33.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-linux-arm-gnueabihf",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "source": {
+        "archive": "npm-lightningcss-linux-arm-gnueabihf-1.33.0.tgz",
+        "url": "https://registry.npmjs.org/lightningcss-linux-arm-gnueabihf/-/lightningcss-linux-arm-gnueabihf-1.33.0.tgz",
+        "sha256": "b2a0af78c27da36a2449c2fe71eb3730e6c40d7aaab20bdc3689282432bb3117"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-lightningcss-linux-arm-gnueabihf-1.33.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-linux-arm64-gnu",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "source": {
+        "archive": "npm-lightningcss-linux-arm64-gnu-1.33.0.tgz",
+        "url": "https://registry.npmjs.org/lightningcss-linux-arm64-gnu/-/lightningcss-linux-arm64-gnu-1.33.0.tgz",
+        "sha256": "257b51498dfd90fc99b87afd28408ff9b53162e521db4e06a493e356b8536711"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-lightningcss-linux-arm64-gnu-1.33.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-linux-arm64-musl",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "source": {
+        "archive": "npm-lightningcss-linux-arm64-musl-1.33.0.tgz",
+        "url": "https://registry.npmjs.org/lightningcss-linux-arm64-musl/-/lightningcss-linux-arm64-musl-1.33.0.tgz",
+        "sha256": "048a00d8ef519a413e01907a5a50e01d7c4e86ddcde49a5020eed7747196b9f6"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-lightningcss-linux-arm64-musl-1.33.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-linux-x64-gnu",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "source": {
+        "archive": "npm-lightningcss-linux-x64-gnu-1.33.0.tgz",
+        "url": "https://registry.npmjs.org/lightningcss-linux-x64-gnu/-/lightningcss-linux-x64-gnu-1.33.0.tgz",
+        "sha256": "fd485dfd57082c4ef864dd867fa87fd8e1a9b5d58ee85c2b76e28e42c8f3e1d3"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-lightningcss-linux-x64-gnu-1.33.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-linux-x64-musl",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "source": {
+        "archive": "npm-lightningcss-linux-x64-musl-1.33.0.tgz",
+        "url": "https://registry.npmjs.org/lightningcss-linux-x64-musl/-/lightningcss-linux-x64-musl-1.33.0.tgz",
+        "sha256": "f3a1a10f3c393db5ce03438035b94fcd48bc7b7b52bb97f76a3ed52784624441"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-lightningcss-linux-x64-musl-1.33.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-win32-arm64-msvc",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "source": {
+        "archive": "npm-lightningcss-win32-arm64-msvc-1.33.0.tgz",
+        "url": "https://registry.npmjs.org/lightningcss-win32-arm64-msvc/-/lightningcss-win32-arm64-msvc-1.33.0.tgz",
+        "sha256": "9c211ef0a63a92626091f7c0a97b0ddb39b4278da5b11d13512b7eed9680bd7d"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-lightningcss-win32-arm64-msvc-1.33.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-win32-x64-msvc",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "source": {
+        "archive": "npm-lightningcss-win32-x64-msvc-1.33.0.tgz",
+        "url": "https://registry.npmjs.org/lightningcss-win32-x64-msvc/-/lightningcss-win32-x64-msvc-1.33.0.tgz",
+        "sha256": "feb506faf3bdf4139826f521777c71b53c355f8eb6bcdd3220e16c5e131f1197"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-lightningcss-win32-x64-msvc-1.33.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "magic-string",
+      "version": "0.30.21",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-magic-string-0.30.21.tgz",
+        "url": "https://registry.npmjs.org/magic-string/-/magic-string-0.30.21.tgz",
+        "sha256": "fa49762567dca44e8ccf327f365d250e04c482bf7a4ed0ae7d03659b09ac656f"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-magic-string-0.30.21.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "muggle-string",
+      "version": "0.4.1",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-muggle-string-0.4.1.tgz",
+        "url": "https://registry.npmjs.org/muggle-string/-/muggle-string-0.4.1.tgz",
+        "sha256": "626315ee7cc1981c08139999aba9afa694b67aa9d659822f8b53b9e358278067"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-muggle-string-0.4.1.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "nanoid",
+      "version": "3.3.20",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-nanoid-3.3.20.tgz",
+        "url": "https://registry.npmjs.org/nanoid/-/nanoid-3.3.20.tgz",
+        "sha256": "5ae134779aa22c2c04b691d361bc1f3c004c354e81c7ee166ea1c6e848eedc4f"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-nanoid-3.3.20.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "path-browserify",
+      "version": "1.0.1",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-path-browserify-1.0.1.tgz",
+        "url": "https://registry.npmjs.org/path-browserify/-/path-browserify-1.0.1.tgz",
+        "sha256": "74ad6965c6f8cb61d17b1798d48095c3238eca5707b517640a12150f17b8f93d"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-path-browserify-1.0.1.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "picocolors",
+      "version": "1.1.1",
+      "license": "ISC",
+      "source": {
+        "archive": "npm-picocolors-1.1.1.tgz",
+        "url": "https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz",
+        "sha256": "d3aedb2807967b7eb37fd11b03b7e3701e725af79c650d0812ff7213f8f882d9"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-picocolors-1.1.1.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "picomatch",
+      "version": "4.0.7",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-picomatch-4.0.7.tgz",
+        "url": "https://registry.npmjs.org/picomatch/-/picomatch-4.0.7.tgz",
+        "sha256": "697b463be3cdbd9ffc8f4194fd5019a69ddf95875fb703d78b2b115cc9e740a8"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-picomatch-4.0.7.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "playwright",
+      "version": "1.64.1",
+      "license": "Apache-2.0",
+      "source": {
+        "archive": "npm-playwright-1.64.1.tgz",
+        "url": "https://registry.npmjs.org/playwright/-/playwright-1.64.1.tgz",
+        "sha256": "36ba838d2d55c44fafcff89f919b5d7bc829209318076578ee2bc7cb5687fd57"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-playwright-1.64.1.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "playwright-core",
+      "version": "1.64.1",
+      "license": "Apache-2.0",
+      "source": {
+        "archive": "npm-playwright-core-1.64.1.tgz",
+        "url": "https://registry.npmjs.org/playwright-core/-/playwright-core-1.64.1.tgz",
+        "sha256": "3af03703c967c95037454f2283f709d53ce804a4776d4219d319f5bbcc2a0185"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-playwright-core-1.64.1.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "postcss",
+      "version": "8.5.32",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-postcss-8.5.32.tgz",
+        "url": "https://registry.npmjs.org/postcss/-/postcss-8.5.32.tgz",
+        "sha256": "8e8eb3453860bfc35cd0e51653a3565980a2d83e4ddcf93f8fa5455754cf9066"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-postcss-8.5.32.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "rolldown",
+      "version": "1.2.15",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-rolldown-1.2.15.tgz",
+        "url": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+        "sha256": "0f4e689f37f168b87605f3b9756b150c63bd1cb52bd04ba5d90e156794625067"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-rolldown-1.2.15.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "source-map-js",
+      "version": "1.2.2",
+      "license": "BSD-3-Clause",
+      "source": {
+        "archive": "npm-source-map-js-1.2.2.tgz",
+        "url": "https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.2.tgz",
+        "sha256": "05c8cf8e7c3a6b56cada7668fe9342b10f4b625efc92aba9ba05b9e8fe4d71a3"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-source-map-js-1.2.2.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "tinyglobby",
+      "version": "0.2.17",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-tinyglobby-0.2.17.tgz",
+        "url": "https://registry.npmjs.org/tinyglobby/-/tinyglobby-0.2.17.tgz",
+        "sha256": "afb4afae9175f8b873ac13e1d21cea0997a0bcb40c3598613a834490058cb562"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-tinyglobby-0.2.17.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "typescript",
+      "version": "5.9.3",
+      "license": "Apache-2.0",
+      "source": {
+        "archive": "npm-typescript-5.9.3.tgz",
+        "url": "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz",
+        "sha256": "10e108c9cf7d5f2879053dff18515fb405abf2ccef63eaaf017d9c571687a1d3"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-typescript-5.9.3.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "vite",
+      "version": "8.3.5",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-vite-8.3.5.tgz",
+        "url": "https://registry.npmjs.org/vite/-/vite-8.3.5.tgz",
+        "sha256": "7f22c2a78d15bac5ad755c5f413806048db453604fa0c293f6a0613890dc7c17"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-vite-8.3.5.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "vscode-uri",
+      "version": "3.2.0",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-vscode-uri-3.2.0.tgz",
+        "url": "https://registry.npmjs.org/vscode-uri/-/vscode-uri-3.2.0.tgz",
+        "sha256": "12fa4a47728ca404c3a679e351eda6c54030c8ed3dd9bc6762ab0be1bf04014b"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-vscode-uri-3.2.0.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "vue",
+      "version": "3.5.44",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-vue-3.5.44.tgz",
+        "url": "https://registry.npmjs.org/vue/-/vue-3.5.44.tgz",
+        "sha256": "33cd651dcae080f76c110bdb035faf9e0bab35f44cd4bd9cf8cf40ae7ed97256"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-vue-3.5.44.txt",
+      "scope": "runtime/build"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "vue-tsc",
+      "version": "3.3.13",
+      "license": "MIT",
+      "source": {
+        "archive": "npm-vue-tsc-3.3.13.tgz",
+        "url": "https://registry.npmjs.org/vue-tsc/-/vue-tsc-3.3.13.tgz",
+        "sha256": "ef8d90c0dea991eeb657f0cb3d40a5d9305c31ded739f1b4b94d2345d320b4fc"
+      },
+      "notice_source": null,
+      "notices": "third_party/licenses/npm-vue-tsc-3.3.13.txt",
+      "scope": "development"
+    },
+    {
+      "ecosystem": "python",
+      "name": "annotated-doc",
+      "version": "0.0.5",
+      "license": "MIT",
+      "wheel_sha256": "117bac03a25ede5df5440e855b32d556049ca169ead221505badf432fed4b101",
+      "source": {
+        "archive": "annotated_doc-0.0.5.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/5a/8e/38aa427ed5402449e226975b649c5dc73ccadfefeb95e6aecb8f8ea4b6b6/annotated_doc-0.0.5.tar.gz",
+        "sha256": "c7e58ce09192557605d8bbd92836d7e1d520ac9580096042c0bfd197efacf1bb"
+      },
+      "notices": "third_party/licenses/python-annotated-doc-0.0.5.txt",
+      "scope": "runtime"
+    },
+    {
+      "ecosystem": "python",
+      "name": "annotated-types",
+      "version": "0.8.0",
+      "license": "MIT",
+      "wheel_sha256": "f072f4d804ea359e4eaf198b1af7a8b0943881a87f31bb764f8bf219bb9419e0",
+      "source": {
+        "archive": "annotated_types-0.8.0.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/5f/56/a8120250d128bed162cd73c76d45f6ef9991f3e068f62a8ee060afa3104a/annotated_types-0.8.0.tar.gz",
+        "sha256": "13b2beaad985e05e2d6407ee4c4f35590b11f8d693a258a561055cac8f64cab7"
+      },
+      "notices": "third_party/licenses/python-annotated-types-0.8.0.txt",
+      "scope": "runtime"
+    },
+    {
+      "ecosystem": "python",
+      "name": "anyio",
+      "version": "4.15.1",
+      "license": "MIT",
+      "wheel_sha256": "6152fdbbf9a77fdec97731721bebf7c4c44f7c29b424b0065826173efc7ed101",
+      "source": {
+        "archive": "anyio-4.15.1.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/a9/d2/f4d173e22df740bc37b1db102b386ba719b66e95b0f0d751f556b387e6d2/anyio-4.15.1.tar.gz",
+        "sha256": "9f28306018cbd6d329e64a36d58256edff76dd996fe423bc957326e578b82a94"
+      },
+      "notices": "third_party/licenses/python-anyio-4.15.1.txt",
+      "scope": "runtime"
+    },
+    {
+      "ecosystem": "python",
+      "name": "click",
+      "version": "8.5.0",
+      "license": "BSD-3-Clause",
+      "wheel_sha256": "255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360",
+      "source": {
+        "archive": "click-8.5.0.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/c7/0e/7fa0ef50764b67090eca4114772a2abf8b6148198475e54c660b97caeee6/click-8.5.0.tar.gz",
+        "sha256": "ba0d2089de75ea0310e2dde03160e6ca10009947fb95a182f9b54021bb272e34"
+      },
+      "notices": "third_party/licenses/python-click-8.5.0.txt",
+      "scope": "runtime"
+    },
+    {
+      "ecosystem": "python",
+      "name": "fastapi",
+      "version": "0.162.0",
+      "license": "MIT",
+      "wheel_sha256": "3785963de305dd09912426cb81f2d230fce98ab3521cdfe97265c8d14983128c",
+      "source": {
+        "archive": "fastapi-0.162.0.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/e9/eb/2cf8c80abf09b2800aef0a83b41066fbfda8ee5495b7a08b9d1af40f7046/fastapi-0.162.0.tar.gz",
+        "sha256": "6a22c1e2e6e32e0633ee7e170f00009a29b8228b16feb219ee42f32fd8d88a8f"
+      },
+      "notices": "third_party/licenses/python-fastapi-0.162.0.txt",
+      "scope": "runtime"
+    },
+    {
+      "ecosystem": "python",
+      "name": "h11",
+      "version": "0.16.0",
+      "license": "MIT",
+      "wheel_sha256": "63cf8bbe7522de3bf65932fda1d9c2772064ffb3dae62d55932da54b31cb6c86",
+      "source": {
+        "archive": "h11-0.16.0.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/01/ee/02a2c011bdab74c6fb3c75474d40b3052059d95df7e73351460c8588d963/h11-0.16.0.tar.gz",
+        "sha256": "4e35b956cf45792e4caa5885e69fba00bdbc6ffafbfa020300e549b208ee5ff1"
+      },
+      "notices": "third_party/licenses/python-h11-0.16.0.txt",
+      "scope": "runtime"
+    },
+    {
+      "ecosystem": "python",
+      "name": "idna",
+      "version": "3.20",
+      "license": "BSD-3-Clause",
+      "wheel_sha256": "ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c",
+      "source": {
+        "archive": "idna-3.20.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/f5/08/8eea9d4b8302028f3abb2c0813953f7aec26d33b7a8960ed760e65ff29fa/idna-3.20.tar.gz",
+        "sha256": "a7db850025b95ded1eae8a46181a1a6c56c92c96f0e2b005d9ff8dc0210cab44"
+      },
+      "notices": "third_party/licenses/python-idna-3.20.txt",
+      "scope": "runtime"
+    },
+    {
+      "ecosystem": "python",
+      "name": "opentelemetry-api",
+      "version": "1.45.1",
+      "license": "Apache-2.0",
+      "wheel_sha256": "b31553efa588ae44bc306f863c785c5333a9ecc091248c6ee68b4b6c87fdedfb",
+      "source": {
+        "archive": "opentelemetry_api-1.45.1.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/2e/02/6e0ae9cc61bd3169d401077b507b3ebc344745171e1051ab430be012dcd9/opentelemetry_api-1.45.1.tar.gz",
+        "sha256": "aa38ed19bcc084ba42782a73255b3582283eced7ad6dddbd6695189e69adfb75"
+      },
+      "notices": "third_party/licenses/python-opentelemetry-api-1.45.1.txt",
+      "scope": "runtime"
+    },
+    {
+      "ecosystem": "python",
+      "name": "pydantic",
+      "version": "2.14.1",
+      "license": "MIT",
+      "wheel_sha256": "9195d967ec791692a04438115466764fb8b9a27b31f14a760437694f40d6b454",
+      "source": {
+        "archive": "pydantic-2.14.1.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/7c/0b/8e10b2e693af8ec54346a14caf36221334775975a747c9ceaa3f8371d96d/pydantic-2.14.1.tar.gz",
+        "sha256": "94f478203dd03404682a1ada216965651dd74b1d2d5ffd62e00e0837caab5c26"
+      },
+      "notices": "third_party/licenses/python-pydantic-2.14.1.txt",
+      "scope": "runtime"
+    },
+    {
+      "ecosystem": "python",
+      "name": "pydantic_core",
+      "version": "2.50.1",
+      "license": "MIT",
+      "wheel_sha256": "93ba4e9d8210d941c200431a56b2c0400b131865947903937ed3ec5404307d2e",
+      "source": {
+        "archive": "pydantic_core-2.50.1.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/a6/24/af4ec4be49fbc810f35b0bdcacc3d433b56bbfa469fd3bfd4ae116cd9bf1/pydantic_core-2.50.1.tar.gz",
+        "sha256": "e50d7b94baac6c7d09927fa5ca5800a0c7ee5015c7fcff65beb3a1931b5a6e09"
+      },
+      "notices": "third_party/licenses/python-pydantic-core-2.50.1.txt",
+      "scope": "runtime"
+    },
+    {
+      "ecosystem": "python",
+      "name": "starlette",
+      "version": "1.10.0",
+      "license": "BSD-3-Clause",
+      "wheel_sha256": "478c0ab3b4ced6e82719849c118fa406f0278a3499c1a898cd15cd31bdc38ce4",
+      "source": {
+        "archive": "starlette-1.10.0.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/48/bb/3d8757f21e9a53d9035c9eb039a777047139a16bfdbedfc7a58241c3d914/starlette-1.10.0.tar.gz",
+        "sha256": "b8399098d4c1e3522734f7235dc79b1fc967f96cf139c81e0fa30479e0685f9b"
+      },
+      "notices": "third_party/licenses/python-starlette-1.10.0.txt",
+      "scope": "runtime"
+    },
+    {
+      "ecosystem": "python",
+      "name": "typing-inspection",
+      "version": "0.4.4",
+      "license": "MIT",
+      "wheel_sha256": "65b8397ba37ccbce054456aaccddfc91e6e3083c92824df348d96ca832f3f147",
+      "source": {
+        "archive": "typing_inspection-0.4.4.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/a3/26/b09b8010994eccc3c09092e6b34058f36a460eea2d4c3e8b910c695975a0/typing_inspection-0.4.4.tar.gz",
+        "sha256": "547274fa6b0a561ccf549cc9524b999a578e737d015d8709d021f9d0d13bea47"
+      },
+      "notices": "third_party/licenses/python-typing-inspection-0.4.4.txt",
+      "scope": "runtime"
+    },
+    {
+      "ecosystem": "python",
+      "name": "typing_extensions",
+      "version": "4.16.0",
+      "license": "PSF-2.0",
+      "wheel_sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+      "source": {
+        "archive": "typing_extensions-4.16.0.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/f6/cc/6253133b5bb138fc3306cebfbda2c520f545d36b5be2c7255cc528bb45d6/typing_extensions-4.16.0.tar.gz",
+        "sha256": "dc983d19a509c94dba722ee6abd33940f7c05a89e243c47e907eb4db6f1a43e5"
+      },
+      "notices": "third_party/licenses/python-typing-extensions-4.16.0.txt",
+      "scope": "runtime"
+    },
+    {
+      "ecosystem": "python",
+      "name": "uvicorn",
+      "version": "0.54.0",
+      "license": "BSD-3-Clause",
+      "wheel_sha256": "505bdb0f318731d45f1f712071fc781a8981f6847a31c902c9f5e652d4f67faf",
+      "source": {
+        "archive": "uvicorn-0.54.0.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/da/34/30e9280707135d2cfc589dfff3cb796bd07a3aeb1a3e415ba09dd89d7bb4/uvicorn-0.54.0.tar.gz",
+        "sha256": "a2e33cbfaa0306f8e6b0c13e0cb89d7d7a2da3e62b90c66e18c33d9807b28620"
+      },
+      "notices": "third_party/licenses/python-uvicorn-0.54.0.txt",
+      "scope": "runtime"
+    }
+  ]
+}

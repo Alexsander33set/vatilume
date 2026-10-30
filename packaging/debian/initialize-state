@@ -1,0 +1,88 @@
+#!/usr/bin/python3 -I
+"""Initialize fixed private paths without reading any development credentials."""
+import json
+import os
+import pwd
+import secrets
+import stat
+import sys
+from pathlib import Path
+
+account = pwd.getpwnam('device-observability')
+if account.pw_uid == 0:
+    raise SystemExit('Service account cannot be root')
+for path, uid, gid, mode in (
+    (Path('/var/lib/device-observability'), account.pw_uid, account.pw_gid, 0o750),
+    (Path('/var/lib/vatilume-access'), 0, 0, 0o711),
+):
+    path.mkdir(exist_ok=True, mode=mode)
+    info = path.lstat()
+    if not stat.S_ISDIR(info.st_mode) or info.st_uid not in (0, uid):
+        raise SystemExit('Unsafe existing state directory')
+    os.chown(path, uid, gid)
+    path.chmod(mode)
+directory = Path('/var/lib/device-observability')
+
+def atomic_private(path, value):
+    temporary = directory / ('.auth-' + secrets.token_hex(16))
+    try:
+        fd = os.open(temporary, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
+        with os.fdopen(fd, 'w') as stream:
+            stream.write(value); stream.flush()
+            os.fchown(stream.fileno(), account.pw_uid, account.pw_gid)
+            os.fsync(stream.fileno())
+        os.replace(temporary, path)
+        fd = os.open(directory, os.O_RDONLY | os.O_DIRECTORY)
+        try: os.fsync(fd)
+        finally: os.close(fd)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+initial = {
+    'interface-token': secrets.token_urlsafe(32),
+    'ai-limits.json': json.dumps({'enabled': False, 'per_analysis_usd': .05, 'daily_usd': 1., 'monthly_usd': 2.}),
+}
+for name, value in initial.items():
+    path = directory / name
+    try:
+        fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
+    except FileExistsError:
+        info = path.lstat()
+        if not stat.S_ISREG(info.st_mode) or info.st_uid != account.pw_uid or info.st_mode & 0o077:
+            raise SystemExit('Unsafe existing state file')
+        continue
+    with os.fdopen(fd, 'w') as stream:
+        stream.write(value)
+        stream.flush()
+        os.fchown(stream.fileno(), account.pw_uid, account.pw_gid)
+        os.fsync(stream.fileno())
+
+# Older launchers put the long-lived token in browser argv. Invalidate any old
+# copy once, without changing the API key, budgets, tariffs or telemetry. Keep
+# existing administrator-approved desktop users authorized with fresh files.
+marker = directory / 'interface-auth-version'
+if marker.exists() or marker.is_symlink():
+    info = marker.lstat()
+    if not stat.S_ISREG(info.st_mode) or info.st_uid != account.pw_uid or info.st_mode & 0o077 or marker.read_text().strip() != '2':
+        raise SystemExit('Unsafe or unsupported authentication marker')
+else:
+    access = Path('/var/lib/vatilume-access')
+    owners = []
+    for path in access.glob('*.url'):
+        info = path.lstat()
+        if not path.stem.isascii() or not path.stem.isdecimal() or not stat.S_ISREG(info.st_mode) or info.st_uid != int(path.stem) or info.st_mode & 0o077:
+            raise SystemExit('Review existing desktop authorization file')
+        try:
+            owner = pwd.getpwuid(int(path.stem))
+        except KeyError:
+            path.unlink()
+            continue
+        if not 1000 <= owner.pw_uid < 65534: raise SystemExit('Unexpected desktop authorization owner')
+        owners.append(owner)
+    token = secrets.token_urlsafe(32)
+    atomic_private(directory / 'interface-token', token)
+    sys.dont_write_bytecode = True
+    sys.path.insert(0, str(Path(__file__).parent))
+    from device_observability.deb_access import grant
+    for owner in owners: grant(owner.pw_uid, owner.pw_gid, token)
+    atomic_private(marker, '2\n')

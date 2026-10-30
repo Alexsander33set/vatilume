@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN" "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<policyconfig>
+  <vendor>Vatilume</vendor>
+  <action id="org.vatilume.access">
+    <description>Authorize access to this PC's Vatilume history</description>
+    <description xml:lang="pt_BR">Autorizar acesso ao histórico do Vatilume neste PC</description>
+    <message>Vatilume needs permission to show this PC's shared telemetry and settings.</message>
+    <message xml:lang="pt_BR">O Vatilume precisa de permissão para mostrar o histórico e as configurações deste PC.</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/lib/vatilume/grant-access</annotate>
+  </action>
+</policyconfig>

@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+case "$1" in
+  remove)
+    # Data, grants and conffile intentionally survive ordinary removal.
+    # Keep enablement links and mask removed units using the helper's own state.
+    # Removing links here is indistinguishable from an administrator disabling
+    # them, and would prevent the next installation from starting the services.
+    deb-systemd-helper mask device-observability.service device-observability-web.socket device-observability-web.service >/dev/null || true
+    ;;
+  purge)
+    # Only fixed package state: never follow a configured external data_dir.
+    rm -rf -- /var/lib/device-observability /var/lib/vatilume-access
+    deb-systemd-helper purge device-observability.service device-observability-web.socket device-observability-web.service >/dev/null || true
+    deb-systemd-helper unmask device-observability.service device-observability-web.socket device-observability-web.service >/dev/null || true
+    rmdir /etc/device-observability 2>/dev/null || true
+    ;;
+esac
+case "$1" in
+  remove|purge)
+    if [ -d /run/systemd/system ]; then systemctl daemon-reload; fi
+    if command -v update-desktop-database >/dev/null; then update-desktop-database -q /usr/share/applications; fi
+    ;;
+esac
+exit 0

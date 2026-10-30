@@ -1,0 +1,10 @@
+export interface ProcessAncestor {pid:number;ppid:number;start_ticks:number;name:string}
+export interface ApplicationIdentity {id:string;name:string;method:string;recognized:boolean;catalog_version:number}
+export interface ProcessEntry {pid:number;ppid?:number;start_ticks:number;name:string;cpu_percent:number|null;rss_bytes:number;cpu_ticks:number;previous_cpu_ticks:number|null;interval_start_ms:number|null;interval_end_ms:number;elapsed_ns:number|null;ancestors?:ProcessAncestor[];application?:ApplicationIdentity}
+export interface ApplicationGroup extends ApplicationIdentity {cpu_percent:number|null;rss_bytes:number;observed_processes:number;cpu_known_processes:number;members_only:boolean;methods:string[];entries:ProcessEntry[]}
+export interface ProcessContext {entries:ProcessEntry[];applications?:ApplicationGroup[];interval_seconds:number;top_n:number;scanned:number;readable:number;permission_denied:number;vanished:number;parse_errors:number;truncated:boolean;cpu_intervals:number;scan_ms:number;clock_ticks_per_second:number;machine_cpu_count:number}
+export interface ProcessSnapshot {sample_id:number;session_id:string;time_ms:number;quality:string;context:ProcessContext}
+export interface ProcessHistory {available:boolean;scans:number;failed_scans:number;partial_scans:number;warmup_scans:number;retained_snapshots:number;bucket_seconds:number;sampling_method:string;snapshots:ProcessSnapshot[]}
+export interface ProcessMatch {id?:string;name:string;alias:string;cpu_percent:number;entries:ProcessEntry[];recognized?:boolean;members_only?:boolean;observed_processes?:number}
+export interface ProcessPeak {index:number;time_ms:number;start_ms:number;end_ms:number;value:number;matches:ProcessMatch[];sample_id:number|null;session_id:string|null;scan_quality:string|null}
+export interface ProcessCoincidences {metric:string;title:string;unit:string;peaks:ProcessPeak[];bucket_seconds:number;history_available:boolean;method:string;causality_proven:boolean;per_process_gpu_available:boolean}

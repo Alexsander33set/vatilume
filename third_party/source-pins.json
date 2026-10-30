@@ -1,0 +1,29 @@
+[
+  {
+    "name": "vue-core",
+    "commit": "bf5f0dd877dd3c23ce85c2cbc1dd771567e84c8c",
+    "repository": "https://github.com/vuejs/core",
+    "ref_evidence": "v3.5.44",
+    "archive": "vue-core-bf5f0dd877dd3c23ce85c2cbc1dd771567e84c8c.tar.gz",
+    "url": "https://codeload.github.com/vuejs/core/tar.gz/bf5f0dd877dd3c23ce85c2cbc1dd771567e84c8c",
+    "sha256": "65ddb325c11e4a407b751409b3cda895485390751142a38bef4de269c6b60a40"
+  },
+  {
+    "name": "lucide",
+    "commit": "2ca268e74888d3506b3319fb8f94aaaaf70ceca9",
+    "repository": "https://github.com/lucide-icons/lucide",
+    "ref_evidence": "1.63.0",
+    "archive": "lucide-2ca268e74888d3506b3319fb8f94aaaaf70ceca9.tar.gz",
+    "url": "https://codeload.github.com/lucide-icons/lucide/tar.gz/2ca268e74888d3506b3319fb8f94aaaaf70ceca9",
+    "sha256": "de26e895046a2e5063f02340cad960d0a314bbe55f00c463210bf1561add4707"
+  },
+  {
+    "name": "wit-bindgen",
+    "commit": "f2393e6e98fa5f9236cac580db8a3fc9de6a4b70",
+    "repository": "https://github.com/bytecodealliance/wit-bindgen",
+    "ref_evidence": "cargo .cargo_vcs_info.json",
+    "archive": "wit-bindgen-f2393e6e98fa5f9236cac580db8a3fc9de6a4b70.tar.gz",
+    "url": "https://codeload.github.com/bytecodealliance/wit-bindgen/tar.gz/f2393e6e98fa5f9236cac580db8a3fc9de6a4b70",
+    "sha256": "ee4f61950cfe2e96ca9715dfe4fc19c85a4fb7a63c1919400c4eace8107ffb9d"
+  }
+]

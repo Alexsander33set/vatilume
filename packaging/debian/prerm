@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+case "$1" in
+  remove|deconfigure)
+    if [ -d /run/systemd/system ]; then
+      deb-systemd-invoke stop device-observability-web.socket device-observability-web.service device-observability.service >/dev/null
+    fi
+    ;;
+esac
+exit 0

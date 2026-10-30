@@ -1,0 +1,32 @@
+# Managed by device-observability
+[Unit]
+Description=Device Observability local interface
+Requires=device-observability-web.socket
+After=device-observability.service
+
+[Service]
+Type=simple
+User=device-observability
+Group=device-observability
+WorkingDirectory=/opt/device-observability/current
+ExecStart=/opt/device-observability/current/.venv/bin/python -m device_observability.web --config /etc/device-observability/collector.toml --fd 3 --idle-seconds 600
+Restart=on-failure
+RestartSec=3
+StateDirectory=device-observability
+StateDirectoryMode=0750
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX AF_INET
+CapabilityBoundingSet=
+MemoryMax=512M
+TasksMax=64
+StandardOutput=journal
+StandardError=journal

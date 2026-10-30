@@ -1,0 +1,22 @@
+#!/bin/sh
+set -e
+case "$1" in
+  install|upgrade)
+    for unit in device-observability.service device-observability-web.service device-observability-web.socket; do
+      if [ -e "/etc/systemd/system/$unit" ] || [ -L "/etc/systemd/system/$unit" ]; then
+        # A mask left by THIS package's ordinary removal is restored by postinst.
+        # Never treat a real /etc unit as package-owned or unmask a manual unit.
+        if [ -L "/etc/systemd/system/$unit" ] && [ "$(readlink "/etc/systemd/system/$unit")" = /dev/null ] && [ -f "/var/lib/systemd/deb-systemd-helper-masked/$unit" ]; then
+          continue
+        fi
+        echo "Vatilume: instalação manual detectada. A migração de /opt precisa de revisão; nenhum dado foi alterado." >&2
+        exit 1
+      fi
+    done
+    if [ -e /opt/device-observability/current ] || [ -L /opt/device-observability/current ]; then
+      echo "Vatilume: instalação de desenvolvimento detectada em /opt. Consulte docs/PACOTE-DEB.md." >&2
+      exit 1
+    fi
+    ;;
+esac
+exit 0

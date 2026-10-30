@@ -1,0 +1,2 @@
+# Install after requirements.lock. Test-only; never required by the collector.
+httpx==0.28.1

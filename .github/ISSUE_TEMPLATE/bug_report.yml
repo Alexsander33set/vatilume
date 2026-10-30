@@ -1,0 +1,35 @@
+name: Problema no Vatilume
+description: Relatar comportamento inesperado com dados sintéticos.
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Não publique chave, cookie, arquivo de acesso, banco, backup ou capturas com atividade pessoal.
+        Para vulnerabilidades, consulte SECURITY.md e use contato@apfs.com.br.
+  - type: input
+    id: version
+    attributes:
+      label: Versão do Vatilume
+      placeholder: Ex. 0.8.0-2
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: Distribuição, versão e navegador
+      description: Sem hostname, identificadores do dispositivo ou arquivos de conta.
+      placeholder: Ubuntu 24.04 amd64, Firefox
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: O que ocorreu e como reproduzir?
+      description: Descreva passos, resultado observado e esperado. Prefira exemplos sintéticos.
+    validations:
+      required: true
+  - type: textarea
+    id: checks
+    attributes:
+      label: Verificações já feitas
+      description: Erros curtos e revisados, sem credenciais ou diagnóstico completo do computador.

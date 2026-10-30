@@ -1,0 +1,46 @@
+# Managed by device-observability/scripts/install_service.py
+[Unit]
+Description=Device Observability hardware telemetry collector
+Documentation=file:/opt/device-observability/current/docs/COLETOR.md
+After=local-fs.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=notify
+NotifyAccess=main
+User=device-observability
+Group=device-observability
+WorkingDirectory=/opt/device-observability/current
+ExecStart=/usr/bin/python3 -m device_observability --config /etc/device-observability/collector.toml run
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=5
+WatchdogSec=60
+TimeoutStartSec=120
+TimeoutStopSec=15
+StateDirectory=device-observability
+StateDirectoryMode=0750
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX
+LockPersonality=true
+CapabilityBoundingSet=
+Nice=10
+IOWeight=10
+MemoryMax=128M
+TasksMax=32
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=device-observability
+
+[Install]
+WantedBy=multi-user.target
+

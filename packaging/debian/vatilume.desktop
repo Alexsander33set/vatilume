@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Vatilume
+GenericName=PC energy and telemetry
+GenericName[pt_BR]=Energia e sinais do PC
+Comment=Explore your PC's energy, usage and application history
+Comment[pt_BR]=Acompanhe energia, uso e aplicativos com histórico e evidências
+Exec=/usr/bin/vatilume
+TryExec=/usr/bin/vatilume
+Icon=vatilume
+Terminal=false
+Categories=System;Monitor;
+Keywords=energy;power;temperature;cpu;gpu;energia;consumo;temperatura;
+StartupNotify=false

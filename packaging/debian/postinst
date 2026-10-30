@@ -1,0 +1,34 @@
+#!/bin/sh
+set -e
+if [ "$1" = configure ]; then
+  if ! getent passwd device-observability >/dev/null; then
+    adduser --system --group --home /var/lib/device-observability --no-create-home --shell /usr/sbin/nologin device-observability
+  fi
+  if [ -d /run/systemd/system ]; then
+    # No old worker or socket activation may accept sessions while the
+    # authentication files are rotated. Collection remains independent.
+    deb-systemd-invoke stop device-observability-web.socket device-observability-web.service >/dev/null
+  fi
+  # Fail closed on unexpected existing state paths, before chown or token creation.
+  /usr/bin/python3 -I /usr/lib/vatilume/initialize-state
+  chown root:device-observability /etc/device-observability/collector.toml
+  chmod 640 /etc/device-observability/collector.toml
+  deb-systemd-helper unmask device-observability.service device-observability-web.socket device-observability-web.service >/dev/null || true
+  for unit in device-observability.service device-observability-web.socket; do
+    if deb-systemd-helper --quiet was-enabled "$unit"; then
+      deb-systemd-helper enable "$unit" >/dev/null
+    else
+      deb-systemd-helper update-state "$unit" >/dev/null
+    fi
+  done
+  if [ -d /run/systemd/system ]; then
+    systemctl daemon-reload
+    # Stop the old web worker so socket activation imports the updated code.
+    deb-systemd-invoke stop device-observability-web.service >/dev/null
+    deb-systemd-invoke restart device-observability.service device-observability-web.socket >/dev/null
+  fi
+  if command -v update-desktop-database >/dev/null; then
+    update-desktop-database -q /usr/share/applications
+  fi
+fi
+exit 0
